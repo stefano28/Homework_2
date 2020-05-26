@@ -75,12 +75,16 @@ public class MapAdapter<K, V> extends Hashtable<K, V> {
      * Compares the specified object with this map for equality. 
      * @return true if the given object is also a map and the two maps represent the same mappings.
      */
-
-    /*
     public boolean equals(Object o) {
-
+        Map<K, V> m = (Map)o;
+        if(m.size() != size())
+            return false;
+        for(int i = 0; i < size(); i++) {
+            if(!m.get(i).equals(get(i)))
+                return false;
+        }
+        return true;
     }
-    */
 
     /**
      * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key. 
@@ -93,12 +97,22 @@ public class MapAdapter<K, V> extends Hashtable<K, V> {
         return hashtable.get(key);
     }
 
+    /**
+     * The default implementation makes no guarantees about synchronization or atomicity properties of this method.
+     * @param key - the key whose associated value is to be returned
+     * @param defaultValue - the default mapping of the key
+     * @return the value to which the specified key is mapped, or defaultValue if this map contains no mapping for the key
+     */
     public V getOrDefault(Object key, V defaultValue) {
         if(hashtable.containsKey(key))
             return hashtable.get(key);
         return defaultValue;
     }
 
+    /**
+     * he hash code of a map is defined to be the sum of the hash codes of each entry in the map's entrySet() view.
+     * @return the hash code value for this map
+     */
     public int hashCode() {
         Enumeration<K> keys = hashtable.keys();
         int sum = 0;
@@ -108,6 +122,9 @@ public class MapAdapter<K, V> extends Hashtable<K, V> {
         return sum;
     }
     
+    /**
+     * @return true if this map contains no key-value mappings.
+     */
     public boolean isEmpty() {
         return hashtable.isEmpty();
     }
