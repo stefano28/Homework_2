@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MapAdapter extends Hashtable implements HMap {
+public class MapAdapter implements HMap {
 
     private Hashtable hashtable = new Hashtable();
 
@@ -164,11 +164,9 @@ public class MapAdapter extends Hashtable implements HMap {
         return hashtable.size();
     }
 
-    /*
-    public Collection values() {
-        
+    public HCollection values() {
+        return null;
     }
-    */
 
     class Entry {
 

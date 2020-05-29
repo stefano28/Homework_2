@@ -1,5 +1,3 @@
-import java.util.*;
-
 public interface HList {
     public void add(int index, Object element);
     public boolean add(Object o);
@@ -13,10 +11,10 @@ public interface HList {
     public int hashCode();
     public int indexOf(Object o);
     public boolean isEmpty();
-    public Iterator iterator();
+    public HIterator iterator();
     public int lastIndexOf(Object o);
-    public ListIterator listIterator();
-    public ListIterator listIterator(int index);
+    public HListIterator listIterator();
+    public HListIterator listIterator(int index);
     public Object remove(int index);
     public boolean remove(Object o);
     public boolean removeAll(HCollection c);

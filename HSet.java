@@ -7,7 +7,7 @@ public interface HSet {
     public boolean equals(Object o);
     public int hashCode();
     public boolean isEmpty();
-    public Iterator iterator();
+    public HIterator iterator();
     public boolean remove(Object o);
     public boolean removeAll(HCollection c);
     public boolean retainAll(HCollection c);
