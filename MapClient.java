@@ -1,4 +1,4 @@
-public class Client {
+public class MapClient {
     public static void main(String[] args) {
         MapAdapter m = new MapAdapter();
         m.put(1, "ciao");

@@ -13,4 +13,11 @@ public interface HMap {
     public Object remove(Object key);
     public int size();
     public HCollection values();
+    public interface Entry {
+        public Object getKey();
+        public Object getValue();
+        public Object setValue(Object value);
+        public boolean equals(Object o);
+        public int hashCode();
+    }
 }

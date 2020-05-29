@@ -5,35 +5,21 @@ public class MapAdapter implements HMap {
     private Hashtable hashtable = new Hashtable();
 
     /**
-     * Removes all of the mappings from this map (optional operation). 
-     * The map will be empty after this call returns.
-     * @throws UnsupportedOperationException
+     * Removes all mappings from this map (optional operation).
      */
     public void clear() {
         hashtable.clear();
     }
 
     /**
-     * Returns true if this map contains a mapping for the specified key. 
-     * More formally, returns true if and only if this map contains a mapping for a key k such that Objects.equals(key, k). 
-     * (There can be at most one such mapping.)
-     * @param key - key whose presence in this map is to be tested
-     * @return true if this map contains a mapping for the specified key
-     * @throws ClassCastException
-     * @throws NullPointerException
+     * Returns true if this map contains a mapping for the specified key.
      */
     public boolean containsKey(Object key) {
         return hashtable.containsKey(key);
     }
 
     /**
-     * Returns true if this map maps one or more keys to the specified value. 
-     * More formally, returns true if and only if this map contains at least one mapping to a value v such that Objects.equals(value, v). 
-     * This operation will probably require time linear in the map size for most implementations of the Map interface.
-     * @param value - value whose presence in this map is to be tested
-     * @return true if this map maps one or more keys to the specified value
-     * @throws ClassCastException
-     * @throws NullPointerException
+     * Returns true if this map maps one or more keys to the specified value.
      */
     public boolean containsValue(Object value) {
         Enumeration keys = hashtable.keys();
@@ -63,7 +49,6 @@ public class MapAdapter implements HMap {
 
     /**
      * Compares the specified object with this map for equality. 
-     * @return true if the given object is also a map and the two maps represent the same mappings.
      */
     public boolean equals(Object o) {
         HMap m = (HMap)o;
@@ -77,9 +62,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key. 
-     * @throws ClassCastException 
-     * @throws NullPointerException
+     * Returns the value to which this map maps the specified key.
      */
     public Object get(Object key) {
         if(!containsKey(key))
@@ -88,8 +71,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * he hash code of a map is defined to be the sum of the hash codes of each entry in the map's entrySet() view.
-     * @return the hash code value for this map
+     * Returns the hash code value for this map.
      */
     public int hashCode() {
         Enumeration keys = hashtable.keys();
@@ -101,7 +83,7 @@ public class MapAdapter implements HMap {
     }
     
     /**
-     * @return true if this map contains no key-value mappings.
+     * Returns true if this map contains no key-value mappings.
      */
     public boolean isEmpty() {
         return hashtable.isEmpty();
@@ -120,10 +102,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Associates the specified value with the specified key in this map
-     * @param key - key with which the specified value is to be associated
-     * @param value - value to be associated with the specified key
-     * @return the previous value associated with key, or null if there was no mapping for key
+     * Associates the specified value with the specified key in this map (optional operation).
      */
     public Object put(Object key, Object value) {
         Object prev = null;
@@ -136,19 +115,15 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Copies all of the mappings from the specified map to this map
-     * @param m - mappings to be stored in this map
+     * Copies all of the mappings from the specified map to this map (optional operation).
      */
     public void putAll(HMap t) {
-
+        
     }
 
     /**
-     * Removes the mapping for a key from this map if it is present.
-     * @param key - key whose mapping is to be removed from the map
-     * @return the previous value associated with key, or null if there was no mapping for key.
+     * Removes the mapping for this key from this map if it is present (optional operation).
      */
-
     public Object remove(Object key) {
         if(!hashtable.containsKey(key))
             return null;
@@ -158,17 +133,20 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @return the number of key-value mappings in this map.
+     * Returns the number of key-value mappings in this map.
      */
     public int size() {
         return hashtable.size();
     }
 
+    /**
+     * Returns a collection view of the values contained in this map.
+     */
     public HCollection values() {
         return null;
     }
 
-    class Entry {
+    class Entry implements HMap.Entry {
 
         public Object key;
         public Object value;
@@ -177,6 +155,9 @@ public class MapAdapter implements HMap {
          * Compares the specified object with this entry for equality.
          */
         public boolean equals(Object o) {
+            Entry entry = (Entry)o;
+            if(entry.getKey().equals(key) && entry.getValue().equals(value))
+                return true;
             return false;
         }
 

@@ -1,13 +1,18 @@
-import java.util.Hashtable;
+import java.util.*;
 
 public class SetAdapter implements HSet {
 
     private Hashtable hashtable = new Hashtable();
 
+    private HList list = new ListAdapter();
+
     /**
      * Adds the specified element to this set if it is not already present (optional operation).
      */
     public boolean add(Object o) {
+        if(contains(o))
+           return false;
+        list.add(o);
         return true;
     }
 
@@ -22,14 +27,14 @@ public class SetAdapter implements HSet {
      * Removes all of the elements from this set (optional operation).
      */
     public void clear() {
-
+        hashtable.clear();
     }
 
     /**
      * Returns true if this set contains the specified element.
      */
     public boolean contains(Object o) {
-        return true;
+        return list.equals(o);
     }
 
     /**
@@ -92,7 +97,7 @@ public class SetAdapter implements HSet {
      * Returns the number of elements in this set (its cardinality).
      */
     public int size(){
-        return 0;
+        return hashtable.size();
     }
 
     /**
