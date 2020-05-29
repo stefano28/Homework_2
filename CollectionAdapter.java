@@ -1,6 +1,8 @@
 import java.util.Vector;
 
-public class CollectionAdapter extends Vector implements HCollection {
+public class CollectionAdapter implements HCollection {
+
+    private Vector vector = new Vector();
 
     /**
      * Ensures that this collection contains the specified element (optional operation).

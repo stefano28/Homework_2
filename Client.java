@@ -7,8 +7,6 @@ public class Client {
         m.remove(1);
         System.out.println(m.containsKey(1));
         m.put(2, "casa");
-        m.replace(2, "caso");
-        m.remove(2, "casa");
         System.out.println(m.get(2));
         System.out.println(m.size());
         m.clear();
