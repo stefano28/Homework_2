@@ -1,6 +1,6 @@
 public class Client {
     public static void main(String[] args) {
-        MapAdapter<Integer, String> m = new MapAdapter<Integer, String>();
+        MapAdapter m = new MapAdapter();
         m.put(1, "ciao");
         System.out.println(m.containsKey(1));
         System.out.println(m.get(1));
