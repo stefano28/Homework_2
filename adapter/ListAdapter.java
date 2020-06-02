@@ -1,226 +1,395 @@
 package adapter;
 
+import java.util.NoSuchElementException;
 import java.util.Vector;
+
+// Questa lista non accetta elementi null
 
 public class ListAdapter implements HList {
 
-    private Vector vector = new Vector();
+    private Vector v = new Vector();
 
     /**
-     * Inserts the specified element at the specified position in this list (optional operation).
+     *
      */
+    @Override
     public void add(int index, Object element) {
         if(element == null) {
             throw new NullPointerException();
         }
-        vector.insertElementAt(element, index);
+        try {
+            v.insertElementAt(element, index);
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
-    /**
-     * Appends the specified element to the end of this list (optional operation).
+     /**
+     *
      */
+    @Override
     public boolean add(Object o) {
-        return vector.add(o);
+        if(o == null) {
+            throw new NullPointerException();
+        }
+        v.addElement(o);
+        return true;
     }
 
     /**
-     * Appends all of the elements in the specified collection to the end of this list, in the order that they are returned by the specified collection's iterator (optional operation).
-     */
+     * 
+    */
+    @Override
     public boolean addAll(HCollection c) {
-        return true;
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        boolean flag = false;
+        HIterator it = c.iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            add(o); // Contiene controllo null
+            flag = true;
+        }
+        return flag;
     }
 
     /**
-     * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
-     */
+     * 
+    */
+    @Override
     public boolean addAll(int index, HCollection c) {
-        return true;
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        if(index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        boolean flag = false;
+        HIterator it = c.iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            add(index, o); // Contiene controllo null
+            flag = true;
+            index++;
+        }
+        return flag;
     }
 
     /**
-     * Removes all of the elements from this list (optional operation).
-     */
+     * 
+    */
+    @Override
     public void clear() {
-
+        v.removeAllElements();
     }
 
     /**
-     * Returns true if this list contains the specified element.
-     */
+     * 
+    */
+    @Override
     public boolean contains(Object o) {
-        return true;
+        if(o == null) {
+            throw new NullPointerException();
+        }
+        return v.contains(o);
     }
 
     /**
-     * Returns true if this list contains all of the elements of the specified collection.
-     */
+     * 
+    */
+    @Override
     public boolean containsAll(HCollection c) {
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        HIterator it = c.iterator();
+        while(it.hasNext()) {
+            if(!contains(it.next()))
+                return false;
+        }
         return true;
     }
 
     /**
-     * Compares the specified object with this list for equality.
-     */
+     * 
+    */
+    @Override
     public boolean equals(Object o) {
-        return true;
+        if(o == this) {
+            return true;
+        }
+        if (!(o instanceof HList)) {
+            return false;
+        }
+
+        HListIterator it1 = listIterator();
+        HListIterator it2 = ((HList) o).listIterator();
+        while (it1.hasNext() && it2.hasNext()) {
+            Object o1 = it1.next();
+            Object o2 = it2.next();
+            if (!(o1==null ? o2==null : o1.equals(o2)))
+                return false;
+        }
+        return !(it1.hasNext() || it2.hasNext());
     }
 
     /**
-     * Returns the element at the specified position in this list.
-     */
+     * 
+    */
+    @Override
     public Object get(int index) {
-        return null;
+        try {
+            return get(index);
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     /**
-     * Returns the hash code value for this list.
-     */
+     * 
+    */
+    @Override
     public int hashCode() {
-        return 0;
+        int hashCode = 1;
+        HIterator it = iterator();
+        while (it.hasNext()) {
+            Object obj = it.next();
+            hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
+        }
+        return hashCode;
     }
 
     /**
-     * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not contain this element.
-     */
+     * 
+    */
+    @Override
     public int indexOf(Object o) {
-        return 0;
+        if(o == null) {
+            throw new NullPointerException();
+        }
+        return v.indexOf(o);
     }
 
     /**
-     * Returns true if this list contains no elements.
-     */
+     * 
+    */
+    @Override
     public boolean isEmpty() {
-        return vector.isEmpty();
+        return v.isEmpty();
     }
 
     /**
-     * Returns an iterator over the elements in this list in proper sequence.
-     */
+     * 
+    */
+    @Override
     public HIterator iterator() {
-        return null;
+        return new Iterator();
+    }
+
+    private class Iterator implements HIterator {
+
+        protected int cursor = 0;
+        protected int lastRet = -1;
+
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        public Object next() {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Object o = get(cursor);
+            lastRet = cursor;
+            cursor++;
+            return o;
+        }
+
+        public void remove() {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+            ListAdapter.this.remove(lastRet);
+            if (lastRet < cursor)
+                cursor--;
+            lastRet = -1;
+        }
     }
 
     /**
-     * Returns the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element.
-     */
+     * 
+    */
+    @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        if(o == null) {
+            throw new NullPointerException();
+        }
+        return v.lastIndexOf(o);
     }
 
     /**
-     * Returns a list iterator of the elements in this list (in proper sequence).
-     */
+     * 
+    */
+    @Override
     public HListIterator listIterator() {
-        return null;
+        return new ListIterator(0);
     }
 
     /**
-     * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-     */
+     * 
+    */
+    @Override
     public HListIterator listIterator(int index) {
-        return null;
+        return new ListIterator(index);
+    }
+
+    private class ListIterator extends Iterator implements HListIterator {
+        
+        ListIterator(int index) {
+            cursor = index;
+        }
+
+        public boolean hasPrevious() {
+            return cursor != 0;
+        }
+
+        public Object previous() {
+            if(!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            Object o = get(--cursor);
+            lastRet = cursor;
+            return o;
+        }
+
+        public int nextIndex() {
+            return cursor;
+        }
+
+        public int previousIndex() {
+            return cursor-1;
+        }
+
+        public void set(Object o) {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+            ListAdapter.this.set(lastRet, o); //Da testare indici limite
+        }
+
+        public void add(Object o) {
+            ListAdapter.this.add(cursor, o);
+            cursor++;
+            lastRet = -1;
+        }
+
     }
 
     /**
-     * Removes the element at the specified position in this list (optional operation).
-     */
+     * 
+    */
+    @Override
     public Object remove(int index) {
-        return null;
+        Object o = get(index);  // Contiene controllo bounds
+        v.removeElementAt(index);
+        return o;
     }
 
     /**
-     * Removes the first occurrence in this list of the specified element (optional operation).
-     */
+     * 
+    */
+    @Override
     public boolean remove(Object o) {
-        return true;
+        if(o == null) {
+            throw new NullPointerException();
+        }
+        return v.removeElement(o);
     }
 
     /**
-     * Removes from this list all the elements that are contained in the specified collection (optional operation).
-     */
+     * 
+    */
+    @Override
     public boolean removeAll(HCollection c) {
-        return true;
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        boolean flag = false;
+        HIterator it = c.iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            remove(o); // Contiene controllo null
+            flag = true;
+        }
+        return flag;
     }
 
     /**
-     * Retains only the elements in this list that are contained in the specified collection (optional operation).
-     */
+     * 
+    */
+    @Override
     public boolean retainAll(HCollection c) {
-        return true;
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        boolean flag = false;
+        HIterator it = iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            if(!c.contains(o)) {
+                remove(o); // Contiene controllo null
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     /**
-     * Replaces the element at the specified position in this list with the specified element (optional operation).
-     */
+     * 
+    */
+    @Override
     public Object set(int index, Object element) {
-        return null;
+        if(element == null) {
+            throw new NullPointerException();
+        }
+        Object o = get(index); // Throws IndexOutOfBoundsException
+        v.setElementAt(element, index);
+        return o;
     }
 
     /**
-     * Returns the number of elements in this list.
-     */
+     * 
+    */
+    @Override
     public int size() {
-        return vector.size();
+        return v.size();    //Integer.maxValue??
     }
 
     /**
-     * Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
-     */
+     * 
+    */
+    @Override
     public HList subList(int fromIndex, int toIndex) {
         return null;
     }
 
     /**
-     * Returns an array containing all of the elements in this list in proper sequence.
-     */
+     * 
+    */
+    @Override
     public Object[] toArray() {
         return null;
     }
 
     /**
-     * Returns an array containing all of the elements in this list in proper sequence; the runtime type of the returned array is that of the specified array.
-     */
+     * 
+    */
+    @Override
     public Object[] toArray(Object[] a) {
         return null;
-    }
-
-    public class ListIteratorAdapter implements HListIterator {
-        
-        public boolean hasNext() {
-            return false;
-        }
-
-        public Object next() {
-            return null;
-        }
-
-        public void remove() {
-
-        }
-
-        public boolean hasPrevious() {
-            return false;
-        }
-
-        public Object previous() {
-            return null;
-        }   
-
-        public int nextIndex() {
-            return 0;
-        }
-
-        public int previousIndex() {
-            return 0;
-        }
-
-        public void set(Object o) {
-        
-        }
-
-        public void add(Object o) {
-
-        }
     }
 
 }
