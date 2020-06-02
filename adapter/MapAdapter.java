@@ -18,6 +18,8 @@ public class MapAdapter implements HMap {
      * Returns true if this map contains a mapping for the specified key.
      */
     public boolean containsKey(Object key) {
+        if(key == null)
+            throw new NullPointerException();
         return hashtable.containsKey(key);
     }
 
@@ -25,28 +27,16 @@ public class MapAdapter implements HMap {
      * Returns true if this map maps one or more keys to the specified value.
      */
     public boolean containsValue(Object value) {
-        Enumeration keys = hashtable.keys();
-        while(keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            if(get(key).equals(value))
-                return true;
-        }
-        return false;
+        if(value == null)
+            throw new NullPointerException();
+        return hashtable.contains(value);
     }
 
     /**
      * Returns a set view of the mappings contained in this map.
      */
     public HSet entrySet() {
-        HSet set = new SetAdapter();
-        Enumeration keys = hashtable.keys();
-        while(keys.hasMoreElements()) {
-            Entry entry = new Entry();
-            entry.key = keys.nextElement();
-            entry.value = hashtable.get(entry.key);
-            set.add(entry);
-        }
-        return set;
+        return new EntrySet();
     }
 
 
@@ -68,8 +58,8 @@ public class MapAdapter implements HMap {
      * Returns the value to which this map maps the specified key.
      */
     public Object get(Object key) {
-        if(!containsKey(key))
-            return null;
+        if(key == null)
+            throw new NullPointerException();
         return hashtable.get(key);
     }
 
@@ -108,28 +98,25 @@ public class MapAdapter implements HMap {
      * Associates the specified value with the specified key in this map (optional operation).
      */
     public Object put(Object key, Object value) {
-        Object prev = null;
-        try{
-            prev = hashtable.put(key, value);
-        }catch(NullPointerException e) {
-
-        }
-        return prev;
+        if(key == null || value == null)
+            throw new NullPointerException();
+        return hashtable.put(key, value);
     }
 
     /**
      * Copies all of the mappings from the specified map to this map (optional operation).
      */
     public void putAll(HMap t) {
-        
+        if(t == null)
+            throw new NullPointerException();
     }
 
     /**
      * Removes the mapping for this key from this map if it is present (optional operation).
      */
     public Object remove(Object key) {
-        if(!hashtable.containsKey(key))
-            return null;
+        if(key == null)
+            throw new NullPointerException();
         Object value = hashtable.get(key);
         hashtable.remove(key);
         return value;
@@ -196,6 +183,110 @@ public class MapAdapter implements HMap {
             this.value = value;
             return value;
         }
+    }
+
+    private class EntrySet extends SetAdapter implements HSet {
+    
+        @Override
+        public boolean add(Object o) {
+            throw new UnsupportedOperationException();
+        }
+    
+        @Override
+        public boolean addAll(HCollection c) {
+            throw new UnsupportedOperationException();
+        }
+    
+        @Override
+        public void clear() {
+            MapAdapter.this.clear();
+        }
+    
+        @Override
+        public boolean contains(Object o) {
+            if(o == null) {
+                throw new NullPointerException();
+            }
+            HMap.HEntry e = (HMap.HEntry) o;
+            return MapAdapter.this.containsKey(e.getKey());
+        }
+
+        public HIterator iterator() {
+            return new EntryIterator();
+        }
+
+        private class EntryIterator implements HIterator {
+
+            Enumeration keys = h.keys();
+            Object lastRetKey = null;
+
+            @Override
+            public boolean hasNext() {
+                return keys.hasMoreElements();
+            }
+
+            @Override
+            public Object next() {
+                lastRetKey = keys.nextElement(); // Lancia NoSuchElementException
+                return new Entry(lastRetKey, h.get(lastRetKey));
+            }
+
+            @Override
+            public void remove() {
+                // Se next non e' mai stato chiamato o remove e' gia' stato
+                // chiamato dopo l'ultima chiamata a next.
+                if(lastRetKey == null) {
+                    throw new IllegalStateException();
+                }
+                MapAdapter.this.remove(lastRetKey);
+                lastRetKey = null;  // Reset to null after removing
+            }
+            
+        }
+
+        // HO COPIATO IMPLEMENTAZIONE DA LIST, CHE E' "LA STESSA DI SET",
+        // QUINDI SE ESTENDO SETADAPTER DEVE FUNZIONARE, ORA BISOGNA CAPIRE
+        // PERO' SE L'IMPLEMENTAZIONE DI SET INFLUISCE.
+        // @Override
+        // public boolean containsAll(HCollection c) {
+        //     if(c == null) {
+        //         throw new NullPointerException();
+        //     }
+        //     HIterator it = c.iterator();
+        //     while(it.hasNext()) {
+        //         if(!contains(it.next()))
+        //             return false;
+        //     }
+        //     return true;
+        // }
+
+        // @Override
+        // public boolean equals(Object o) {
+        //     if(o == null) {
+        //         throw new NullPointerException();
+        //     }
+        //     HSet s = null;
+        //     try {
+        //         s = (HSet) o;
+        //     }
+        //     catch(ClassCastException cce) {
+        //         return false;
+        //     }
+        //     if(size() != s.size()) {
+        //         return false;
+        //     }
+        //     int index = 0;
+        //     HIterator it = s.iterator();
+        //     while(it.hasNext()) {
+        //         Object e1 = get(index);
+        //         Object e2 = it.next();
+        //         if(e1 != e2) {
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+        // }
+    
     }
 
 }
