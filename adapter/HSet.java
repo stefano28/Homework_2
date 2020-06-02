@@ -15,5 +15,4 @@ public interface HSet {
     public boolean retainAll(HCollection c);
     public int size();
     public Object[] toArray();
-    public Object[] toArray(Object[] a);
 }

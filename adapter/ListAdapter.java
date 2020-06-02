@@ -9,14 +9,14 @@ public class ListAdapter implements HList {
      * Inserts the specified element at the specified position in this list (optional operation).
      */
     public void add(int index, Object element) {
-
+        vector.insertElementAt(element, index);
     }
 
     /**
      * Appends the specified element to the end of this list (optional operation).
      */
     public boolean add(Object o) {
-        return true;
+        return vector.add(o);
     }
 
     /**
@@ -179,4 +179,44 @@ public class ListAdapter implements HList {
     public Object[] toArray(Object[] a) {
         return null;
     }
+
+    public class ListIteratorAdapter implements HListIterator {
+        
+        public boolean hasNext() {
+            return false;
+        }
+
+        public Object next() {
+            return null;
+        }
+
+        public void remove() {
+
+        }
+
+        public boolean hasPrevious() {
+            return false;
+        }
+
+        public Object previous() {
+            return null;
+        }   
+
+        public int nextIndex() {
+            return 0;
+        }
+
+        public int previousIndex() {
+            return 0;
+        }
+
+        public void set(Object o) {
+        
+        }
+
+        public void add(Object o) {
+
+        }
+    }
+
 }

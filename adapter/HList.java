@@ -1,6 +1,6 @@
 package adapter;
 
-public interface HList {
+public interface HList extends HCollection {
     public void add(int index, Object element);
     public boolean add(Object o);
     public boolean addAll(HCollection c);
