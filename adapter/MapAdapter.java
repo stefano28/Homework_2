@@ -1,5 +1,7 @@
 package adapter;
-import java.util.*;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class MapAdapter implements HMap {
 

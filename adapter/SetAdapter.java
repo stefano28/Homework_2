@@ -92,8 +92,7 @@ public class SetAdapter implements HSet {
      * Returns an iterator over the elements in this set.
      */
     public HIterator iterator(){
-        HIterator iter = new SetIterator();
-        return iter;
+        return new SetIterator();
     }
 
     /**
@@ -157,6 +156,9 @@ public class SetAdapter implements HSet {
         return v;
     }
 
+    /**
+     * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
+     */
     public Object[] toArray(Object[] a) {
         throw new UnsupportedOperationException();
     }
