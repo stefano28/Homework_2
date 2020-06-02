@@ -9,7 +9,7 @@ public interface HCollection {
     public boolean equals(Object o);
     public int hashCode();
     public boolean isEmpty();
-    public HIterator Iterator();
+    public HIterator iterator();
     public boolean remove(Object o);
     public boolean removeAll(HCollection c);
     public boolean retainAll(HCollection c);

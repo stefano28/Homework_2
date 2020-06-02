@@ -3,7 +3,7 @@ import java.util.*;
 
 public class MapAdapter implements HMap {
 
-    private Hashtable<Object, Object> hashtable = new Hashtable<Object, Object>();
+    private Hashtable hashtable = new Hashtable();
 
     /**
      * Removes all mappings from this map (optional operation).
@@ -23,7 +23,7 @@ public class MapAdapter implements HMap {
      * Returns true if this map maps one or more keys to the specified value.
      */
     public boolean containsValue(Object value) {
-        Enumeration<Object> keys = hashtable.keys();
+        Enumeration keys = hashtable.keys();
         while(keys.hasMoreElements()) {
             Object key = keys.nextElement();
             if(get(key).equals(value))
@@ -37,7 +37,7 @@ public class MapAdapter implements HMap {
      */
     public HSet entrySet() {
         HSet set = new SetAdapter();
-        Enumeration<Object> keys = hashtable.keys();
+        Enumeration keys = hashtable.keys();
         while(keys.hasMoreElements()) {
             Entry entry = new Entry();
             entry.key = keys.nextElement();
@@ -75,7 +75,7 @@ public class MapAdapter implements HMap {
      * Returns the hash code value for this map.
      */
     public int hashCode() {
-        Enumeration<Object> keys = hashtable.keys();
+        Enumeration keys = hashtable.keys();
         int sum = 0;
         while(keys.hasMoreElements()) {
             sum = Integer.parseInt(keys.nextElement().toString());
@@ -95,7 +95,7 @@ public class MapAdapter implements HMap {
      */
     public HSet keySet() {
         HSet set = new SetAdapter();
-        Enumeration<Object> keys = hashtable.keys();
+        Enumeration keys = hashtable.keys();
         while(keys.hasMoreElements()) {
             set.add(keys.nextElement());
         }

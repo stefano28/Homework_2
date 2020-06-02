@@ -1,5 +1,6 @@
 package adapter;
-import java.util.*;
+
+import java.util.Vector;
 
 public class ListAdapter implements HList {
 
@@ -9,6 +10,9 @@ public class ListAdapter implements HList {
      * Inserts the specified element at the specified position in this list (optional operation).
      */
     public void add(int index, Object element) {
+        if(element == null) {
+            throw new NullPointerException();
+        }
         vector.insertElementAt(element, index);
     }
 

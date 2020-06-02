@@ -1,5 +1,7 @@
 package adapter;
-import java.util.*;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class SetAdapter implements HSet {
 
@@ -23,7 +25,7 @@ public class SetAdapter implements HSet {
     public boolean addAll(HCollection c) {
         if(c == null)
             throw new NullPointerException();
-        HIterator iter = c.Iterator();
+        HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
             if(!contains(value))
@@ -54,7 +56,7 @@ public class SetAdapter implements HSet {
     public boolean containsAll(HCollection c){
         if(c == null)
             throw new NullPointerException();
-        HIterator iter = c.Iterator();
+        HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
             if(!contains(value))
@@ -112,7 +114,7 @@ public class SetAdapter implements HSet {
     public boolean removeAll(HCollection c){
         if(c == null)
             throw new NullPointerException();
-        HIterator iter = c.Iterator();
+        HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
             if(contains(value))
@@ -127,7 +129,7 @@ public class SetAdapter implements HSet {
     public boolean retainAll(HCollection c){
         if(c == null)
             throw new NullPointerException();
-        HIterator iter = c.Iterator();
+        HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
             if(!contains(value))
@@ -153,6 +155,10 @@ public class SetAdapter implements HSet {
             v[i] = keys.nextElement();
         }
         return v;
+    }
+
+    public Object[] toArray(Object[] a) {
+        throw new UnsupportedOperationException();
     }
 
     private class SetIterator implements HIterator {
