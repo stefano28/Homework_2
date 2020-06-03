@@ -8,11 +8,19 @@ public class SetAdapter implements HSet {
     private Hashtable hashtable = new Hashtable();
 
     /**
+     * 
+     * @param o
+     */
+    protected void isNull(Object o) {
+        if(o == null)
+            throw new NullPointerException();
+    }
+
+    /**
      * Adds the specified element to this set if it is not already present (optional operation).
      */
     public boolean add(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         if(contains(o))
             return false;
         hashtable.put(o, o);
@@ -23,8 +31,7 @@ public class SetAdapter implements HSet {
      * Adds all of the elements in the specified collection to this set if they're not already present (optional operation).
      */
     public boolean addAll(HCollection c) {
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
@@ -44,8 +51,7 @@ public class SetAdapter implements HSet {
      * Returns true if this set contains the specified element.
      */
     public boolean contains(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         return hashtable.containsKey(o);
     }
 
@@ -53,8 +59,7 @@ public class SetAdapter implements HSet {
      * Returns true if this set contains all of the elements of the specified collection.
      */
     public boolean containsAll(HCollection c){
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
@@ -67,7 +72,7 @@ public class SetAdapter implements HSet {
     /**
      * Compares the specified object with this set for equality.
      */
-    public boolean equals(Object o){
+    public boolean equals(Object o){ //
         if (o == this)
             return true;
         if (!(o instanceof HSet))
@@ -116,8 +121,7 @@ public class SetAdapter implements HSet {
      * Removes the specified element from this set if it is present (optional operation).
      */
     public boolean remove(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         if(!contains(o))
             return false;
         hashtable.remove(o);
@@ -128,8 +132,7 @@ public class SetAdapter implements HSet {
      * Removes from this set all of its elements that are contained in the specified collection (optional operation).
      */
     public boolean removeAll(HCollection c){
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
@@ -142,8 +145,7 @@ public class SetAdapter implements HSet {
      * Retains only the elements in this set that are contained in the specified collection (optional operation).
      */
     public boolean retainAll(HCollection c){
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
@@ -181,22 +183,22 @@ public class SetAdapter implements HSet {
 
     private class SetIterator implements HIterator {
         Enumeration keys = hashtable.keys();
-        Object lastRetKey = null;
+        Object last = null;
 
         public boolean hasNext() {
             return keys.hasMoreElements();
         }
 
         public Object next() {
-            lastRetKey = keys.nextElement();
-            return lastRetKey;
+            last = keys.nextElement();
+            return last;
         }
 
         public void remove() {
-            if(lastRetKey == null)
+            if(last == null)
                 throw new IllegalStateException();
-            SetAdapter.this.remove(lastRetKey);
-            lastRetKey = null;
+            SetAdapter.this.remove(last);
+            last = null;
         }
     }
 }

@@ -7,9 +7,20 @@ public class ListAdapter implements HList {
 
     private Vector vector = new Vector();
 
-    public void add(int index, Object element) {
-        if(element == null)
+    /**
+     * 
+     * @param o
+     */
+    protected void isNull(Object o) {
+        if(o == null)
             throw new NullPointerException();
+    }
+
+    /**
+     * Inserts the specified element at the specified position in this list (optional operation).
+     */
+    public void add(int index, Object element) {
+        isNull(element);
         try {
             vector.insertElementAt(element, index);
         }
@@ -18,16 +29,21 @@ public class ListAdapter implements HList {
         }
     }
 
+    /**
+     * Appends the specified element to the end of this list (optional operation).
+     */
+
     public boolean add(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         vector.addElement(o);
         return true;
     }
 
+    /**
+     * Appends all of the elements in the specified collection to the end of this list, in the order that they are returned by the specified collection's iterator (optional operation).
+     */
     public boolean addAll(HCollection c) { //
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         boolean flag = false;
         HIterator it = c.iterator();
         while(it.hasNext()) {
@@ -38,9 +54,11 @@ public class ListAdapter implements HList {
         return flag;
     }
 
+    /**
+     * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
+     */
     public boolean addAll(int index, HCollection c) { //
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         if(index < 0 || index > size())
             throw new IndexOutOfBoundsException();
         boolean flag = false;
@@ -54,19 +72,26 @@ public class ListAdapter implements HList {
         return flag;
     }
 
+    /**
+     * Removes all of the elements from this list (optional operation).
+     */
     public void clear() {
         vector.removeAllElements();
     }
 
+    /**
+     * Returns true if this list contains the specified element.
+     */
     public boolean contains(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         return vector.contains(o);
     }
 
+    /**
+     * Returns true if this list contains the specified element.
+     */
     public boolean containsAll(HCollection c) { //
-        if(c == null)
-            throw new NullPointerException();
+        isNull(c);
         HIterator it = c.iterator();
         while(it.hasNext()) {
             if(!contains(it.next()))
@@ -75,6 +100,9 @@ public class ListAdapter implements HList {
         return true;
     }
 
+    /**
+     * Compares the specified object with this list for equality.
+     */
     public boolean equals(Object o) { //
         if(o == this)
             return true;
@@ -91,6 +119,9 @@ public class ListAdapter implements HList {
         return !(it1.hasNext() || it2.hasNext());
     }
 
+    /**
+     * Returns the element at the specified position in this list.
+     */
     public Object get(int index) {
         try {
             return get(index);
@@ -100,6 +131,9 @@ public class ListAdapter implements HList {
         }
     }
 
+    /**
+     * Returns the hash code value for this list.
+     */
     public int hashCode() { //
         int hashCode = 1;
         HIterator it = iterator();
@@ -110,18 +144,135 @@ public class ListAdapter implements HList {
         return hashCode;
     }
 
+    /**
+     * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not contain this element.
+     */
     public int indexOf(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         return vector.indexOf(o);
     }
 
+    /**
+     * Returns true if this list contains no elements.
+     */
     public boolean isEmpty() {
         return vector.isEmpty();
     }
 
+    /**
+     * Returns an iterator over the elements in this list in proper sequence.
+     */
     public HIterator iterator() {
         return new Iterator();
+    }
+
+    /**
+     * Returns the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element.
+     */
+    public int lastIndexOf(Object o) {
+        isNull(o);
+        return vector.lastIndexOf(o);
+    }
+
+    /**
+     * Returns a list iterator of the elements in this list (in proper sequence).
+     */
+    public HListIterator listIterator() {
+        return new ListIterator(0);
+    }
+
+    /**
+     * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+     */
+    public HListIterator listIterator(int index) {
+        return new ListIterator(index);
+    }
+
+    /**
+     * Removes the element at the specified position in this list (optional operation).
+     */
+    public Object remove(int index) {
+        Object o = get(index);
+        vector.removeElementAt(index);
+        return o;
+    }
+
+    /**
+     * Removes the first occurrence in this list of the specified element (optional operation).
+     */
+    public boolean remove(Object o) {
+        isNull(o);
+        return vector.removeElement(o);
+    }
+
+    /**
+     * Removes from this list all the elements that are contained in the specified collection (optional operation).
+     */
+    public boolean removeAll(HCollection c) { //
+        isNull(c);
+        boolean flag = false;
+        HIterator it = c.iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            remove(o);
+            flag = true;
+        }
+        return flag;
+    }
+
+    /**
+     * Retains only the elements in this list that are contained in the specified collection (optional operation).
+     */
+    public boolean retainAll(HCollection c) {
+        isNull(c);
+        boolean flag = false;
+        HIterator it = iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            if(!c.contains(o)) {
+                remove(o);
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * Replaces the element at the specified position in this list with the specified element (optional operation).
+     */
+    public Object set(int index, Object element) {
+        isNull(element);
+        Object o = get(index);
+        vector.setElementAt(element, index);
+        return o;
+    }
+
+    /**
+     * Returns the number of elements in this list.
+     */
+    public int size() {
+        return vector.size();
+    }
+
+    /**
+     * Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
+     */
+    public HList subList(int fromIndex, int toIndex) {
+        return new SubList(fromIndex, toIndex);
+    }
+
+    /**
+     * Returns an array containing all of the elements in this list in proper sequence.
+     */
+    public Object[] toArray() {
+        return null;
+    }
+
+    /**
+     * Returns an array containing all of the elements in this list in proper sequence; the runtime type of the returned array is that of the specified array.
+     */
+    public Object[] toArray(Object[] a) {
+        return null;
     }
 
     private class Iterator implements HIterator { //
@@ -150,20 +301,6 @@ public class ListAdapter implements HList {
                 cursor--;
             lastRet = -1;
         }
-    }
-
-    public int lastIndexOf(Object o) {
-        if(o == null)
-            throw new NullPointerException();
-        return vector.lastIndexOf(o);
-    }
-
-    public HListIterator listIterator() {
-        return new ListIterator(0);
-    }
-
-    public HListIterator listIterator(int index) {
-        return new ListIterator(index);
     }
 
     private class ListIterator extends Iterator implements HListIterator {
@@ -208,71 +345,6 @@ public class ListAdapter implements HList {
 
     }
 
-    public Object remove(int index) {
-        Object o = get(index);
-        vector.removeElementAt(index);
-        return o;
-    }
-
-    public boolean remove(Object o) {
-        if(o == null)
-            throw new NullPointerException();
-        return vector.removeElement(o);
-    }
-
-    public boolean removeAll(HCollection c) { //
-        if(c == null)
-            throw new NullPointerException();
-        boolean flag = false;
-        HIterator it = c.iterator();
-        while(it.hasNext()) {
-            Object o = it.next();
-            remove(o);
-            flag = true;
-        }
-        return flag;
-    }
-
-    public boolean retainAll(HCollection c) {
-        if(c == null)
-            throw new NullPointerException();
-        boolean flag = false;
-        HIterator it = iterator();
-        while(it.hasNext()) {
-            Object o = it.next();
-            if(!c.contains(o)) {
-                remove(o);
-                flag = true;
-            }
-        }
-        return flag;
-    }
-
-    public Object set(int index, Object element) {
-        if(element == null) {
-            throw new NullPointerException();
-        }
-        Object o = get(index);
-        vector.setElementAt(element, index);
-        return o;
-    }
-
-    public int size() {
-        return vector.size();
-    }
-
-    public HList subList(int fromIndex, int toIndex) {
-        return new SubList(fromIndex, toIndex);
-    }
-
-    public Object[] toArray() {
-        return null;
-    }
-
-    public Object[] toArray(Object[] a) {
-        return null;
-    }
-
     private class SubList extends ListAdapter {
         int from = 0;
         int to = 0;
@@ -282,7 +354,13 @@ public class ListAdapter implements HList {
             this.to = to;
         }
 
+        private void isValid(int index) {
+            if(index > to || index < from)
+                throw new NullPointerException();
+        }
+
         public void add(int index, Object element) {
+            isValid(index);
             super.add(index + from, element);
         }
 
@@ -294,12 +372,11 @@ public class ListAdapter implements HList {
 
         public boolean addAll(HCollection c) {
             return super.addAll(from + to, c);
-
         }
 
         public boolean addAll(int index, HCollection c) {
+            isValid(index);
             return super.addAll(index + from, c);
-
         }
 
         public void clear() {
@@ -311,34 +388,57 @@ public class ListAdapter implements HList {
         }
 
         public boolean contains(Object o) {
-            return true;
+            isNull(o);
+            HIterator iter = iterator(); //Iteratore di sublist, quindi scorre i valori della sublist e basta
+            while(iter.hasNext()) {
+                if(iter.next().equals(o))
+                     return true; 
+            }
+            return false;
         }
 
         public boolean containsAll(HCollection c) {
+            isNull(c);
+            HIterator cIter = c.iterator(); // Iteratore della collection
+            while(cIter.hasNext()) {
+                if(!contains(cIter.next()))
+                    return false;
+            }
             return true;
         }
 
         public boolean equals(Object o) {
+            // ...
             return true;
         }
 
         public Object get(int index) {
-            return null;
+            isValid(index);
+            return super.get(index + from);
         }
 
-        public int hashCode() {
-            return 0;
+        public int hashCode() { //Uguale a quello di List ma con iteratore di Sublist
+            int hashCode = 1;
+            HIterator iter = iterator();
+            while (iter.hasNext()) {
+                Object obj = iter.next();
+                hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
+            }
+            return hashCode;
         }
 
         public int indexOf(Object o) {
-            return 0;
+            int index = super.indexOf(o);
+            isValid(index);
+            return index;
         }
 
         public boolean isEmpty() {
             return to == from;
         }
 
-        public Iterator iterator() {
+        public HIterator iterator() {
+            // ...
             return null;
         }
 
@@ -347,31 +447,56 @@ public class ListAdapter implements HList {
         }
 
         public HListIterator listIterator() {
+            // ...
             return null;
         }
 
         public HListIterator listIterator(int index) {
+            // ...
             return null;
         }
 
         public Object remove(int index) {
+            isValid(index);
             return super.remove(from + index);
         }
 
         public boolean remove(Object o) {
-            return true;
+            isNull(o);
+            HIterator iter = iterator();
+            while(iter.hasNext()) {
+                if(iter.next().equals(o)) {
+                    iter.remove();
+                    return true;
+                }
+            }
+            return false;
         }
 
         public boolean removeAll(HCollection c) {
+            isNull(c);
+            HIterator cIter = c.iterator();
+            while(cIter.hasNext()) {
+                remove(cIter.next());
+            }
             return true;
         }
 
         public boolean retainAll(HCollection c) {
+            isNull(c);
+            HIterator iter = iterator();
+            while(iter.hasNext()) {
+                Object value = iter.next();
+                if(c.contains(value))
+                    iter.remove();
+            }
             return true;
         }
 
         public Object set(int index, Object element) {
-            return null;
+            isValid(index);
+            isNull(element);
+            return super.set(from + index, element);
         }
 
         public int size() {
@@ -379,13 +504,16 @@ public class ListAdapter implements HList {
         }
 
         public Object[] toArray() {
-            return null;
+            Object[] v = new Object[to - from];
+            HIterator iter = iterator();
+            for(int i = 0; iter.hasNext(); i++) {
+                v[i] = iter.next();
+            }
+            return v;
         }
 
         public Object[] toArray(Object[] a) {
-            return null;
+            return toArray();
         }
-
     }
-
 }

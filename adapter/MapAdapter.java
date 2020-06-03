@@ -7,6 +7,16 @@ public class MapAdapter implements HMap {
 
     private Hashtable hashtable = new Hashtable();
 
+
+    /**
+     * 
+     * @param o
+     */
+    protected void isNull(Object o) {
+        if(o == null)
+            throw new NullPointerException();
+    }
+
     /**
      * Removes all mappings from this map (optional operation).
      */
@@ -18,8 +28,7 @@ public class MapAdapter implements HMap {
      * Returns true if this map contains a mapping for the specified key.
      */
     public boolean containsKey(Object key) {
-        if(key == null)
-            throw new NullPointerException();
+        isNull(key);
         return hashtable.containsKey(key);
     }
 
@@ -27,8 +36,7 @@ public class MapAdapter implements HMap {
      * Returns true if this map maps one or more keys to the specified value.
      */
     public boolean containsValue(Object value) {
-        if(value == null)
-            throw new NullPointerException();
+        isNull(value);
         return hashtable.contains(value);
     }
 
@@ -44,8 +52,7 @@ public class MapAdapter implements HMap {
      * Compares the specified object with this map for equality. 
      */
     public boolean equals(Object o) {
-        if(o == null)
-            throw new NullPointerException();
+        isNull(o);
         HMap m = (HMap)o;
         if(m.size() != size())
             return false;
@@ -60,8 +67,7 @@ public class MapAdapter implements HMap {
      * Returns the value to which this map maps the specified key.
      */
     public Object get(Object key) {
-        if(key == null)
-            throw new NullPointerException();
+        isNull(key);
         return hashtable.get(key);
     }
 
@@ -100,8 +106,8 @@ public class MapAdapter implements HMap {
      * Associates the specified value with the specified key in this map (optional operation).
      */
     public Object put(Object key, Object value) {
-        if(key == null || value == null)
-            throw new NullPointerException();
+        isNull(key);
+        isNull(value);
         return hashtable.put(key, value);
     }
 
@@ -109,16 +115,14 @@ public class MapAdapter implements HMap {
      * Copies all of the mappings from the specified map to this map (optional operation).
      */
     public void putAll(HMap t) {
-        if(t == null)
-            throw new NullPointerException();
+        isNull(t);
     }
 
     /**
      * Removes the mapping for this key from this map if it is present (optional operation).
      */
     public Object remove(Object key) {
-        if(key == null)
-            throw new NullPointerException();
+        isNull(key);
         Object value = hashtable.get(key);
         hashtable.remove(key);
         return value;
@@ -142,6 +146,11 @@ public class MapAdapter implements HMap {
 
         private Object key;
         private Object value;
+
+        public HEntry(Object key, Object value) {
+            this.key = key;
+            this.value = value;
+        }
 
         /**
          * Compares the specified object with this entry for equality.
@@ -204,7 +213,7 @@ public class MapAdapter implements HMap {
         public boolean contains(Object o) {
             if(o == null)
                 throw new NullPointerException();
-            HEntry e = (HMap.HEntry) o;
+            HEntry e = (HEntry) o;
             return MapAdapter.this.containsKey(e.getKey());
         }
 
@@ -237,49 +246,6 @@ public class MapAdapter implements HMap {
             
         }
 
-        // HO COPIATO IMPLEMENTAZIONE DA LIST, CHE E' "LA STESSA DI SET",
-        // QUINDI SE ESTENDO SETADAPTER DEVE FUNZIONARE, ORA BISOGNA CAPIRE
-        // PERO' SE L'IMPLEMENTAZIONE DI SET INFLUISCE.
-        // @Override
-        // public boolean containsAll(HCollection c) {
-        //     if(c == null) {
-        //         throw new NullPointerException();
-        //     }
-        //     HIterator it = c.iterator();
-        //     while(it.hasNext()) {
-        //         if(!contains(it.next()))
-        //             return false;
-        //     }
-        //     return true;
-        // }
-
-        // @Override
-        // public boolean equals(Object o) {
-        //     if(o == null) {
-        //         throw new NullPointerException();
-        //     }
-        //     HSet s = null;
-        //     try {
-        //         s = (HSet) o;
-        //     }
-        //     catch(ClassCastException cce) {
-        //         return false;
-        //     }
-        //     if(size() != s.size()) {
-        //         return false;
-        //     }
-        //     int index = 0;
-        //     HIterator it = s.iterator();
-        //     while(it.hasNext()) {
-        //         Object e1 = get(index);
-        //         Object e2 = it.next();
-        //         if(e1 != e2) {
-        //             return false;
-        //         }
-        //     }
-        //     return true;
-        // }
-    
     }
 
 }
