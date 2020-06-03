@@ -15,7 +15,7 @@ public interface HMap {
     public Object remove(Object key);
     public int size();
     public HCollection values();
-    public interface Entry {
+    public interface HEntry {
         public Object getKey();
         public Object getValue();
         public Object setValue(Object value);

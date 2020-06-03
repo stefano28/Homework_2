@@ -13,7 +13,7 @@ public class SetAdapter implements HSet {
     public boolean add(Object o) {
         if(o == null)
             throw new NullPointerException();
-        if(hashtable.containsKey(o))
+        if(contains(o))
             return false;
         hashtable.put(o, o);
         return true;
@@ -28,8 +28,7 @@ public class SetAdapter implements HSet {
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
-            if(!contains(value))
-                add(value);
+            add(value);
         }
         return true;
     }
@@ -69,16 +68,34 @@ public class SetAdapter implements HSet {
      * Compares the specified object with this set for equality.
      */
     public boolean equals(Object o){
-        if(o == null)
-            throw new NullPointerException();
-        return hashtable.containsKey(o);
+        if (o == this)
+            return true;
+        if (!(o instanceof HSet))
+            return false;
+        HSet s = (HSet) o;
+        if (s.size() != size())
+            return false;
+        try {
+            return containsAll(s);
+        }
+        catch (ClassCastException cce)   {
+            return false;
+        }
+        catch (NullPointerException npe) {
+            return false;
+        }
     }
 
     /**
      * Returns the hash code value for this set.
      */
     public int hashCode(){
-        return hashtable.hashCode();
+        int hashCode = 0;
+        HIterator it = iterator();
+        while (it.hasNext()) {
+            hashCode += it.next().hashCode();
+        }
+        return hashCode;
     }
 
     /**
@@ -116,8 +133,7 @@ public class SetAdapter implements HSet {
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
-            if(contains(value))
-                remove(value);
+            remove(value);
         }
         return true;
     }
@@ -160,7 +176,7 @@ public class SetAdapter implements HSet {
      * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
      */
     public Object[] toArray(Object[] a) {
-        throw new UnsupportedOperationException();
+        return toArray();
     }
 
     private class SetIterator implements HIterator {
@@ -172,18 +188,15 @@ public class SetAdapter implements HSet {
         }
 
         public Object next() {
-            lastRetKey = keys.nextElement(); // Lancia NoSuchElementException
+            lastRetKey = keys.nextElement();
             return lastRetKey;
         }
 
         public void remove() {
-            // Se next non e' mai stato chiamato o remove e' gia' stato
-            // chiamato dopo l'ultima chiamata a next.
-            if(lastRetKey == null) {
+            if(lastRetKey == null)
                 throw new IllegalStateException();
-            }
             SetAdapter.this.remove(lastRetKey);
-            lastRetKey = null;  // Reset to null after removing
+            lastRetKey = null;
         }
     }
 }
