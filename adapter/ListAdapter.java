@@ -19,14 +19,9 @@ public class ListAdapter implements HList {
     /**
      * Inserts the specified element at the specified position in this list (optional operation).
      */
-    public void add(int index, Object element) {
+    public void add(int index, Object element) throws ArrayIndexOutOfBoundsException {
         isNull(element);
-        try {
-            vector.insertElementAt(element, index);
-        }
-        catch(ArrayIndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException();
-        }
+        vector.insertElementAt(element, index);
     }
 
     /**
@@ -122,13 +117,8 @@ public class ListAdapter implements HList {
     /**
      * Returns the element at the specified position in this list.
      */
-    public Object get(int index) {
-        try {
-            return get(index);
-        }
-        catch(ArrayIndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException();
-        }
+    public Object get(int index) throws ArrayIndexOutOfBoundsException {
+        return vector.get(index);
     }
 
     /**
@@ -356,7 +346,7 @@ public class ListAdapter implements HList {
 
         private void isValid(int index) {
             if(index > to || index < from)
-                throw new NullPointerException();
+                throw new IndexOutOfBoundsException();
         }
 
         public void add(int index, Object element) {
@@ -365,23 +355,27 @@ public class ListAdapter implements HList {
         }
 
         public boolean add(Object o) {
-            super.add(from + to, o);
+            super.add(to, o);
             from++;
             return true;
         }
 
         public boolean addAll(HCollection c) {
-            return super.addAll(from + to, c);
+            super.addAll(to, c);
+            to += c.size();
+            return true;
         }
 
         public boolean addAll(int index, HCollection c) {
             isValid(index);
-            return super.addAll(index + from, c);
+            super.addAll(index + from, c);
+            to += c.size();
+            return true;
         }
 
         public void clear() {
-            int i = to;
-            while(i < from) {
+            int i = from;
+            while(i < to) {
                 super.remove(i);
                 i++;
             }
