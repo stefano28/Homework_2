@@ -356,7 +356,7 @@ public class ListAdapter implements HList {
 
         public boolean add(Object o) {
             super.add(to, o);
-            from++;
+            to++;
             return true;
         }
 
