@@ -453,7 +453,9 @@ public class ListAdapter implements HList {
 
         public Object remove(int index) {
             isValid(index);
-            return super.remove(from + index);
+            Object o = super.remove(from + index);
+            to--;
+            return o;
         }
 
         public boolean remove(Object o) {
@@ -498,7 +500,7 @@ public class ListAdapter implements HList {
         }
 
         public Object[] toArray() {
-            Object[] v = new Object[to - from];
+            Object[] v = new Object[size()];
             HIterator iter = iterator();
             for(int i = 0; iter.hasNext(); i++) {
                 v[i] = iter.next();
