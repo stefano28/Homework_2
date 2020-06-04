@@ -7,7 +7,6 @@ public class MapAdapter implements HMap {
 
     private Hashtable hashtable = new Hashtable();
 
-
     /**
      * 
      * @param o
