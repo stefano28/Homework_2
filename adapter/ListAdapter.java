@@ -255,14 +255,21 @@ public class ListAdapter implements HList {
      * Returns an array containing all of the elements in this list in proper sequence.
      */
     public Object[] toArray() {
-        return null;
+        Object[] v = new Object[size()];
+        HIterator it = iterator();
+        int i = 0;
+        while(it.hasNext()) {
+            v[i] = it.next();
+            i++;
+        }
+        return v;
     }
 
     /**
      * Returns an array containing all of the elements in this list in proper sequence; the runtime type of the returned array is that of the specified array.
      */
     public Object[] toArray(Object[] a) {
-        return null;
+        return toArray();
     }
 
     private class Iterator implements HIterator { //
@@ -382,45 +389,10 @@ public class ListAdapter implements HList {
             }
         }
 
-        //public boolean contains(Object o) {
-        //    isNull(o);
-        //    HIterator iter = iterator(); //Iteratore di sublist, quindi scorre i valori della sublist e basta
-        //    while(iter.hasNext()) {
-        //        if(iter.next().equals(o))
-        //             return true; 
-        //    }
-        //    return false;
-        //}
-
-        //public boolean containsAll(HCollection c) {
-        //    isNull(c);
-        //    HIterator cIter = c.iterator(); // Iteratore della collection
-        //    while(cIter.hasNext()) {
-        //        if(!contains(cIter.next()))
-        //            return false;
-        //    }
-        //    return true;
-        //}
-//
-        //public boolean equals(Object o) {
-        //    // ...
-        //    return true;
-        //}
-
         public Object get(int index) {
             isValid(index);
             return super.get(index + from);
         }
-
-        //public int hashCode() { //Uguale a quello di List ma con iteratore di Sublist
-        //    int hashCode = 1;
-        //    HIterator iter = iterator();
-        //    while (iter.hasNext()) {
-        //        Object obj = iter.next();
-        //        hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
-        //    }
-        //    return hashCode;
-        //}
 
         public int indexOf(Object o) {
             int index = super.indexOf(o);
@@ -433,22 +405,23 @@ public class ListAdapter implements HList {
         }
 
         public HIterator iterator() {
-            // ...
-            return null;
+            return new SubListIterator(0);
         }
 
         public int lastIndexOf(Object o) {
-            return 0;
+            int index = super.lastIndexOf(o);
+            if(index < from || index >= to) {
+                return -1;
+            }
+            return index;
         }
 
         public HListIterator listIterator() {
-            // ...
-            return null;
+            return new SubListIterator(0);
         }
 
         public HListIterator listIterator(int index) {
-            // ...
-            return null;
+            return new SubListIterator(index);
         }
 
         public Object remove(int index) {
@@ -469,24 +442,29 @@ public class ListAdapter implements HList {
 
         public boolean removeAll(HCollection c) {
             HIterator cIter = c.iterator();
+            boolean result = false;
             while(cIter.hasNext()) {
-                if(remove(cIter.next()))
+                if(remove(cIter.next())) {
                     to--;
+                    result = true;
+                }
             }
-            return true;
+            return result;
         }
 
         public boolean retainAll(HCollection c) {
             isNull(c);
             HIterator iter = iterator();
+            boolean result = false;
             while(iter.hasNext()) {
                 Object value = iter.next();
-                if(c.contains(value)) {
+                if(!c.contains(value)) {
                     iter.remove();
                     to--;
+                    result = true;
                 }
             }
-            return true;
+            return result;
         }
 
         public Object set(int index, Object element) {
@@ -499,17 +477,60 @@ public class ListAdapter implements HList {
             return to - from;
         }
 
-        public Object[] toArray() {
-            Object[] v = new Object[size()];
-            HIterator iter = iterator();
-            for(int i = 0; iter.hasNext(); i++) {
-                v[i] = iter.next();
-            }
-            return v;
-        }
+        private class SubListIterator implements HListIterator {
+            private HListIterator it = null;
 
-        public Object[] toArray(Object[] a) {
-            return toArray();
+            SubListIterator(int index) {
+                it = ListAdapter.this.listIterator(index);
+            }
+
+            public boolean hasNext() {
+                return nextIndex() < to;
+            }
+
+            public Object next() {
+                if(hasNext()) { // hasNext() di subList, che controlla indici
+                    return it.next(); // next usa l'hasNext() di List
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
+            }
+
+            public boolean hasPrevious() {
+                return previousIndex() >= 0;
+            }
+
+            public Object previous() {
+                if(hasPrevious()) {
+                    return it.previous();
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
+            }
+
+            public int nextIndex() {
+                return it.nextIndex() - from;
+            }
+
+            public int previousIndex() {
+                return it.previousIndex() - from;
+            }
+
+            public void remove() {
+                it.remove();
+                to--;
+            }
+
+            public void set(Object o) {
+                it.set(o);
+            }
+
+            public void add(Object o) {
+                it.add(o);
+                to++;
+            }
         }
     }
 }
