@@ -8,7 +8,7 @@ public class MapAdapter implements HMap {
     private Hashtable hashtable = new Hashtable();
 
     /**
-     * 
+     * Check if the Object is null
      * @param o
      */
     protected void isNull(Object o) {
