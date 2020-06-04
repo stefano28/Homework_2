@@ -352,6 +352,7 @@ public class ListAdapter implements HList {
         public void add(int index, Object element) {
             isValid(index);
             super.add(index + from, element);
+            to++;
         }
 
         public boolean add(Object o) {
