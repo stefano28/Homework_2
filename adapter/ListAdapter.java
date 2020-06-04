@@ -382,45 +382,45 @@ public class ListAdapter implements HList {
             }
         }
 
-        public boolean contains(Object o) {
-            isNull(o);
-            HIterator iter = iterator(); //Iteratore di sublist, quindi scorre i valori della sublist e basta
-            while(iter.hasNext()) {
-                if(iter.next().equals(o))
-                     return true; 
-            }
-            return false;
-        }
+        //public boolean contains(Object o) {
+        //    isNull(o);
+        //    HIterator iter = iterator(); //Iteratore di sublist, quindi scorre i valori della sublist e basta
+        //    while(iter.hasNext()) {
+        //        if(iter.next().equals(o))
+        //             return true; 
+        //    }
+        //    return false;
+        //}
 
-        public boolean containsAll(HCollection c) {
-            isNull(c);
-            HIterator cIter = c.iterator(); // Iteratore della collection
-            while(cIter.hasNext()) {
-                if(!contains(cIter.next()))
-                    return false;
-            }
-            return true;
-        }
-
-        public boolean equals(Object o) {
-            // ...
-            return true;
-        }
+        //public boolean containsAll(HCollection c) {
+        //    isNull(c);
+        //    HIterator cIter = c.iterator(); // Iteratore della collection
+        //    while(cIter.hasNext()) {
+        //        if(!contains(cIter.next()))
+        //            return false;
+        //    }
+        //    return true;
+        //}
+//
+        //public boolean equals(Object o) {
+        //    // ...
+        //    return true;
+        //}
 
         public Object get(int index) {
             isValid(index);
             return super.get(index + from);
         }
 
-        public int hashCode() { //Uguale a quello di List ma con iteratore di Sublist
-            int hashCode = 1;
-            HIterator iter = iterator();
-            while (iter.hasNext()) {
-                Object obj = iter.next();
-                hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
-            }
-            return hashCode;
-        }
+        //public int hashCode() { //Uguale a quello di List ma con iteratore di Sublist
+        //    int hashCode = 1;
+        //    HIterator iter = iterator();
+        //    while (iter.hasNext()) {
+        //        Object obj = iter.next();
+        //        hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
+        //    }
+        //    return hashCode;
+        //}
 
         public int indexOf(Object o) {
             int index = super.indexOf(o);
@@ -429,7 +429,7 @@ public class ListAdapter implements HList {
         }
 
         public boolean isEmpty() {
-            return to == from;
+            return size() == 0;
         }
 
         public HIterator iterator() {
@@ -458,21 +458,18 @@ public class ListAdapter implements HList {
 
         public boolean remove(Object o) {
             isNull(o);
-            HIterator iter = iterator();
-            while(iter.hasNext()) {
-                if(iter.next().equals(o)) {
-                    iter.remove();
-                    return true;
-                }
+            if(super.remove(o)) {
+                to--;
+                return true; 
             }
             return false;
         }
 
         public boolean removeAll(HCollection c) {
-            isNull(c);
             HIterator cIter = c.iterator();
             while(cIter.hasNext()) {
-                remove(cIter.next());
+                if(remove(cIter.next()))
+                    to--;
             }
             return true;
         }
@@ -482,8 +479,10 @@ public class ListAdapter implements HList {
             HIterator iter = iterator();
             while(iter.hasNext()) {
                 Object value = iter.next();
-                if(c.contains(value))
+                if(c.contains(value)) {
                     iter.remove();
+                    to--;
+                }
             }
             return true;
         }
