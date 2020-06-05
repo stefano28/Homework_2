@@ -16,17 +16,6 @@ public class SetAdapterTest {
 
     @Before
     public void start() {
-        System.out.println("Inizio dei test della classe SetAdapter");
-        set = new SetAdapter();
-    }
-
-    /**
-     * End of SetAdapter test
-     */
-
-    @After
-    public void end() {
-        System.out.println("Fine dei test della classe SetAdapter");
         set = new SetAdapter();
     }
 
@@ -36,13 +25,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testAddWithNull() {
-        System.out.println("Test di Set.add(Object o) con null come parametro");
         set.add(null);
     }
 
     @Test()
     public void testAddWithObjNotContained() {
-        System.out.println("Test di Set.add(Object o) con un oggetto non contenuto come parametro");
         Object o = new Object();
         assertTrue(set.add(o));
         assertEquals(true, set.contains(o));
@@ -51,7 +38,6 @@ public class SetAdapterTest {
 
     @Test()
     public void testAddWithObjContained() {
-        System.out.println("Test di Set.add(Object o) con un oggetto contenuto come parametro");
         Object o = new Object();
         assertTrue(set.add(o));
         assertFalse(set.add(o));
@@ -64,13 +50,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testAddAllWithNull() {
-        System.out.println("Test di Set.addAll(HCollection c) con null come parametro");
         set.addAll(null);
     }
 
     @Test
     public void testAddAllWithHCollection() {
-        System.out.println("Test di Set.addAll(HCollection c) con una HCollection");
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
             c.add(i);
@@ -87,7 +71,6 @@ public class SetAdapterTest {
 
     @Test
     public void testClear() {
-        System.out.println("Test di Set.clear()");
         for(int i = 0; i < 5; i++) {
             set.add(i);
         }
@@ -101,13 +84,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testContainsWithNull() {
-        System.out.println("Test di Set.contains(Object o) con null come parametro");
         set.contains(null);
     }
 
     @Test
     public void testContainsWithObjContained() {
-        System.out.println("Test di Set.contains(Object o) con un oggetto contenuto come parametro");
         Object o = new Object();
         set.add(o);
         assertTrue(set.contains(o));
@@ -115,7 +96,6 @@ public class SetAdapterTest {
 
     @Test
     public void testContainsWithObjNotContained() {
-        System.out.println("Test di Set.contains(Object o) con un oggetto non contenuto come parametro");
         Object o = new Object();
         set.add(o);
         Object o2 = new Object();
@@ -128,13 +108,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testContainsAllWithNull() {
-        System.out.println("Test di Set.containsAll(HCollection c) con null come parametro");
         set.containsAll(null);
     }
 
     @Test
     public void testContainsAllWithHCollectionContained() {
-        System.out.println("Test di Set.containsAll(HCollection c) con una HCollection contenuta come parametro");
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
             c.add(i);
@@ -145,7 +123,6 @@ public class SetAdapterTest {
 
     @Test
     public void testContainsAllWithHCollectionNotContained() {
-        System.out.println("Test di Set.contains(HCollection c) con una HCollection non contenuta come parametro");
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
             c.add(i);
@@ -159,7 +136,6 @@ public class SetAdapterTest {
 
     @Test
     public void testEqualsWithEqualObject() {
-        System.out.println("Test di Set.equals(Object c) con un oggetto uguale");
         HSet set2 = new SetAdapter();
         for(int i = 0; i < 5; i++) {
             set2.add(i);
@@ -170,7 +146,6 @@ public class SetAdapterTest {
 
     @Test
     public void testEqualsWithNotEqualObject() {
-        System.out.println("Test di Set.equals(Object c) con un oggetto diverso");
         HSet set2 = new SetAdapter();
         set2.add(new Object());
         assertFalse(set.equals(set2));
@@ -182,7 +157,6 @@ public class SetAdapterTest {
 
     @Test
     public void TestIsEmpty() {
-        System.out.println("Test di Set.isEmpty()");
         assertTrue(set.isEmpty());
     }
 
@@ -192,7 +166,15 @@ public class SetAdapterTest {
 
     @Test
     public void TestIterator() {
-        //
+        for(int i = 0; i < 3; i++) {
+            set.add(i);
+        }
+        HIterator iter = set.iterator();
+        HSet set2 = new SetAdapter();
+        while(iter.hasNext()) {
+            set2.add(iter.next());
+        }
+        assertTrue(set.equals(set2));
     }
     
     /**
@@ -201,13 +183,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testRemoveWithNull() {
-        System.out.println("Test di Set.remove(Object o) con null come parametro");
         set.remove(null);
     }
 
     @Test
     public void testRemoveWithObjContained() {
-        System.out.println("Test di Set.remove(Object o) con un oggetto contenuto come parametro");
         Object o = new Object();
         assertTrue(set.add(o));
         assertTrue(set.remove(o));
@@ -216,7 +196,6 @@ public class SetAdapterTest {
 
     @Test
     public void testRemoveWithObjNotContained() {
-        System.out.println("Test di Set.remove(Object o) con un oggetto non contenuto come parametro");
         Object o = new Object();
         set.add(o);
         set.remove(new Object());
@@ -229,13 +208,11 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testRemoveAllWithNull() {
-        System.out.println("Test di Set.removeAll(HCollection c) con null come parametro");
         set.removeAll(null);
     }
 
     @Test
     public void testRemoveAllWithHCollectionContained() {
-        System.out.println("Test di Set.removeAll(HCollection c) con una HCollection contenuta come parametro");
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
             c.add(i);
@@ -246,7 +223,6 @@ public class SetAdapterTest {
 
     @Test
     public void testRemoveAllWithHCollectionNotContained() {
-        System.out.println("Test di Set.removeAll(HCollection c) con una HCollection contenuta come parametro");
         HSet backup = set;
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
@@ -261,22 +237,19 @@ public class SetAdapterTest {
 
     @Test(expected = NullPointerException.class)
     public void testRetainAllWithNull() {
-        System.out.println("Test di Set.retainAll(HCollection c) con null come parametro");
         set.retainAll(null);
     }
 
     /*
     @Test
     public void testRetainAllWithHCollectionContained() {
-        System.out.println("Test di Set.retainAll(HCollection c) con una HCollection contenuta come parametro");
         HCollection c = new CollectionAdapter();
         HSet backup = new SetAdapter();
         for(int i = 0; i < 5; i++) {
-            set.add(i);
-            if(i > 2) {
-                c.add(i);
-                backup.add(i);
-            }
+            c.add(i);
+        }
+        for(int i = 0; i < 3; i++) {
+            backup.add(i);
         }
         set.retainAll(c);
         assertTrue(set.equals(backup));
@@ -285,7 +258,6 @@ public class SetAdapterTest {
 
     @Test
     public void testRetainAllWithHCollectionNotContained() {
-        System.out.println("Test di Set.retainAll(HCollection c) con una HCollection non contenuta come parametro");
         HCollection c = new CollectionAdapter();
         HSet backup = set;
         for(int i = 0; i < 5; i++) {
@@ -294,4 +266,20 @@ public class SetAdapterTest {
         set.retainAll(c);
         assertTrue(set.equals(backup));
     }
+
+    /**
+     * TestSize
+     */
+
+    @Test
+    public void testSize() {
+        for(int i = 0; i < 5; i++) {
+            set.add(i);
+        }
+        assertEquals(5, set.size());
+    }
+
+    /**
+     * TestToArray
+     */
 }
