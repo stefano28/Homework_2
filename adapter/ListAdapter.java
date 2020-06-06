@@ -3,13 +3,15 @@ package adapter;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
+/**
+ * Adapter for HList
+ */
 public class ListAdapter implements HList {
 
     private Vector vector = new Vector();
 
     /**
-     * 
-     * @param o
+     * Check if the object is null
      */
     protected void isNull(Object o) {
         if(o == null)
@@ -17,7 +19,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Inserts the specified element at the specified position in this list (optional operation).
+     * @inheritDoc
      */
     public void add(int index, Object element) throws ArrayIndexOutOfBoundsException {
         isNull(element);
@@ -27,7 +29,6 @@ public class ListAdapter implements HList {
     /**
      * Appends the specified element to the end of this list (optional operation).
      */
-
     public boolean add(Object o) {
         isNull(o);
         vector.addElement(o);
@@ -50,7 +51,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
+     * @inheritDoc
      */
     public boolean addAll(int index, HCollection c) { //
         isNull(c);
@@ -115,7 +116,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns the element at the specified position in this list.
+     * @inheritDoc
      */
     public Object get(int index) throws ArrayIndexOutOfBoundsException {
         return vector.get(index);
@@ -135,7 +136,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not contain this element.
+     * @inheritDoc
      */
     public int indexOf(Object o) {
         isNull(o);
@@ -156,8 +157,9 @@ public class ListAdapter implements HList {
         return new Iterator();
     }
 
+
     /**
-     * Returns the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element.
+     * @inheritDoc
      */
     public int lastIndexOf(Object o) {
         isNull(o);
@@ -165,21 +167,21 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns a list iterator of the elements in this list (in proper sequence).
+     * @inheritDoc
      */
     public HListIterator listIterator() {
         return new ListIterator(0);
     }
 
     /**
-     * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+     * @inheritDoc
      */
     public HListIterator listIterator(int index) {
         return new ListIterator(index);
     }
 
     /**
-     * Removes the element at the specified position in this list (optional operation).
+     * @inheritDoc
      */
     public Object remove(int index) {
         Object o = get(index);
@@ -228,7 +230,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Replaces the element at the specified position in this list with the specified element (optional operation).
+     * @inheritDoc
      */
     public Object set(int index, Object element) {
         isNull(element);
@@ -245,7 +247,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
+     * @inheritDoc
      */
     public HList subList(int fromIndex, int toIndex) {
         return new SubList(fromIndex, toIndex);

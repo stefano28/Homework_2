@@ -3,13 +3,15 @@ package adapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * Adapter for HSet
+ */
 public class SetAdapter implements HSet {
 
     private Hashtable hashtable = new Hashtable();
 
     /**
-     * 
-     * @param o
+     * Check if the object is null
      */
     protected void isNull(Object o) {
         if(o == null)

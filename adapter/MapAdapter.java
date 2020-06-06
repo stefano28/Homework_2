@@ -3,13 +3,15 @@ package adapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * Adapter for HMap
+ */
 public class MapAdapter implements HMap {
 
     private Hashtable hashtable = new Hashtable();
 
     /**
      * Check if the Object is null
-     * @param o
      */
     protected void isNull(Object o) {
         if(o == null)
@@ -17,14 +19,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Removes all mappings from this map (optional operation).
+     * @inheritDoc
      */
     public void clear() {
         hashtable.clear();
     }
 
     /**
-     * Returns true if this map contains a mapping for the specified key.
+     * @inheritDoc
      */
     public boolean containsKey(Object key) {
         isNull(key);
@@ -32,7 +34,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Returns true if this map maps one or more keys to the specified value.
+     * @inheritDoc
      */
     public boolean containsValue(Object value) {
         isNull(value);
@@ -40,15 +42,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Returns a set view of the mappings contained in this map.
+     * @inheritDoc
      */
     public HSet entrySet() {
         return new EntrySet();
     }
 
-
     /**
-     * Compares the specified object with this map for equality. 
+     * @inheritDoc
      */
     public boolean equals(Object o) {
         isNull(o);
@@ -63,7 +64,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Returns the value to which this map maps the specified key.
+     * @inheritDoc
      */
     public Object get(Object key) {
         isNull(key);
@@ -71,7 +72,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Returns the hash code value for this map.
+     * @inheritDoc
      */
     public int hashCode() {
         Enumeration keys = hashtable.keys();
@@ -83,14 +84,14 @@ public class MapAdapter implements HMap {
     }
     
     /**
-     * Returns true if this map contains no key-value mappings.
+     * @inheritDoc
      */
     public boolean isEmpty() {
         return hashtable.isEmpty();
     }
 
     /**
-     * Returns a set view of the keys contained in this map.
+     * @inheritDoc
      */
     public HSet keySet() {
         HSet set = new SetAdapter();
@@ -102,7 +103,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Associates the specified value with the specified key in this map (optional operation).
+     * @inheritDoc
      */
     public Object put(Object key, Object value) {
         isNull(key);
@@ -111,14 +112,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Copies all of the mappings from the specified map to this map (optional operation).
+     * @inheritDoc
      */
     public void putAll(HMap t) {
         isNull(t);
     }
 
     /**
-     * Removes the mapping for this key from this map if it is present (optional operation).
+     * @inheritDoc
      */
     public Object remove(Object key) {
         isNull(key);
@@ -128,19 +129,22 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * Returns the number of key-value mappings in this map.
+     * @inheritDoc
      */
     public int size() {
         return hashtable.size();
     }
 
     /**
-     * Returns a collection view of the values contained in this map.
+     * @inheritDoc
      */
     public HCollection values() {
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     class HEntry implements HMap.HEntry {
 
         private Object key;
@@ -152,7 +156,29 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * Compares the specified object with this entry for equality.
+         * @inheritDoc
+         */
+        public Object getKey() {
+            return key;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public Object getValue() {
+            return value;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public Object setValue(Object value) {
+            this.value = value;
+            return value;
+        }
+
+        /**
+         * @inheritDoc
          */
         public boolean equals(Object o) {
             HEntry entry = (HEntry)o;
@@ -162,36 +188,10 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * Returns the key corresponding to this entry.
-         * @return
-         */
-        public Object getKey() {
-            return key;
-        }
-
-        /**
-         * Returns the value corresponding to this entry.
-         * @return
-         */
-        public Object getValue() {
-            return value;
-        }
-
-        /**
-         * Returns the hash code value for this map entry.
+         * @inheritDoc
          */
         public int hashCode() {
             return getKey().hashCode();
-        }
-
-        /**
-         * Replaces the value corresponding to this entry with the specified value (optional operation).
-         * @param value
-         * @return
-         */
-        public Object setValue(Object value) {
-            this.value = value;
-            return value;
         }
     }
 
