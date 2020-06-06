@@ -25,8 +25,14 @@ public interface HListIterator extends HIterator{
      * Returns the previous element in the list.
      */
     public Object previous();
-    public void set(Object o);
 
-
+    /**
+     * Returns the index of the element that would be returned by a subsequent call to previous.
+     */
     public int previousIndex();
+
+    /**
+     * Replaces the last element returned by next or previous with the specified element (optional operation).
+     */
+    public void set(Object o);
 }
