@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-
+/**
+ * Test Case Class for SetAdapter
+ */
 public class SetAdapterTest {
 
     private HSet set = null;
