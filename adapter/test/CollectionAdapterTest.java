@@ -1,5 +1,6 @@
-package adapter;
+package adapter.test;
 
+import adapter.*;
 /**
  * Test Case Class for CollectionAdapter
  */
