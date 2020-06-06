@@ -6,7 +6,7 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 /**
- * Test Case Class for MapAdapter
+ * Test case class for MapAdapter
  */
 public class MapAdapterTest {
 

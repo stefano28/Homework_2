@@ -6,7 +6,7 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 /**
- * Test Case Class for SetAdapter
+ * Test case class for SetAdapter
  */
 public class SetAdapterTest {
 

@@ -2,7 +2,7 @@ package adapter.test;
 
 import adapter.*;
 /**
- * Test Case Class for CollectionAdapter
+ * Test case class for CollectionAdapter
  */
 public class CollectionAdapterTest {
     
