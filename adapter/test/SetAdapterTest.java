@@ -275,10 +275,13 @@ public class SetAdapterTest {
 
     @Test
     public void testSize() {
-        for(int i = 0; i < 5; i++) {
-            set.add(i);
-        }
-        assertEquals(5, set.size());
+        assertTrue(set.size() == 0);
+    }
+
+    @Test
+    public void TestSizeIncremented() {
+        set.add(new Object());
+        assertTrue(set.size() == 1);
     }
 
     /**

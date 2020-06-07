@@ -12,6 +12,8 @@ public class MapAdapter implements HMap {
 
     /**
      * Check if the Object is null
+     * @param o
+     * @throws NullPointerException
      */
     protected void isNull(Object o) {
         if(o == null)
@@ -114,8 +116,14 @@ public class MapAdapter implements HMap {
     /**
      * @inheritDoc
      */
-    public void putAll(HMap t) {
+    public void putAll(HMap t) { //
         isNull(t);
+        HSet s = t.entrySet();
+        HIterator iterator = s.iterator();
+        while(iterator.hasNext()) {
+            HEntry e = (HEntry) iterator.next();
+            put(e.getKey(), e.getValue());
+        }
     }
 
     /**
@@ -138,8 +146,15 @@ public class MapAdapter implements HMap {
     /**
      * @inheritDoc
      */
-    public HCollection values() {
-        return null;
+    public HCollection values() { //
+        HSet es = entrySet();
+        HIterator it = es.iterator();
+        HCollection vc = new CollectionAdapter();
+        while(it.hasNext()) {
+            HEntry e = (HEntry) it.next();
+            vc.add(e.getValue());
+        }
+        return vc;
     }
 
     /**
@@ -236,9 +251,8 @@ public class MapAdapter implements HMap {
 
             public void remove() {
 
-                if(lastRetKey == null) {
+                if(lastRetKey == null)
                     throw new IllegalStateException();
-                }
                 MapAdapter.this.remove(lastRetKey);
                 lastRetKey = null;
             }
