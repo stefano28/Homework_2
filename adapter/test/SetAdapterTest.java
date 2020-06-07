@@ -287,4 +287,33 @@ public class SetAdapterTest {
     /**
      * TestToArray
      */
+
+    @Test(expected = NullPointerException.class)
+    public void testToArrayWithNull() {
+        set.toArray(null);
+    }
+
+    @Test
+    public void testToArray() {
+        for(int i = 0; i < 5; i++) {
+            set.add(i);
+        }
+        Object[] setArray = set.toArray();
+        for(int i = 0; i < set.size(); i++) {
+            assertTrue(set.contains(setArray[i]));
+        }
+    }
+
+    @Test
+    public void testToArrayWithParameter() {
+        for(int i = 0; i < 5; i++) {
+            set.add(i);
+        }
+        Object[] param = new Object[3];
+        Object[] setArray = set.toArray(param);
+        assertEquals(setArray.length, param.length);
+        for(int i = 0; i < setArray.length; i++) {
+            assertTrue(set.contains(setArray[i]));
+        }
+    }
 }

@@ -169,9 +169,9 @@ public class SetAdapter implements HSet {
      */
     public Object[] toArray(){
         Object[] v = new Object[size()];
-        Enumeration keys = hashtable.elements();
-        for(int i = 0; keys.hasMoreElements(); i++) {
-            v[i] = keys.nextElement();
+        HIterator iter = iterator();
+        for(int i = 0; iter.hasNext(); i++) {
+            v[i] = iter.next();
         }
         return v;
     }
@@ -180,7 +180,13 @@ public class SetAdapter implements HSet {
      * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
      */
     public Object[] toArray(Object[] a) {
-        return toArray();
+        isNull(a);
+        Object[] v = new Object[a.length];
+        HIterator iter = iterator();
+        for(int i = 0; i < a.length && iter.hasNext(); i++) {
+            v[i] = iter.next();
+        }
+        return v;
     }
 
     private class SetIterator implements HIterator {
