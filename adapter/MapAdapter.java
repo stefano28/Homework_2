@@ -76,11 +76,13 @@ public class MapAdapter implements HMap {
     /**
      * @inheritDoc
      */
-    public int hashCode() {
-        Enumeration keys = hashtable.keys();
+    public int hashCode() { //
         int sum = 0;
-        while(keys.hasMoreElements()) {
-            sum = Integer.parseInt(keys.nextElement().toString());
+        HSet s = entrySet();
+        HIterator iterator = s.iterator();
+        while(iterator.hasNext()) {
+            HEntry e = (HEntry) iterator.next();
+            sum += e.hashCode();
         }
         return sum;
     }

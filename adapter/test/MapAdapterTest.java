@@ -41,7 +41,7 @@ public class MapAdapterTest {
      */
 
     @Test(expected = NullPointerException.class)
-    public void TestContainsKeyWithNull() {
+    public void testContainsKeyWithNull() {
         map.containsKey(null);
     }
 
@@ -61,7 +61,7 @@ public class MapAdapterTest {
      */
 
     @Test(expected = NullPointerException.class)
-    public void TestContainsValueWithNull() {
+    public void testContainsValueWithNull() {
         map.containsValue(null);
     }
 
@@ -82,12 +82,38 @@ public class MapAdapterTest {
      * TestEntrySet
      */
 
+    @Test
+    public void testEntrySet() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        HSet s = map.entrySet();
+        HIterator iter = s.iterator();
+        while(iter.hasNext()) {
+            HEntry e = (HEntry)iter.next();
+            Object key = e.getKey();
+            assertTrue(map.get(key).equals(e.getValue()));
+        }
+    }
+
+    @Test
+    public void testEntrySetFail() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        HSet s = map.entrySet();
+        HIterator iter = s.iterator();
+        while(iter.hasNext()) {
+            HEntry e = (HEntry)iter.next();
+            Object key = e.getKey();
+            assertFalse(map.get(key).equals(new Object()));
+        }
+    }
+
     /**
      * TestEquals
      */
 
     @Test(expected = NullPointerException.class)
-    public void TestEqualsWithNull() {
+    public void testEqualsWithNull() {
         map.containsValue(null);
     }
 
@@ -109,12 +135,12 @@ public class MapAdapterTest {
      */
 
     @Test(expected = NullPointerException.class)
-    public void TestGetWithNull() {
+    public void testGetWithNull() {
         map.get(null);
     }
 
     @Test
-    public void TestGetWithKeyContained() {
+    public void testGetWithKeyContained() {
         Object o = new Object();
         map.put(0, o);
         Object cmp = map.get(0);
@@ -122,7 +148,7 @@ public class MapAdapterTest {
     }
 
     @Test
-    public void TestGetWithKeyNotContained() {
+    public void testGetWithKeyNotContained() {
         Object cmp = map.get(0);
         assertTrue(cmp == null);   
     }
@@ -131,17 +157,38 @@ public class MapAdapterTest {
      * TestHashCode
      */
 
+    @Test
+    public void testHashCode() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        int sum = 0;
+        HSet s = map.entrySet();
+        HIterator iterator = s.iterator();
+        while(iterator.hasNext()) {
+            HEntry e = (HEntry) iterator.next();
+            sum += e.hashCode();
+        }
+        assertTrue(sum == map.hashCode());
+    }
+
+    @Test
+    public void testHashCodeFail() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        assertFalse(-1 == map.hashCode());
+    }
+
     /**
      * TestIsEmpty
      */
 
     @Test
-    public void TestIsEmpty() {
+    public void testIsEmpty() {
         assertTrue(map.isEmpty());
     }
 
     @Test
-    public void TestIsNotEmpty() {
+    public void testIsNotEmpty() {
         Object o = new Object();
         map.put(0, o);
         assertFalse(map.isEmpty());
@@ -151,9 +198,37 @@ public class MapAdapterTest {
      * TestKeySet
      */
 
+    @Test
+    public void testKeySet() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        HSet s = map.keySet();
+        HIterator iter = s.iterator();
+        while(iter.hasNext()) {
+            assertTrue(map.containsKey(iter.next()));
+        }
+    }
+
     /**
      * TestPut
      */
+
+    @Test(expected = NullPointerException.class)
+    public void testPutWithNull() {
+        map.put(null, null);
+    }
+
+    @Test
+    public void testPut() {
+        map.put(0, 1);
+        assertTrue(map.get(0).equals(1));
+    }
+
+    @Test
+    public void testPutFail() {
+        map.put(0, 1);
+        assertFalse(map.get(0).equals(0));
+    }
 
     /**
      * TestPutAll
@@ -165,7 +240,7 @@ public class MapAdapterTest {
     }
 
     @Test
-    public void testPutAllWithHMap() {
+    public void testPutAll() {
         HMap m = new MapAdapter();
         for(int i = 0; i < 5; i++)
             m.put(i, i);
@@ -174,17 +249,27 @@ public class MapAdapterTest {
             assertTrue(map.get(i).equals(i));
     }
 
+    @Test
+    public void testPutAllFail() {
+        HMap m = new MapAdapter();
+        for(int i = 0; i < 5; i++)
+            m.put(i, i);
+        map.putAll(m);
+        for(int i = 0; i < 5; i++)
+            assertFalse(map.get(i).equals(new Object()));
+    }
+
     /**
      * TestRemove
      */
 
     @Test(expected = NullPointerException.class)
-    public void TestRemoveWithNull() {
+    public void testRemoveWithNull() {
         map.remove(null);
     }
 
     @Test
-    public void TestRemoveWithObjContained() {
+    public void testRemoveWithObjContained() {
         Object o = new Object();
         map.put(0, o);
         map.remove(0);
@@ -192,7 +277,7 @@ public class MapAdapterTest {
     }
 
     @Test
-    public void TestRemoveWithObjNotContained() {
+    public void testRemoveWithObjNotContained() {
         assertTrue(map.remove(0) == null);
     }
 
@@ -201,12 +286,12 @@ public class MapAdapterTest {
      */
 
     @Test
-    public void TestSize() {
+    public void testSize() {
         assertTrue(map.size() == 0);
     }
 
     @Test
-    public void TestSizeIncremented() {
+    public void testSizeIncremented() {
         map.put(0, new Object());
         assertTrue(map.size() == 1);
     }
@@ -216,15 +301,26 @@ public class MapAdapterTest {
      */
 
     @Test
-    public void TestValuesTrue() {
+    public void testValues() {
         for(int i = 0; i < 5; i++)
             map.put(i, i);
         HCollection c = map.values();
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
-            HEntry e = (HEntry)iter.next();
-            System.out.println(e.getValue());
-            assertTrue(map.get(e.getKey()).equals(e.getValue()));
+            assertTrue(map.containsValue(iter.next()));
         }
     }
+
+    @Test
+    public void testValuesFail() {
+        for(int i = 0; i < 5; i++)
+            map.put(i, i);
+        HCollection c = map.values();
+        HIterator iter = c.iterator();
+        while(iter.hasNext()) {
+            iter.next();
+            assertFalse(map.containsValue(new Object()));
+        }
+    }
+
 }
