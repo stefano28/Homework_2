@@ -159,23 +159,19 @@ public class MapAdapterTest {
 
     @Test
     public void testHashCode() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
-        int sum = 0;
-        HSet s = map.entrySet();
-        HIterator iterator = s.iterator();
-        while(iterator.hasNext()) {
-            HEntry e = (HEntry) iterator.next();
-            sum += e.hashCode();
+        HMap m = new MapAdapter();
+        for(int i = 0; i < 5; i++) {
+			Object o = new Object();
+            m.put(i, o);
+            map.put(i, o);
         }
-        assertTrue(sum == map.hashCode());
+		assertEquals(map, m);
+		assertTrue(map.hashCode() == m.hashCode());
     }
 
     @Test
     public void testHashCodeFail() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
-        assertFalse(-1 == map.hashCode());
+        assertFalse(map.hashCode() == -1);
     }
 
     /**
@@ -188,7 +184,7 @@ public class MapAdapterTest {
     }
 
     @Test
-    public void testIsNotEmpty() {
+    public void testIsEmptyFalse() {
         Object o = new Object();
         map.put(0, o);
         assertFalse(map.isEmpty());
@@ -294,6 +290,11 @@ public class MapAdapterTest {
     public void testSizeIncremented() {
         map.put(0, new Object());
         assertTrue(map.size() == 1);
+    }
+
+    @Test
+    public void testSizeFail() {
+        assertFalse(map.size() == -1);
     }
 
     /**

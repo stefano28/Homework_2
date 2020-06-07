@@ -37,7 +37,6 @@ public class SetAdapterTest {
         assertEquals(true, set.contains(o));
     }
 
-
     @Test()
     public void testAddWithObjContained() {
         Object o = new Object();
@@ -124,6 +123,18 @@ public class SetAdapterTest {
     }
 
     @Test
+    public void testContainsAllWithHCollectionPartiallyContained() {
+        HCollection c = new CollectionAdapter();
+        for(int i = 0; i < 5; i++) {
+            c.add(i);
+            if(i > 2)
+                set.add(i);
+        }
+        set.addAll(c);
+        assertTrue(set.containsAll(c));
+    }
+
+    @Test
     public void testContainsAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
@@ -154,12 +165,39 @@ public class SetAdapterTest {
     }
 
     /**
+     * TestHashCode
+     */
+
+    @Test
+    public void testHashCode() {
+        HSet s = new SetAdapter();
+        for(int i = 0; i < 5; i++) {
+			Object o = new Object();
+            s.add(o);
+            set.add(o);
+        }
+		assertEquals(set, s);
+		assertTrue(set.hashCode() == s.hashCode());
+    }
+
+    @Test
+    public void testHashCodeFail() {
+        assertFalse(set.hashCode() == -1);
+    }
+
+    /**
      * TestIsEmpty
      */
 
     @Test
-    public void TestIsEmpty() {
+    public void testIsEmpty() {
         assertTrue(set.isEmpty());
+    }
+
+    @Test
+    public void testIseEmptyFalse() {
+        set.add(new Object());
+        assertFalse(set.isEmpty());
     }
 
     /**
@@ -167,7 +205,7 @@ public class SetAdapterTest {
      */
 
     @Test
-    public void TestIterator() {
+    public void testIterator() {
         for(int i = 0; i < 3; i++) {
             set.add(i);
         }
@@ -224,12 +262,25 @@ public class SetAdapterTest {
     }
 
     @Test
+    public void testRemoveAllWithHCollectionPartiallyContained() {
+        HCollection c = new CollectionAdapter();
+        for(int i = 0; i < 5; i++) {
+            set.add(i);
+            if(i > 2)
+                c.add(i);
+        }
+        set.addAll(c);
+        assertTrue(set.removeAll(c));
+    }
+
+    @Test
     public void testRemoveAllWithHCollectionNotContained() {
         HSet backup = set;
         HCollection c = new CollectionAdapter();
         for(int i = 0; i < 5; i++) {
             c.add(i);
         }
+        assertFalse(set.removeAll(c));
         assertTrue(set.equals(backup));
     }
 
@@ -242,21 +293,32 @@ public class SetAdapterTest {
         set.retainAll(null);
     }
 
-    /*
     @Test
     public void testRetainAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
-        HSet backup = new SetAdapter();
         for(int i = 0; i < 5; i++) {
+            set.add(i);
             c.add(i);
         }
-        for(int i = 0; i < 3; i++) {
-            backup.add(i);
+        HSet backup = set;
+        set.retainAll(c);
+        assertTrue(set.equals(backup));
+    }
+
+    @Test
+    public void testRetainAllWithHCollectionPartiallyContained() {
+        HCollection c = new CollectionAdapter();
+        HSet backup = new SetAdapter();
+        for(int i = 0; i < 5; i++) {
+            set.add(i);
+            if(i > 2) {
+                c.add(i);
+                backup.add(i);
+            }
         }
         set.retainAll(c);
         assertTrue(set.equals(backup));
     }
-    */
 
     @Test
     public void testRetainAllWithHCollectionNotContained() {
@@ -279,9 +341,14 @@ public class SetAdapterTest {
     }
 
     @Test
-    public void TestSizeIncremented() {
+    public void testSizeIncremented() {
         set.add(new Object());
         assertTrue(set.size() == 1);
+    }
+
+    @Test
+    public void testSizeFail() {
+        assertFalse(set.size() == -1);
     }
 
     /**
@@ -316,4 +383,5 @@ public class SetAdapterTest {
             assertTrue(set.contains(setArray[i]));
         }
     }
+
 }

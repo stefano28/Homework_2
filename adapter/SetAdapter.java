@@ -34,12 +34,14 @@ public class SetAdapter implements HSet {
      */
     public boolean addAll(HCollection c) {
         isNull(c);
+        boolean result = false;
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
             add(value);
+            result = true;
         }
-        return true;
+        return result;
     }
 
     /**
@@ -135,12 +137,14 @@ public class SetAdapter implements HSet {
      */
     public boolean removeAll(HCollection c){
         isNull(c);
+        boolean result = false;
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
-            remove(value);
+            if(remove(value))
+                result = true;
         }
-        return true;
+        return result;
     }
 
     /**
@@ -148,13 +152,16 @@ public class SetAdapter implements HSet {
      */
     public boolean retainAll(HCollection c){
         isNull(c);
-        HIterator iter = c.iterator();
+        boolean result = false;
+        HIterator iter = iterator();
         while(iter.hasNext()) {
             Object value = iter.next();
-            if(!contains(value))
+            if(!c.contains(value)) {
                 remove(value);
+                result = true;
+            }
         }
-        return true;
+        return result;
     }
 
     /**
