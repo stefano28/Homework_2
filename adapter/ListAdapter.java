@@ -21,15 +21,15 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public void add(int index, Object element) throws ArrayIndexOutOfBoundsException {
+    public void add(int index, Object element) {
         isNull(element);
         vector.insertElementAt(element, index);
     }
 
     /**
-     * Appends the specified element to the end of this list (optional operation).
+     * {@inheritDoc}
      */
     public boolean add(Object o) {
         isNull(o);
@@ -38,7 +38,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Appends all of the elements in the specified collection to the end of this list, in the order that they are returned by the specified collection's iterator (optional operation).
+     * {@inheritDoc}
      */
     public boolean addAll(HCollection c) { //
         isNull(c);
@@ -53,7 +53,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean addAll(int index, HCollection c) { //
         isNull(c);
@@ -71,14 +71,14 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Removes all of the elements from this list (optional operation).
+     * {@inheritDoc}
      */
     public void clear() {
         vector.removeAllElements();
     }
 
     /**
-     * Returns true if this list contains the specified element.
+     * {@inheritDoc}
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -86,7 +86,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns true if this list contains the specified element.
+     * {@inheritDoc}
      */
     public boolean containsAll(HCollection c) { //
         isNull(c);
@@ -99,7 +99,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Compares the specified object with this list for equality.
+     * {@inheritDoc}
      */
     public boolean equals(Object o) { //
         if(o == this)
@@ -118,14 +118,14 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object get(int index) throws ArrayIndexOutOfBoundsException {
         return vector.get(index);
     }
 
     /**
-     * Returns the hash code value for this list.
+     * {@inheritDoc}
      */
     public int hashCode() { //
         int hashCode = 1;
@@ -138,7 +138,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int indexOf(Object o) {
         isNull(o);
@@ -146,22 +146,21 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns true if this list contains no elements.
+     * {@inheritDoc}
      */
     public boolean isEmpty() {
         return vector.isEmpty();
     }
 
     /**
-     * Returns an iterator over the elements in this list in proper sequence.
+     * {@inheritDoc}
      */
     public HIterator iterator() {
         return new Iterator();
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int lastIndexOf(Object o) {
         isNull(o);
@@ -169,21 +168,21 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HListIterator listIterator() {
         return new ListIterator(0);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HListIterator listIterator(int index) {
         return new ListIterator(index);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object remove(int index) {
         Object o = get(index);
@@ -192,7 +191,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Removes the first occurrence in this list of the specified element (optional operation).
+     * {@inheritDoc}
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -200,7 +199,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Removes from this list all the elements that are contained in the specified collection (optional operation).
+     * {@inheritDoc}
      */
     public boolean removeAll(HCollection c) { //
         isNull(c);
@@ -215,7 +214,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Retains only the elements in this list that are contained in the specified collection (optional operation).
+     * {@inheritDoc}
      */
     public boolean retainAll(HCollection c) {
         isNull(c);
@@ -232,7 +231,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object set(int index, Object element) {
         isNull(element);
@@ -242,21 +241,21 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns the number of elements in this list.
+     * {@inheritDoc}
      */
     public int size() {
         return vector.size();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HList subList(int fromIndex, int toIndex) {
         return new SubList(fromIndex, toIndex);
     }
 
     /**
-     * Returns an array containing all of the elements in this list in proper sequence.
+     * {@inheritDoc}
      */
     public Object[] toArray() {
         Object[] v = new Object[size()];
@@ -270,7 +269,7 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns an array containing all of the elements in this list in proper sequence; the runtime type of the returned array is that of the specified array.
+     * {@inheritDoc}
      */
     public Object[] toArray(Object[] a) {
         return toArray();

@@ -21,14 +21,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void clear() {
         hashtable.clear();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean containsKey(Object key) {
         isNull(key);
@@ -36,7 +36,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean containsValue(Object value) {
         isNull(value);
@@ -44,14 +44,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HSet entrySet() {
         return new EntrySet();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean equals(Object o) {
         isNull(o);
@@ -66,7 +66,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object get(Object key) {
         isNull(key);
@@ -74,7 +74,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int hashCode() { //
         int sum = 0;
@@ -88,14 +88,14 @@ public class MapAdapter implements HMap {
     }
     
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean isEmpty() {
         return hashtable.isEmpty();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HSet keySet() {
         HSet set = new SetAdapter();
@@ -107,7 +107,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object put(Object key, Object value) {
         isNull(key);
@@ -116,7 +116,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void putAll(HMap t) { //
         isNull(t);
@@ -129,7 +129,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Object remove(Object key) {
         isNull(key);
@@ -139,14 +139,14 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int size() {
         return hashtable.size();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public HCollection values() { //
         HSet es = entrySet();
@@ -160,7 +160,7 @@ public class MapAdapter implements HMap {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     class HEntry implements HMap.HEntry {
 
@@ -173,21 +173,20 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public Object getKey() {
             return key;
         }
-
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public Object getValue() {
             return value;
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public Object setValue(Object value) {
             this.value = value;
@@ -195,7 +194,7 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public boolean equals(Object o) {
             HEntry entry = (HEntry)o;
@@ -205,7 +204,7 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public int hashCode() {
             return getKey().hashCode();
@@ -215,28 +214,28 @@ public class MapAdapter implements HMap {
     private class EntrySet extends SetAdapter implements HSet {
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public void clear() {
             MapAdapter.this.clear();
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public boolean contains(Object o) {
             if(o == null)
@@ -246,7 +245,7 @@ public class MapAdapter implements HMap {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public HIterator iterator() {
             return new EntryIterator();
@@ -258,14 +257,14 @@ public class MapAdapter implements HMap {
             Object lastRetKey = null;
 
             /**
-             * @inheritDoc
+             * {@inheritDoc}
              */
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
             /**
-             * @inheritDoc
+             * {@inheritDoc}
              */
             public Object next() {
                 lastRetKey = keys.nextElement();
@@ -273,7 +272,7 @@ public class MapAdapter implements HMap {
             }
 
             /**
-             * @inheritDoc
+             * {@inheritDoc}
              */
             public void remove() {
 

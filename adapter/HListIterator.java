@@ -8,7 +8,10 @@ public interface HListIterator extends HIterator{
 
     /**
      * Inserts the specified element into the list (optional operation).
-     * @param o the element to insert. 
+     * @param o the element to insert.
+     * @throws UnsupportedOperationException if the add method is not supported by this list iterator.
+     * @throws ClassCastException if the class of the specified element prevents it from being added to this list. 
+     * @throws IllegalArgumentException if some aspect of this element prevents it from being added to this list.
      */
     public void add(Object o);
 
@@ -39,6 +42,10 @@ public interface HListIterator extends HIterator{
     /**
      * Replaces the last element returned by next or previous with the specified element (optional operation).
      * @param o  the element with which to replace the last element returned by next or previous. 
+     * @throws UnsupportedOperationException if the set operation is not supported by this list iterator. 
+     * @throws ClassCastException if the class of the specified element prevents it from being added to this list. 
+     * @throws IllegalArgumentException if some aspect of the specified element prevents it from being added to this list. 
+     * @throws IllegalStateException if neither next nor previous have been called, or remove or add have been called after the last call to next or previous.
      */
     public void set(Object o);
 

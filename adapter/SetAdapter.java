@@ -21,10 +21,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Adds the specified element to this set if it is not already present (optional operation).
-     * @param o element to be added to this set.
-     * @return true if this set did not already contain the specified element.
-     * @throws NullPointerException if the specified element is null and this set does not support null elements. 
+     * {@inheritDoc}
      */
     public boolean add(Object o) {
         isNull(o);
@@ -35,10 +32,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Adds all of the elements in the specified collection to this set if they're not already present (optional operation).
-     * @param c  collection whose elements are to be added to this set.
-     * @return true if this set changed as a result of the call.
-     * @throws NullPointerException if the specified collection contains one or more null elements and this set does not support null elements, or if the specified collection is null. 
+     * {@inheritDoc}
      */
     public boolean addAll(HCollection c) {
         isNull(c);
@@ -53,17 +47,14 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Removes all of the elements from this set (optional operation).
+     * {@inheritDoc}
      */
     public void clear() {
         hashtable.clear();
     }
 
     /**
-     * Returns true if this set contains the specified element.
-     * @param o element whose presence in this set is to be tested.
-     * @return true if this set contains the specified element.
-     * @throws NullPointerException if the specified element is null and this set does not support null elements (optional).
+     * {@inheritDoc}
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -71,10 +62,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Returns true if this set contains all of the elements of the specified collection.
-     * @param c collection to be checked for containment in this set.
-     * @return true if this set contains all of the elements of the specified collection.
-     * @throws NullPointerException if the specified collection is null.
+     * {@inheritDoc}
      */
     public boolean containsAll(HCollection c){
         isNull(c);
@@ -88,9 +76,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Compares the specified object with this set for equality.
-     * @param o Object to be compared for equality with this set.
-     * @returns true if the specified Object is equal to this set.
+     * {@inheritDoc}
      */
     public boolean equals(Object o){ //
         if (o == this)
@@ -112,8 +98,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Returns the hash code value for this set.
-     * @return the hash code value for this set.
+     * {@inheritDoc}
      */
     public int hashCode(){
         int hashCode = 0;
@@ -125,26 +110,21 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Returns true if this set contains no elements.
-     * @return true if this set contains no elements.
+     * {@inheritDoc}
      */
     public boolean isEmpty(){
         return hashtable.isEmpty();
     }
 
     /**
-     * Returns an iterator over the elements in this set.
-     * @return an iterator over the elements in this set.
+     * {@inheritDoc}
      */
     public HIterator iterator(){
         return new SetIterator();
     }
 
     /**
-     * Removes the specified element from this set if it is present (optional operation).
-     * @param o object to be removed from this set, if present.
-     * @return true if the set contained the specified element.
-     * @throws NullPointerException if the specified element is null and this set does not support null elements (optional).
+     * {@inheritDoc}
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -155,10 +135,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Removes from this set all of its elements that are contained in the specified collection (optional operation).
-     * @param c collection that defines which elements will be removed from this set.
-     * @return true if this set changed as a result of the call.
-     * @throws NullPointerException if the specified collection is null.
+     * {@inheritDoc}
      */
     public boolean removeAll(HCollection c){
         isNull(c);
@@ -173,10 +150,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Retains only the elements in this set that are contained in the specified collection (optional operation).
-     * @param c collection that defines which elements this set will retain.
-     * @return true if this collection changed as a result of the call.
-     * @throws NullPointerException if the specified collection is null.
+     * {@inheritDoc}
      */
     public boolean retainAll(HCollection c){
         isNull(c);
@@ -193,17 +167,14 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Returns the number of elements in this set (its cardinality).
-     * @return true if this set contains the specified element.
+     * {@inheritDoc}
      */
     public int size(){
         return hashtable.size();
     }
 
     /**
-     * Returns an array containing all of the elements in this set.
-     * @return an array containing all of the elements in this set.
-     * @throws NullPointerException if the specified array is null.
+     * {@inheritDoc}
      */
     public Object[] toArray(){
         Object[] v = new Object[size()];
@@ -215,10 +186,7 @@ public class SetAdapter implements HSet {
     }
 
     /**
-     * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
-     * @param a the array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose. 
-     * @return an array containing the elements of this set.
-     * @throws NullPointerException if the specified array is null.
+     * {@inheritDoc}
      */
     public Object[] toArray(Object[] a) {
         isNull(a);
@@ -245,14 +213,14 @@ public class SetAdapter implements HSet {
         Object last = null;
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public boolean hasNext() {
             return keys.hasMoreElements();
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public Object next() {
             last = keys.nextElement();
@@ -260,7 +228,7 @@ public class SetAdapter implements HSet {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         public void remove() {
             if(last == null)
