@@ -1,0 +1,2 @@
+javadoc adapter -d jd_adapter
+javadoc adapter.test -d jd_test -tag safe.precondition:a:"Pre-Condition:" -tag safe.postcondition:a:"Post-Condition:" -tag safe.testcases:a:"Test cases:" -tag safe.summary:a:"Summary:" -tag safe.testsuiteexecutionrecords:a:"Test Suite Execution Records:" -tag safe.testsuitedesign:a:"Test Suite Design:" -tag safe.executionvariables:a:"Execution Variables:"
