@@ -372,15 +372,29 @@ public class SetAdapterTest {
     }
 
     @Test
-    public void testToArrayWithParameter() {
+    public void testToArrayWithParameterSizeSmaller() {
+        for(int i = 0; i < 10; i++) {
+            set.add(i);
+        }
+        Object[] array = new Object[5];
+        Object[] setArray = set.toArray(array);
+        for(int i = 0; i < setArray.length; i++) {
+            assertTrue(set.contains(setArray[i]));
+        }
+    }
+
+    @Test
+    public void testToArrayWithParameterSizeLonger() {
         for(int i = 0; i < 5; i++) {
             set.add(i);
         }
-        Object[] param = new Object[3];
-        Object[] setArray = set.toArray(param);
-        assertEquals(setArray.length, param.length);
+        Object[] array = new Object[10];
+        Object[] setArray = set.toArray(array);
         for(int i = 0; i < setArray.length; i++) {
-            assertTrue(set.contains(setArray[i]));
+            if(i < set.size())
+                assertTrue(set.contains(setArray[i]));
+            else
+                assertEquals(setArray[i], null);
         }
     }
 
