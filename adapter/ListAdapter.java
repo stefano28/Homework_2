@@ -11,7 +11,9 @@ public class ListAdapter implements HList {
     private Vector vector = new Vector();
 
     /**
-     * Check if the object is null
+     * Check if the Object is null.
+     * @param o object to be analyzed.
+     * @throws NullPointerException if the specified object is null
      */
     protected void isNull(Object o) {
         if(o == null)

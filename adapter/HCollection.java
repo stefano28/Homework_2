@@ -7,9 +7,10 @@ public interface HCollection {
 
     /**
      * Ensures that this collection contains the specified element (optional operation).
-     * @param o  element whose presence in this collection is to be ensured. 
+     * @param o element whose presence in this collection is to be ensured. 
      * @return true if this collection changed as a result of the call
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified element is null and this collection does not support null elements. 
+     * @throws UnsupportedOperationException some aspect of this element prevents it from being added to this collection.some aspect of this element prevents it from being added to this collection.
      */
     public boolean add(Object o);
 
@@ -17,7 +18,8 @@ public interface HCollection {
      * Adds all of the elements in the specified collection to this collection (optional operation).
      * @param c  elements to be inserted into this collection. 
      * @return elements to be inserted into this collection.
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified collection contains one or more null elements and this collection does not support null elements, or if the specified collection is null.
+     * @throws UnsupportedOperationException if this collection does not support the addAll method.
      */
     public boolean addAll(HCollection c);
 
@@ -38,7 +40,7 @@ public interface HCollection {
      * Returns true if this collection contains all of the elements in the specified collection.
      * @param c  collection to be checked for containment in this collection. 
      * @return true if this collection contains all of the elements in the specified collection
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified element is null and this collection does not support null elements (optional).
      */
     public boolean containsAll(HCollection c);
 
@@ -72,7 +74,7 @@ public interface HCollection {
      * Removes a single instance of the specified element from this collection, if it is present (optional operation).
      * @param o  element to be removed from this collection, if present. 
      * @return true if this collection changed as a result of the call
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified element is null and this collection does not support null elements (optional). 
      */
     public boolean remove(Object o);
 
@@ -80,7 +82,7 @@ public interface HCollection {
      * Removes all this collection's elements that are also contained in the specified collection (optional operation).
      * @param c  elements to be removed from this collection. 
      * @return true if this collection changed as a result of the call
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified collection is null.
      */
     public boolean removeAll(HCollection c);
 
@@ -88,7 +90,7 @@ public interface HCollection {
      * Retains only the elements in this collection that are contained in the specified collection (optional operation).
      * @param c  elements to be retained in this collection. 
      * @return true if this collection changed as a result of the call 
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified collection is null.
      */
     public boolean retainAll(HCollection c);
 
@@ -108,7 +110,7 @@ public interface HCollection {
      * Returns an array containing all of the elements in this collection; the runtime type of the returned array is that of the specified array.
      * @param a the array into which the elements of this collection are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose. 
      * @return an array containing the elements of this collection
-     * @throws NullPointerException
+     * @throws NullPointerException if the specified array is null.
      */
     public Object[] toArray(Object[] a);
     

@@ -8,19 +8,19 @@ public interface HListIterator extends HIterator{
 
     /**
      * Inserts the specified element into the list (optional operation).
-     * @param o  the element to insert. 
+     * @param o the element to insert. 
      */
     public void add(Object o);
 
     /**
      * Returns true if this list iterator has more elements when traversing the list in the reverse direction.
-     * @return
+     * @return true if the list iterator has more elements when traversing the list in the reverse direction.
      */
     public boolean hasPrevious();
 
     /**
      * Returns the index of the element that would be returned by a subsequent call to next.
-     * @return true if the list iterator has more elements when traversing the list in the reverse direction.
+     * @return the index of the element that would be returned by a subsequent call to next, or list size if list iterator is at end of list.
      */
     public int nextIndex();
 
@@ -31,8 +31,8 @@ public interface HListIterator extends HIterator{
     public Object previous();
 
     /**
-     * Returns the index of the element that would be returned by a subsequent call to previous.
-     * @return the index of the element that would be returned by a subsequent call to previous, or -1 if list iterator is at beginning of list.
+     * Returns the previous element in the list.
+     * @return the previous element in the list.
      */
     public int previousIndex();
 
