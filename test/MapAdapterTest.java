@@ -203,7 +203,7 @@ public class MapAdapterTest {
      * Test del metodo hashcode
      * @safe.precondition Mappa inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che due hashcode di mappe uguali sono uguali
+     * @safe.testcases Il metodo verifica che due hash code di mappe uguali sono uguali
      */
     @Test
     public void testHashCode() {
@@ -232,7 +232,7 @@ public class MapAdapterTest {
      * Test del metodo isEmpty - caso falso
      * @safe.precondition Mappa inizializzata non vuota
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che quando una non è vuota, il suo metodo isEmpty risulta false
+     * @safe.testcases Il metodo verifica che quando una Set non è vuoto, il suo metodo isEmpty risulta false
      */
     @Test
     public void testIsEmptyFalse() {

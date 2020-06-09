@@ -21,10 +21,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo add con null
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo testa se il metodo add lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testAddWithNull() {
@@ -32,10 +32,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo add con oggetto non contenuto
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo controlla che l'inserimento di un oggetto risulta true e che questo effettivamente inserisce l'oggetto all'interno del set
      */
     @Test()
     public void testAddWithObjNotContained() {
@@ -45,24 +45,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test()
-    public void testAddWithObjContained() {
-        Object o = new Object();
-        assertTrue(set.add(o));
-        assertFalse(set.add(o));
-        assertEquals(true, set.contains(o));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo addAll con null come parametro 
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo testa se il metodo addAll lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testAddAllWithNull() {
@@ -70,10 +56,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo addAll con una HCollection come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Set contenente i valori della HCollection
+     * @safe.testcases Il metodo verifica che chiamando il metodo addAll con parametro una HCollection contenente una serie di valori, questi risultano inseriti nel Set
      */
     @Test
     public void testAddAllWithHCollection() {
@@ -88,10 +74,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo clear
+     * @safe.precondition Set inizializzato non vuoto
+     * @safe.postcondition Set vuoto
+     * @safe.testcases Il metodo verifica che dopo la chiamata del metodo clear il set risulta vuoto
      */
     @Test
     public void testClear() {
@@ -103,10 +89,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo contains con null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Lancia l'eccezione NullPointerException
+     * @safe.testcases Il metodo testa se il metodo contains lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testContainsWithNull() {
@@ -114,10 +100,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo contains con un oggetto contenuto
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se contains di un oggetto inserito nella mappa risulta true
      */
     @Test
     public void testContainsWithObjContained() {
@@ -127,24 +113,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo contains con un oggetto non contenuto
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se contains di un oggetto non inserito nella mappa risulta false
      */
     @Test
     public void testContainsWithObjNotContained() {
         Object o = new Object();
-        set.add(o);
-        Object o2 = new Object();
-        assertFalse(set.contains(o2));
+        assertFalse(set.contains(o));
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo containsAll con null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nesuna
+     * @safe.testcases Il metodo testa se il metodo containsAll lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testContainsAllWithNull() {
@@ -152,10 +136,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo containsAll con una HCollection di oggetti contenuti
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se containsAll di una HCollection di oggetti inseriti nella mappa risulta true
      */
     @Test
     public void testContainsAllWithHCollectionContained() {
@@ -168,28 +152,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testContainsAllWithHCollectionPartiallyContained() {
-        HCollection c = new CollectionAdapter();
-        for(int i = 0; i < 5; i++) {
-            c.add(i);
-            if(i > 2)
-                set.add(i);
-        }
-        set.addAll(c);
-        assertTrue(set.containsAll(c));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo containsAll con una HCollection di oggetti non contenuti
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se containsAll di una HCollection di oggetti non inseriti nella mappa risulta false
      */
     @Test
     public void testContainsAllWithHCollectionNotContained() {
@@ -201,10 +167,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo equals con un Set uguale
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se inserendo gli stessi valori in due Set differenti questi risultano uguali tramita la chiamata di equals
      */
     @Test
     public void testEqualsWithEqualObject() {
@@ -217,10 +183,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo equals con un Set diverso
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se due Set differenti risultano diversi tramita la chiamata di equals
      */
     @Test
     public void testEqualsWithNotEqualObject() {
@@ -230,10 +196,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo HashCode
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se due Set uguali hanno lo stesso hash code
      */
     @Test
     public void testHashCode() {
@@ -247,22 +213,12 @@ public class SetAdapterTest {
 		assertTrue(set.hashCode() == s.hashCode());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testHashCodeFail() {
-        assertFalse(set.hashCode() == -1);
-    }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo isEmpty - caso vero
+     * @safe.precondition Set inizializzata vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando un Set è vuoto, il suo metodo isEmpty risulta true
      */
     @Test
     public void testIsEmpty() {
@@ -270,10 +226,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo isEmpty - caso falso
+     * @safe.precondition Set inizializzata non vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando un Set non è vuoto, il suo metodo isEmpty risulta false
      */
     @Test
     public void testIseEmptyFalse() {
@@ -282,10 +238,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo iterator
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa il corretto funzionamento dell'teratore all'interno di Set
      */
     @Test
     public void testIterator() {
@@ -301,10 +257,10 @@ public class SetAdapterTest {
     }
     
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo remove con null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se remove lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testRemoveWithNull() {
@@ -312,10 +268,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo remove con un oggetto contenuto come parametro
+     * @safe.precondition Set inizializzato con un oggetto all'interno
+     * @safe.postcondition Set con oggetto rimosso
+     * @safe.testcases Il metodo verifica che l'oggetto precedentemente inserito nel Set viene eliminato chiamando il remove
      */
     @Test
     public void testRemoveWithObjContained() {
@@ -326,24 +282,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testRemoveWithObjNotContained() {
-        Object o = new Object();
-        set.add(o);
-        set.remove(new Object());
-        assertEquals(true, set.contains(o));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo removeAll con un null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Lancio di NullPointerException
+     * @safe.testcases Il metodo testa se removeAll lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testRemoveAllWithNull() {
@@ -351,10 +293,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo removeAll con una HCollection contenuta come parametro
+     * @safe.precondition Set inizializzato contenente i valori di una HCollection
+     * @safe.postcondition Set con i valori della HCollection rimossi
+     * @safe.testcases Il metodo verifica che inserendo dei valori di una HCollection nel Set, quando viene chiamato il removeAll con lo stesso Set questi vengono rimossi
      */
     @Test
     public void testRemoveAllWithHCollectionContained() {
@@ -367,28 +309,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testRemoveAllWithHCollectionPartiallyContained() {
-        HCollection c = new CollectionAdapter();
-        for(int i = 0; i < 5; i++) {
-            set.add(i);
-            if(i > 2)
-                c.add(i);
-        }
-        set.addAll(c);
-        assertTrue(set.removeAll(c));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo removeAll con una HCollection non contenuta come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Verifica il comportamento di removeAll passando come parametro una HCollection di valori non contenuti nel Set
      */
     @Test
     public void testRemoveAllWithHCollectionNotContained() {
@@ -402,10 +326,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo retainAll con null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Lancia l'eccezione NullPointerException
+     * @safe.testcases Il metodo testa se retainAll lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testRetainAllWithNull() {
@@ -413,10 +337,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo retainAll con una HCollection contenuta come parametro
+     * @safe.precondition Set inizializzato con una serie di valori
+     * @safe.postcondition Set contiene solo i valori contenuti nella HCollection
+     * @safe.testcases Il metodo testa se retainAll di Set mantiene solo i valori contenuti nella Hcollection
      */
     @Test
     public void testRetainAllWithHCollectionContained() {
@@ -431,31 +355,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testRetainAllWithHCollectionPartiallyContained() {
-        HCollection c = new CollectionAdapter();
-        HSet backup = new SetAdapter();
-        for(int i = 0; i < 5; i++) {
-            set.add(i);
-            if(i > 2) {
-                c.add(i);
-                backup.add(i);
-            }
-        }
-        set.retainAll(c);
-        assertTrue(set.equals(backup));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo retainAll con una HCollection non contenuta come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se viene chiamato retainAll su una HCollection i cui valori non sono contenuti nel Set, questo risulta invariato
      */
     @Test
     public void testRetainAllWithHCollectionNotContained() {
@@ -469,10 +372,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo size su un Set vuoto
+     * @safe.precondition Set inizializzato vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che un Set vuoto ha size zero
      */
     @Test
     public void testSize() {
@@ -480,33 +383,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo size su un Set non vuoto
+     * @safe.precondition Set inizializzato non vuoto
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che un Set con un elemento ha size uno
      */
     @Test
-    public void testSizeIncremented() {
+    public void testSizeSetNotEmpty() {
         set.add(new Object());
         assertTrue(set.size() == 1);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testSizeFail() {
-        assertFalse(set.size() == -1);
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo toArray con null come parametro
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa se toArray lancia NullPointerException quando viene passato un null
      */
     @Test(expected = NullPointerException.class)
     public void testToArrayWithNull() {
@@ -514,10 +406,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo toArray
+     * @safe.precondition Set inizializzato con una serie di valori
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che inserendo una serie di elementi nel Set, il toArray crea un array che li contiene tutti
      */
     @Test
     public void testToArray() {
@@ -531,10 +423,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo toArray con parametro di dimensione minore del Set
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando il toArray viene restituito un array composto da valori appartenenti al Set, questi saranno solo alcuni dei valori poichè la dimensione del parametro è minore di quella del Set
      */
     @Test
     public void testToArrayWithParameterSizeSmaller() {
@@ -549,10 +441,10 @@ public class SetAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo toArray con parametro di dimensione maggiore del Set
+     * @safe.precondition Set inizializzato
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando il toArray viene restituito un array composto da valori appartenenti al Set e da null, poichè di dimensione maggiore a quella di Set
      */
     @Test
     public void testToArrayWithParameterSizeLonger() {
