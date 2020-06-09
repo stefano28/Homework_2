@@ -9,7 +9,7 @@ import org.junit.runner.notification.Failure;
  */
 public class TestRunner {
     public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(SetAdapterTest.class, MapAdapterTest.class);
+        Result result = JUnitCore.runClasses(SetAdapterTest.class, ListAdapterTest.class, ListAdapterSublistTest.class, MapAdapterTest.class, MapAdapterValuesTest.class, MapAdapterKeySetTest.class, MapAdapterEntrySetTest.class);
             for (Failure failure : result.getFailures()) {
                 System.out.println(failure.toString());
             }

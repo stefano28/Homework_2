@@ -1,5 +1,7 @@
 package adapter;
 
+import java.util.NoSuchElementException;
+
 /**
  * An iterator over a collection.
  */
