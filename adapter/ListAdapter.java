@@ -5,141 +5,143 @@ import java.util.Vector;
 
 public class ListAdapter implements HList {
 
-    private Vector v = new Vector();
+    private Vector vector = new Vector();
 
     /**
-     *
+     * Check if the Object is null.
+     * @param o object to be analyzed.
+     * @throws NullPointerException if the specified object is null
      */
-    @Override
-    public void add(int index, Object element) {
-        if(element == null) {
+    protected void isNull(Object o) {
+        if(o == null)
             throw new NullPointerException();
-        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
+    public void add(int index, Object element) {
+        isNull(element);
         try {
-            v.insertElementAt(element, index);
+            vector.insertElementAt(element, index);
         }
         catch(ArrayIndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException();
         }
     }
 
-     /**
-     *
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public boolean add(Object o) {
-        if(o == null) {
-            throw new NullPointerException();
-        }
-        v.addElement(o);
+        isNull(o);
+        vector.addElement(o);
         return true;
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public boolean addAll(HCollection c) {
-        if(c == null) {
-            throw new NullPointerException();
-        }
-        boolean flag = false;
+        isNull(c);
+        boolean result = false;
         HIterator it = c.iterator();
         while(it.hasNext()) {
             Object o = it.next();
-            add(o); // Contiene controllo null
-            flag = true;
+            add(o);
+            result = true;
         }
-        return flag;
+        return result;
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public boolean addAll(int index, HCollection c) {
-        if(c == null) {
-            throw new NullPointerException();
-        }
-        if(index < 0 || index > size()) {
+        isNull(c);
+        if(index < 0 || index > size())
             throw new IndexOutOfBoundsException();
-        }
-        boolean flag = false;
-        HIterator it = c.iterator();
-        while(it.hasNext()) {
-            Object o = it.next();
-            add(index, o); // Contiene controllo null
-            flag = true;
+        boolean result = false;
+        HIterator iter = c.iterator();
+        while(iter.hasNext()) {
+            Object o = iter.next();
+            add(index, o);
+            result = true;
             index++;
         }
-        return flag;
+        return result;
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public void clear() {
-        v.removeAllElements();
+        vector.removeAllElements();
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public boolean contains(Object o) {
-        if(o == null) {
-            throw new NullPointerException();
-        }
-        return v.contains(o);
+        isNull(o);
+        return vector.contains(o);
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public boolean containsAll(HCollection c) {
-        if(c == null) {
-            throw new NullPointerException();
-        }
-        HIterator it = c.iterator();
-        while(it.hasNext()) {
-            if(!contains(it.next()))
+        isNull(c);
+        HIterator iter = c.iterator();
+        while(iter.hasNext()) {
+            if(!contains(iter.next()))
                 return false;
         }
         return true;
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public boolean equals(Object o) {
-        if(o == this) {
-            return true;
-        }
-        if (!(o instanceof HList)) {
+        try {
+            isNull(o);
+        }catch(NullPointerException e) {
             return false;
         }
-
-        HListIterator it1 = listIterator();
-        HListIterator it2 = ((HList) o).listIterator();
-        while (it1.hasNext() && it2.hasNext()) {
-            Object o1 = it1.next();
-            Object o2 = it2.next();
-            if (!(o1==null ? o2==null : o1.equals(o2)))
-                return false;
+        if(o == this)
+            return true;
+        HList casted = null;
+        try {
+            casted = (HList)o;
+        } catch(ClassCastException e) {
+            return false;
         }
-        return !(it1.hasNext() || it2.hasNext());
+        if(casted.size() != size())
+            return false;
+        HListIterator iter = listIterator();
+        HListIterator oiter = casted.listIterator();
+        while (iter.hasNext() && oiter.hasNext()) {
+            if(!iter.next().equals(oiter.next())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public Object get(int index) {
         try {
-            return v.elementAt(index);
+            return vector.elementAt(index);
         }
         catch(ArrayIndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException();
@@ -147,10 +149,9 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * 
-    */
-    @Override
-    public int hashCode() {
+     * {@inheritDoc}
+     */
+    public int hashCode() { //
         int hashCode = 1;
         HIterator it = iterator();
         while (it.hasNext()) {
@@ -161,87 +162,171 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public int indexOf(Object o) {
-        if(o == null) {
-            throw new NullPointerException();
-        }
-        return v.indexOf(o);
+        isNull(o);
+        return vector.indexOf(o);
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public boolean isEmpty() {
-        return v.isEmpty();
+        return vector.isEmpty();
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public HIterator iterator() {
         return new Iterator();
     }
 
-    private class Iterator implements HIterator {
-
-        protected int cursor = 0;
-        protected int lastRet = -1;
-
-        public boolean hasNext() {
-            return cursor != size();
-        }
-
-        public Object next() {
-            if(!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            Object o = get(cursor);
-            lastRet = cursor;
-            cursor++;
-            return o;
-        }
-
-        public void remove() {
-            if (lastRet < 0) {
-                throw new IllegalStateException();
-            }
-            ListAdapter.this.remove(lastRet);
-            if (lastRet < cursor)
-                cursor--;
-            lastRet = -1;
-        }
-    }
-
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
     public int lastIndexOf(Object o) {
-        if(o == null) {
-            throw new NullPointerException();
-        }
-        return v.lastIndexOf(o);
+        isNull(o);
+        return vector.lastIndexOf(o);
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public HListIterator listIterator() {
         return new ListIterator(0);
     }
 
     /**
-     * 
-    */
-    @Override
+     * {@inheritDoc}
+     */
     public HListIterator listIterator(int index) {
         return new ListIterator(index);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object remove(int index) {
+        Object o = get(index);
+        vector.removeElementAt(index);
+        return o;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
+    public boolean remove(Object o) {
+        isNull(o);
+        return vector.removeElement(o);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
+    public boolean removeAll(HCollection c) {
+        if(c == null) {
+            throw new NullPointerException();
+        }
+        boolean flag = false;
+        HIterator cit = c.iterator();
+        while(cit.hasNext()) {
+            if(remove(cit.next())) { // Contiene controllo null
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
+    public boolean retainAll(HCollection c) {
+        isNull(c);
+        boolean flag = false;
+        HIterator it = iterator();
+        while(it.hasNext()) {
+            Object o = it.next();
+            if(!c.contains(o)) {
+                it.remove();
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     */
+    public Object set(int index, Object element) {
+        isNull(element);
+        Object o = get(index);
+        vector.setElementAt(element, index);
+        return o;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int size() {
+        return vector.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public HList subList(int fromIndex, int toIndex) {
+        return new SubList(this, fromIndex, toIndex);
+    }
+
+
+    /**
+     * Returns an array containing all of the elements in this set.
+     * @return an array containing all of the elements in this set.
+     * @throws NullPointerException if the specified array is null.
+     */
+    public Object[] toArray(){
+        Object[] v = new Object[size()];
+        HIterator it = iterator();
+        for(int i = 0; it.hasNext(); i++) {
+            v[i] = it.next();
+        }
+        return v;
+    }
+
+    /**
+     * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
+     * @param a the array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose. 
+     * @return an array containing the elements of this set.
+     * @throws NullPointerException if the specified array is null.
+     */
+    public Object[] toArray(Object[] a) {
+        if(a == null) {
+            throw new NullPointerException();
+        }
+        Object[] v = new Object[a.length];
+        HIterator it = iterator();
+        if(a.length >= size()) {
+            for(int i = 0; i < a.length && it.hasNext(); i++) {
+                v[i] = it.next();
+            }
+            return v;
+        }
+        v = new Object[size()];
+        for(int i = 0; i < size(); i++) {
+            if(it.hasNext())
+                v[i] = it.next();
+            else
+                v[i] = null;
+        }
+        return v;
     }
 
     private class ListIterator extends Iterator implements HListIterator {
@@ -287,88 +372,34 @@ public class ListAdapter implements HList {
 
     }
 
-    /**
-     * 
-    */
-    @Override
-    public Object remove(int index) {
-        Object o = get(index);  // Contiene controllo bounds
-        v.removeElementAt(index);
-        return o;
-    }
+    private class Iterator implements HIterator {
 
-    /**
-     * 
-    */
-    @Override
-    public boolean remove(Object o) {
-        if(o == null) {
-            throw new NullPointerException();
-        }
-        return v.removeElement(o);
-    }
+        protected int cursor = 0;
+        protected int lastRet = -1;
 
-    /**
-     * 
-    */
-    @Override
-    public boolean removeAll(HCollection c) {
-        if(c == null) {
-            throw new NullPointerException();
+        public boolean hasNext() {
+            return cursor != size();
         }
-        boolean flag = false;
-        HIterator cit = c.iterator();
-        while(cit.hasNext()) {
-            if(remove(cit.next())) { // Contiene controllo null
-                flag = true;
+
+        public Object next() {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
             }
+            Object o = get(cursor);
+            lastRet = cursor;
+            cursor++;
+            return o;
         }
-        return flag;
-    }
 
-    /**
-     * 
-    */
-    @Override
-    public boolean retainAll(HCollection c) {
-        if(c == null) {
-            throw new NullPointerException();
-        }
-        boolean flag = false;
-        HIterator it = iterator();
-        while(it.hasNext()) {
-            Object o = it.next();
-            if(!c.contains(o)) {
-                it.remove(); // Contiene controllo null
-                flag = true;
+        public void remove() {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
             }
+            ListAdapter.this.remove(lastRet);
+            if (lastRet < cursor)
+                cursor--;
+            lastRet = -1;
         }
-        return flag;
-    }
-
-    /**
-     * 
-    */
-    @Override
-    public Object set(int index, Object element) {
-        if(element == null) {
-            throw new NullPointerException();
-        }
-        Object o = get(index); // Throws IndexOutOfBoundsException
-        v.setElementAt(element, index);
-        return o;
-    }
-
-    /**
-     * 
-    */
-    @Override
-    public int size() {
-        return v.size();    //Integer.maxValue??
-    }
-
-    public HList subList(int fromIndex, int toIndex) {
-        return new SubList(this, fromIndex, toIndex);
     }
 
     private class SubList extends ListAdapter {
@@ -593,46 +624,5 @@ public class ListAdapter implements HList {
         }
     }
     
-    /**
-     * Returns an array containing all of the elements in this set.
-     * @return an array containing all of the elements in this set.
-     * @throws NullPointerException if the specified array is null.
-     */
-    public Object[] toArray(){
-        Object[] v = new Object[size()];
-        HIterator it = iterator();
-        for(int i = 0; it.hasNext(); i++) {
-            v[i] = it.next();
-        }
-        return v;
-    }
-
-    /**
-     * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
-     * @param a the array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose. 
-     * @return an array containing the elements of this set.
-     * @throws NullPointerException if the specified array is null.
-     */
-    public Object[] toArray(Object[] a) {
-        if(a == null) {
-            throw new NullPointerException();
-        }
-        Object[] v = new Object[a.length];
-        HIterator it = iterator();
-        if(a.length >= size()) {
-            for(int i = 0; i < a.length && it.hasNext(); i++) {
-                v[i] = it.next();
-            }
-            return v;
-        }
-        v = new Object[size()];
-        for(int i = 0; i < size(); i++) {
-            if(it.hasNext())
-                v[i] = it.next();
-            else
-                v[i] = null;
-        }
-        return v;
-    }
 
 }

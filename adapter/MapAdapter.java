@@ -4,131 +4,51 @@ package adapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-
-/**
- * Adapter class from CLDC 1.1 Vector to JSE 1.4.2 List (interface HList).
- * This implementation does not allow null keys and values.
- */
-
-
 public class MapAdapter implements HMap {
 
-    private Hashtable h = new Hashtable();
+    private Hashtable hashtable = new Hashtable();
+
+    /**
+     * Check if the Object is null.
+     * @param o object to be analyzed.
+     */
+    protected void isNull(Object o) {
+        if(o == null)
+            throw new NullPointerException();
+    }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public void clear() {
-        h.clear();
+        hashtable.clear();
     }
 
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public boolean containsKey(Object key) {
-        return h.containsKey(key);
+        isNull(key);
+        return hashtable.containsKey(key);
     }
 
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public boolean containsValue(Object value) {
-        return h.contains(value);
+        isNull(value);
+        return hashtable.contains(value);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public HSet entrySet() {
         return new EntrySet();
     }
 
-    private class EntrySet extends SetAdapter {
-    
-        @Override
-        public boolean add(Object o) {
-            throw new UnsupportedOperationException();
-        }
-    
-        @Override
-        public boolean addAll(HCollection c) {
-            throw new UnsupportedOperationException();
-        }
-    
-        @Override
-        public void clear() {
-            MapAdapter.this.clear();
-        }
-    
-        @Override
-        public boolean contains(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
-            HMap.HEntry e = (HMap.HEntry) o;
-            return MapAdapter.this.containsKey(e.getKey());
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return size() == 0;
-        }
-
-        @Override
-        public HIterator iterator() {
-            return new EntryIterator();
-        }
-
-        private class EntryIterator implements HIterator {
-
-            private Enumeration keys = h.keys();
-            private Object lastRetKey = null;
-
-            @Override
-            public boolean hasNext() {
-                return keys.hasMoreElements();
-            }
-
-            @Override
-            public Object next() {
-                lastRetKey = keys.nextElement(); // Lancia NoSuchElementException
-                return new Entry(lastRetKey, h.get(lastRetKey));
-            }
-
-            @Override
-            public void remove() {
-                // Se next non e' mai stato chiamato o remove e' gia' stato
-                // chiamato dopo l'ultima chiamata a next.
-                if(lastRetKey == null) {
-                    throw new IllegalStateException();
-                }
-                MapAdapter.this.remove(lastRetKey);
-                lastRetKey = null;  // Reset to null after removing
-            }
-            
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
-            HMap.HEntry e = (HMap.HEntry) o;
-            return MapAdapter.this.remove(e.getKey()) != null;
-        }
-
-        @Override
-        public int size() {
-            return MapAdapter.this.size();
-        }
-    
-    }
 
     /**
      * {@inheritDoc}
@@ -144,19 +64,14 @@ public class MapAdapter implements HMap {
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public Object get(Object key) {
-        if(key == null) {
-            throw new NullPointerException();
-        }
-        return h.get(key);
-
+        isNull(key);
+        return hashtable.get(key);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public int hashCode() {
         int sum = 0;
         HSet s = entrySet();
@@ -171,83 +86,26 @@ public class MapAdapter implements HMap {
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean isEmpty() {
-        return h.isEmpty();
+        return hashtable.isEmpty();
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public HSet keySet() {
         return new KeySet();
     }
 
-    private class KeySet extends EntrySet {
-
-        @Override
-        public boolean contains(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
-            return MapAdapter.this.containsKey(o);
-        }
-
-        @Override
-        public HIterator iterator() {
-            return new KeyIterator();
-        }
-
-        private class KeyIterator implements HIterator {
-
-            private Enumeration keys = h.keys();
-            private Object lastRetKey = null;
-
-            @Override
-            public boolean hasNext() {
-                return keys.hasMoreElements();
-            }
-
-            @Override
-            public Object next() {
-                lastRetKey = keys.nextElement(); // Lancia NoSuchElementException
-                return lastRetKey;
-            }
-
-            @Override
-            public void remove() {
-                // Se next non e' mai stato chiamato o remove e' gia' stato
-                // chiamato dopo l'ultima chiamata a next.
-                if(lastRetKey == null) {
-                    throw new IllegalStateException();
-                }
-                MapAdapter.this.remove(lastRetKey);
-                lastRetKey = null;  // Reset to null after removing
-            }
-            
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
-            return MapAdapter.this.remove(o) != null;
-        }
-
-    }
-
+ 
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public Object put(Object key, Object value) {
-        if(key == null || value == null) {
-            throw new NullPointerException();
-        }
-        return h.put(key, value);
+        isNull(key);
+        isNull(value);
+        return hashtable.put(key, value);
     }
 
     /**
@@ -255,11 +113,9 @@ public class MapAdapter implements HMap {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void putAll(HMap m) {
-        if(m == null) {
-            throw new NullPointerException();
-        }
-        HSet s = m.entrySet();
+    public void putAll(HMap t) {
+        isNull(t);
+        HSet s = t.entrySet();
         HIterator iterator = s.iterator();
         while(iterator.hasNext()) {
             HEntry e = (Entry) iterator.next();
@@ -271,48 +127,41 @@ public class MapAdapter implements HMap {
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public Object remove(Object key) {
-        if(key == null) {
-            throw new NullPointerException();
-        }
-        return h.remove(key);
+        isNull(key);
+        Object value = hashtable.get(key);
+        hashtable.remove(key);
+        return value;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public int size() {
-        return h.size();
+        return hashtable.size();
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public HCollection values() {
         return new ValueCollection();
     }
 
     private class ValueCollection extends CollectionAdapter {
 
-        @Override
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
         }
     
-        @Override
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
         }
     
-        @Override
         public void clear() {
             MapAdapter.this.clear();
         }
 
-        @Override
         public boolean contains(Object o) {
             if(o == null) {
                 throw new NullPointerException();
@@ -342,19 +191,17 @@ public class MapAdapter implements HMap {
             }
         }
 
-        @Override
         public boolean isEmpty() {
             return size() == 0;
         }
 
-        @Override
         public HIterator iterator() {
             return new ValueIterator();
         }
 
         private class ValueIterator implements HIterator {
 
-            private Enumeration keys = h.keys();
+            private Enumeration keys = hashtable.keys();
             private Object lastRetKey = null;
 
             @Override
@@ -364,19 +211,17 @@ public class MapAdapter implements HMap {
 
             @Override
             public Object next() {
-                lastRetKey = keys.nextElement(); // Lancia NoSuchElementException
+                lastRetKey = keys.nextElement();
                 return MapAdapter.this.get(lastRetKey);
             }
 
             @Override
             public void remove() {
-                // Se next non e' mai stato chiamato o remove e' gia' stato
-                // chiamato dopo l'ultima chiamata a next.
                 if(lastRetKey == null) {
                     throw new IllegalStateException();
                 }
                 MapAdapter.this.remove(lastRetKey);
-                lastRetKey = null;  // Reset to null after removing
+                lastRetKey = null;
             }
             
         }
@@ -407,9 +252,6 @@ public class MapAdapter implements HMap {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     static class Entry implements HMap.HEntry {
         
         private Object key = null;
@@ -454,6 +296,124 @@ public class MapAdapter implements HMap {
         public int hashCode() {
             return (getKey()==null   ? 0 : getKey().hashCode()) ^
             (getValue()==null ? 0 : getValue().hashCode());
+        }
+
+    }
+
+    private class EntrySet extends SetAdapter {
+    
+        public boolean add(Object o) {
+            throw new UnsupportedOperationException();
+        }
+    
+        public boolean addAll(HCollection c) {
+            throw new UnsupportedOperationException();
+        }
+    
+        public void clear() {
+            MapAdapter.this.clear();
+        }
+    
+        public boolean contains(Object o) {
+            if(o == null) {
+                throw new NullPointerException();
+            }
+            HMap.HEntry e = (HMap.HEntry) o;
+            return MapAdapter.this.containsKey(e.getKey());
+        }
+
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+
+        public HIterator iterator() {
+            return new EntryIterator();
+        }
+
+        private class EntryIterator implements HIterator {
+
+            private Enumeration keys = hashtable.keys();
+            private Object lastRetKey = null;
+
+            public boolean hasNext() {
+                return keys.hasMoreElements();
+            }
+
+            public Object next() {
+                lastRetKey = keys.nextElement();
+                return new Entry(lastRetKey, hashtable.get(lastRetKey));
+            }
+
+            public void remove() {
+                if(lastRetKey == null) {
+                    throw new IllegalStateException();
+                }
+                MapAdapter.this.remove(lastRetKey);
+                lastRetKey = null;
+            }
+            
+        }
+
+        public boolean remove(Object o) {
+            if(o == null) {
+                throw new NullPointerException();
+            }
+            HMap.HEntry e = (HMap.HEntry) o;
+            return MapAdapter.this.remove(e.getKey()) != null;
+        }
+
+        public int size() {
+            return MapAdapter.this.size();
+        }
+    
+    }
+   
+    private class KeySet extends EntrySet {
+
+        public boolean contains(Object o) {
+            if(o == null) {
+                throw new NullPointerException();
+            }
+            return MapAdapter.this.containsKey(o);
+        }
+
+        public HIterator iterator() {
+            return new KeyIterator();
+        }
+
+        private class KeyIterator implements HIterator {
+
+            private Enumeration keys = hashtable.keys();
+            private Object lastRetKey = null;
+
+            @Override
+            public boolean hasNext() {
+                return keys.hasMoreElements();
+            }
+
+            @Override
+            public Object next() {
+                lastRetKey = keys.nextElement();
+                return lastRetKey;
+            }
+
+            @Override
+            public void remove() {
+                if(lastRetKey == null) {
+                    throw new IllegalStateException();
+                }
+                MapAdapter.this.remove(lastRetKey);
+                lastRetKey = null;
+            }
+            
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            if(o == null) {
+                throw new NullPointerException();
+            }
+            return MapAdapter.this.remove(o) != null;
         }
 
     }
