@@ -12,24 +12,31 @@ public class SetAdapterTest {
 
     private HSet set = null;
 
-    /**
-     * Bootstrap
-     */
-
+     /**
+      * 
+      */
     @Before
     public void start() {
         set = new SetAdapter();
     }
 
     /**
-     * TestAdd
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testAddWithNull() {
         set.add(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test()
     public void testAddWithObjNotContained() {
         Object o = new Object();
@@ -37,6 +44,12 @@ public class SetAdapterTest {
         assertEquals(true, set.contains(o));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test()
     public void testAddWithObjContained() {
         Object o = new Object();
@@ -46,14 +59,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestAddAll
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testAddAllWithNull() {
         set.addAll(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testAddAllWithHCollection() {
         HCollection c = new CollectionAdapter();
@@ -67,9 +88,11 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestClear
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testClear() {
         for(int i = 0; i < 5; i++) {
@@ -80,14 +103,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestContains
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testContainsWithNull() {
         set.contains(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsWithObjContained() {
         Object o = new Object();
@@ -95,6 +126,12 @@ public class SetAdapterTest {
         assertTrue(set.contains(o));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsWithObjNotContained() {
         Object o = new Object();
@@ -104,14 +141,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestContainsAll
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testContainsAllWithNull() {
         set.containsAll(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -122,6 +167,12 @@ public class SetAdapterTest {
         assertTrue(set.containsAll(c));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsAllWithHCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -134,6 +185,12 @@ public class SetAdapterTest {
         assertTrue(set.containsAll(c));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -144,9 +201,11 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestEquals
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testEqualsWithEqualObject() {
         HSet set2 = new SetAdapter();
@@ -157,6 +216,12 @@ public class SetAdapterTest {
         assertTrue(set.equals(set2));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testEqualsWithNotEqualObject() {
         HSet set2 = new SetAdapter();
@@ -165,9 +230,11 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestHashCode
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testHashCode() {
         HSet s = new SetAdapter();
@@ -180,20 +247,34 @@ public class SetAdapterTest {
 		assertTrue(set.hashCode() == s.hashCode());
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testHashCodeFail() {
         assertFalse(set.hashCode() == -1);
     }
 
     /**
-     * TestIsEmpty
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testIsEmpty() {
         assertTrue(set.isEmpty());
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testIseEmptyFalse() {
         set.add(new Object());
@@ -201,9 +282,11 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestIterator
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testIterator() {
         for(int i = 0; i < 3; i++) {
@@ -218,14 +301,22 @@ public class SetAdapterTest {
     }
     
     /**
-     * TestRemove
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testRemoveWithNull() {
         set.remove(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveWithObjContained() {
         Object o = new Object();
@@ -234,6 +325,12 @@ public class SetAdapterTest {
         assertEquals(false, set.contains(o));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveWithObjNotContained() {
         Object o = new Object();
@@ -243,14 +340,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestRemoveAll
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testRemoveAllWithNull() {
         set.removeAll(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -261,6 +366,12 @@ public class SetAdapterTest {
         assertTrue(set.removeAll(c));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveAllWithHCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -273,6 +384,12 @@ public class SetAdapterTest {
         assertTrue(set.removeAll(c));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveAllWithHCollectionNotContained() {
         HSet backup = set;
@@ -285,14 +402,22 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestRetainAll
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testRetainAllWithNull() {
         set.retainAll(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRetainAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -305,6 +430,12 @@ public class SetAdapterTest {
         assertTrue(set.equals(backup));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRetainAllWithHCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -320,6 +451,12 @@ public class SetAdapterTest {
         assertTrue(set.equals(backup));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRetainAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -332,34 +469,56 @@ public class SetAdapterTest {
     }
 
     /**
-     * TestSize
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testSize() {
         assertTrue(set.size() == 0);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testSizeIncremented() {
         set.add(new Object());
         assertTrue(set.size() == 1);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testSizeFail() {
         assertFalse(set.size() == -1);
     }
 
     /**
-     * TestToArray
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test(expected = NullPointerException.class)
     public void testToArrayWithNull() {
         set.toArray(null);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testToArray() {
         for(int i = 0; i < 5; i++) {
@@ -371,6 +530,12 @@ public class SetAdapterTest {
         }
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testToArrayWithParameterSizeSmaller() {
         for(int i = 0; i < 10; i++) {
@@ -383,6 +548,12 @@ public class SetAdapterTest {
         }
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testToArrayWithParameterSizeLonger() {
         for(int i = 0; i < 5; i++) {

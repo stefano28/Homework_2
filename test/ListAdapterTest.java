@@ -16,16 +16,20 @@ public class ListAdapterTest {
 
 	private ListAdapter l = null;
 
-	// Set up
-
+	/**
+	 * 
+	 */
 	@Before
 	public  void setUp() {
 		l = new ListAdapter();
 	}
 
-	// Tests
-
-	// Add(index, o)
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testAddWithParamsFirstPosition() {
 		Object o = new Object();
@@ -33,6 +37,12 @@ public class ListAdapterTest {
 		assertEquals(o, l.get(0));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testAddWithParamsLastPosition() {
 		for(int i = 0; i < 5; i++) {
@@ -43,16 +53,34 @@ public class ListAdapterTest {
 		assertEquals(o, l.get(l.size()-1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = NullPointerException.class)
 	public void testAddWithParamsWithNullElement() {
 		l.add(0, null);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddWithParamsIndexOutOfBoundsNegative() {
 		l.add(-1, new Object());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddWithParamsIndexOutOfBoundsGreaterThanSize() {
 		for(int i = 0; i < 5; i++) {
@@ -61,7 +89,12 @@ public class ListAdapterTest {
 		l.add(6, new Object());
 	}
 
-	// Add
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void TestAdd() {
 		for(int i = 0; i < 5; i++) {
@@ -73,12 +106,23 @@ public class ListAdapterTest {
 		assertTrue(l.contains(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = NullPointerException.class)
 	public void testAddWithNullElement() {
 		l.add(null);
 	}
 
-	// addAll
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void TestAddAll() {
 		HCollection c = new CollectionAdapter();
@@ -91,18 +135,35 @@ public class ListAdapterTest {
 		assertEquals(o2, l.get(1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void TestAddAllEmptyCollection() {
 		HCollection c = new CollectionAdapter();
 		assertFalse(l.addAll(c));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
 	public void testAddAllWithNullCollection() {
 		l.addAll(null);
 	}
 
-	// addAll(index, c)
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void TestAddAllWithParamsFirstPosition() {
 		HCollection c = new CollectionAdapter();
@@ -119,6 +180,12 @@ public class ListAdapterTest {
 		assertEquals(o4, l.get(1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void TestAddAllWithParamsLastPosition() {
 		HCollection c = new CollectionAdapter();
@@ -135,16 +202,34 @@ public class ListAdapterTest {
 		assertEquals(o4, l.get(3));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
 	public void testAddAllWithParamsWithNullElement() {
 		l.addAll(0, null);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddAllWithParamsIndexOutOfBoundsNegative() {
 		l.addAll(-1, new CollectionAdapter());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddAllWithParamsIndexOutOfBoundsGreaterThanSize() {
 		for(int i = 0; i < 5; i++) {
@@ -153,7 +238,12 @@ public class ListAdapterTest {
 		l.add(6, new CollectionAdapter());
 	}
 
-	// clear
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testClear() {
 		for(int i = 0; i < 5; i++) {
@@ -166,7 +256,12 @@ public class ListAdapterTest {
 		assertFalse(l.contains(o));
 	}
 
-	// contains
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testContainsFirstPos() {
 		Object o = new Object();
@@ -177,6 +272,12 @@ public class ListAdapterTest {
 		assertTrue(l.contains(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testContainsLastPos() {
 		for(int i = 0; i < 5; i++) {
@@ -187,6 +288,12 @@ public class ListAdapterTest {
 		assertTrue(l.contains(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testContainsObjectNotContained() {
 		for(int i = 0; i < 5; i++) {
@@ -196,15 +303,23 @@ public class ListAdapterTest {
 		assertFalse(l.contains(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = NullPointerException.class)
 	public void testContainsWithNullObject() {
 		l.contains(null);
 	}
 
-	/**
-     * TestContainsAll
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testContainsAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -215,6 +330,12 @@ public class ListAdapterTest {
         assertTrue(l.containsAll(c));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -223,7 +344,13 @@ public class ListAdapterTest {
         }
         assertFalse(l.containsAll(c));
     }
-    
+	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testContainsAllWithHCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -236,15 +363,23 @@ public class ListAdapterTest {
         assertFalse(l.containsAll(c));
     }
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
     public void testContainsAllWithNull() {
         l.containsAll(null);
 	}
 	
-	/**
-     * TestEquals
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testEqualsTrue() {
         HList otherList = new ListAdapter();
@@ -256,6 +391,12 @@ public class ListAdapterTest {
         assertEquals(l, otherList);
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testEqualsFalse() {
 		HList otherList = new ListAdapter();
@@ -263,26 +404,46 @@ public class ListAdapterTest {
         assertFalse(l.equals(otherList));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testEqualsEmptyList() {
 		HList otherList = new ListAdapter();
         assertEquals(l, otherList);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testEqualsEqualToItself() {
 		assertTrue(l.equals(l));
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testEqualsWithNull() {
 		assertFalse(l.equals(null));
 	}
 
-	/**
-	 * Test get
-	 */
-
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testGet() {
 		Object o = new Object();
@@ -290,12 +451,24 @@ public class ListAdapterTest {
         assertEquals(o, l.get(0));
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testGetOutOfBoundsNegative() {
 		l.add(new Object());
         l.get(-1);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testGetOutOfBoundsGreaterThanSize() {
 		for(int i = 0; i < 5; i++) {
@@ -304,10 +477,12 @@ public class ListAdapterTest {
 		l.get(6);
 	}
 
-	/**
-     * Test hashCode
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
 	@Test
     public void testHashCodeTrue() {
         HList otherList = new ListAdapter();
@@ -320,6 +495,12 @@ public class ListAdapterTest {
 		assertTrue(l.hashCode() == otherList.hashCode());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testHashCodeFalse() {
         HList otherList = new ListAdapter();
@@ -329,11 +510,13 @@ public class ListAdapterTest {
 		assertFalse(l.equals(otherList));
 		assertFalse(l.hashCode() == otherList.hashCode());
 	}
-	
-	/**
-     * Test indexOf
-     */
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testIndexOfObjectContained() {
         for(int i = 0; i < 2; i++) {
@@ -348,6 +531,12 @@ public class ListAdapterTest {
 		assertEquals(2, l.indexOf(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testIndexOfObjectNotContained() {
         for(int i = 0; i < 2; i++) {
@@ -357,30 +546,46 @@ public class ListAdapterTest {
 		assertEquals(-1, l.indexOf(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
 	public void testIndexOfWithNull() {
 		l.indexOf(null);
 	}
 
-	/**
-     * TestIsEmpty
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testIsEmptyTrue() {
         assertTrue(l.isEmpty());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testIsEmptyFalse() {
 		l.add(new Object());
         assertFalse(l.isEmpty());
 	}
-	
-	/**
-     * TestIterator
-     */
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testIteratorNextAndHasNext() {
         for(int i = 0; i < 5; i++) {
@@ -394,6 +599,12 @@ public class ListAdapterTest {
         assertEquals(l, otherList);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NoSuchElementException.class)
     public void testIteratorNextNoMoreElements() {
         for(int i = 0; i < 3; i++) {
@@ -405,6 +616,12 @@ public class ListAdapterTest {
 		}
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testIteratorRemove() {
         for(int i = 0; i < 5; i++) {
@@ -416,10 +633,12 @@ public class ListAdapterTest {
         assertEquals(4, l.size());
 	}
 	
-	/**
-     * Test lastIndexOf
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
 	@Test
     public void testLastIndexOfObjectContained() {
         for(int i = 0; i < 2; i++) {
@@ -434,6 +653,12 @@ public class ListAdapterTest {
 		assertEquals(5, l.lastIndexOf(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testLastIndexOfObjectNotContained() {
         for(int i = 0; i < 2; i++) {
@@ -443,15 +668,23 @@ public class ListAdapterTest {
 		assertEquals(-1, l.lastIndexOf(o));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
 	public void testLastIndexOfWithNull() {
 		l.lastIndexOf(null);
 	}
 
-	/**
-     * Test listIterator
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testListIteratorNextAndHasNext() {
         for(int i = 0; i < 5; i++) {
@@ -465,6 +698,12 @@ public class ListAdapterTest {
         assertEquals(l, otherList);
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NoSuchElementException.class)
     public void testListIteratorNextNoMoreElements() {
         for(int i = 0; i < 3; i++) {
@@ -476,6 +715,12 @@ public class ListAdapterTest {
 		}
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorPreviousAndHasPrevious() {
         for(int i = 0; i < 5; i++) {
@@ -495,6 +740,12 @@ public class ListAdapterTest {
 		assertEquals(o, otherList.get(0));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NoSuchElementException.class)
     public void testListIteratorPreviousNoMoreElements() {
         for(int i = 0; i < 3; i++) {
@@ -504,8 +755,12 @@ public class ListAdapterTest {
         lit.previous();
 	}
 
-	// Add
-	// modifiche alla lista mentre c'e' un'iterazione in corso?
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
 	public void testListIteratorAdd() {
 		Object o1 = new Object();
@@ -524,13 +779,24 @@ public class ListAdapterTest {
 		assertEquals(o1, lit.next()); // chiamata a next unaffected dagli add dell'iteratore
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test (expected = NullPointerException.class)
 	public void testListIteratorAddWithNullElement() {
 		HListIterator lit = l.listIterator();
 		lit.add(null);
 	}
 
-	// nextIndex
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorNextIndexStart() {
         for(int i = 0; i < 5; i++) {
@@ -540,6 +806,12 @@ public class ListAdapterTest {
         assertEquals(0, lit.nextIndex());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorNextIndexMiddle() {
         for(int i = 0; i < 5; i++) {
@@ -551,6 +823,12 @@ public class ListAdapterTest {
         assertEquals(2, lit.nextIndex());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorNextIndexEnd() {
         for(int i = 0; i < 5; i++) {
@@ -561,7 +839,12 @@ public class ListAdapterTest {
         assertEquals(l.size(), lit.nextIndex());
 	}
 
-	// previousIndex
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorPreviousIndexStart() {
         for(int i = 0; i < 5; i++) {
@@ -571,6 +854,12 @@ public class ListAdapterTest {
         assertEquals(-1, lit.previousIndex());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorPreviousIndexMiddle() {
         for(int i = 0; i < 5; i++) {
@@ -582,6 +871,12 @@ public class ListAdapterTest {
         assertEquals(1, lit.previousIndex());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorPreviousIndexEnd() {
         for(int i = 0; i < 5; i++) {
@@ -592,7 +887,12 @@ public class ListAdapterTest {
         assertEquals(l.size()-1, lit.previousIndex());
 	}
 	
-	// remove
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorRemove() {
         for(int i = 0; i < 5; i++) {
@@ -604,6 +904,12 @@ public class ListAdapterTest {
         assertEquals(4, l.size());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IllegalStateException.class)
     public void testRemoveWithoutNextOrPrevious() {
 		for(int i = 0; i < 3; i++) {
@@ -613,6 +919,12 @@ public class ListAdapterTest {
         lit.remove();
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IllegalStateException.class)
     public void testRemoveAfterAdd() {
 		for(int i = 0; i < 3; i++) {
@@ -624,8 +936,12 @@ public class ListAdapterTest {
         lit.remove();
 	}
 
-	// set
-
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorSetAfterNextFirstPos() {
         for(int i = 0; i < 3; i++) {
@@ -638,6 +954,12 @@ public class ListAdapterTest {
         assertEquals(o, l.get(0));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorSetAfterNextLastPos() {
         for(int i = 0; i < 3; i++) {
@@ -651,6 +973,12 @@ public class ListAdapterTest {
         assertEquals(o, l.get(l.size()-1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorSetAfterPreviousFirstPos() {
         for(int i = 0; i < 3; i++) {
@@ -664,6 +992,12 @@ public class ListAdapterTest {
         assertEquals(o, l.get(0));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testListIteratorSetAfterPreviousLastPos() {
         for(int i = 0; i < 3; i++) {
@@ -678,6 +1012,12 @@ public class ListAdapterTest {
         assertEquals(o, l.get(l.size()-1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IllegalStateException.class)
     public void testSetWithoutNextOrPrevious() {
 		for(int i = 0; i < 3; i++) {
@@ -687,6 +1027,12 @@ public class ListAdapterTest {
         lit.set(new Object());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IllegalStateException.class)
     public void testSetAfterAdd() {
 		for(int i = 0; i < 3; i++) {
@@ -698,6 +1044,12 @@ public class ListAdapterTest {
         lit.set(new Object());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IllegalStateException.class)
     public void testSetAfterRemove() {
 		for(int i = 0; i < 3; i++) {
@@ -709,10 +1061,12 @@ public class ListAdapterTest {
         lit.set(new Object());
 	}
 
-	/**
-     * Test listIterator(index)
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testListIteratorIndex() {
         for(int i = 0; i < 5; i++) {
@@ -726,10 +1080,12 @@ public class ListAdapterTest {
         assertEquals(lit1.next(), lit2.next());
 	}
 
-	/**
-     * Test remove(index)
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testRemoveIndex() {
 		for(int i = 0; i < 5; i++) {
@@ -741,6 +1097,12 @@ public class ListAdapterTest {
         assertFalse(l.contains(o));
     }
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveOutOfBoundsNegative() {
 		for(int i = 0; i < 5; i++) {
@@ -749,18 +1111,26 @@ public class ListAdapterTest {
         l.remove(-1);
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveOutOfBoundsGreaterThanSize() {
 		for(int i = 0; i < 5; i++) {
             l.add(new Object());
 		}
         l.remove(5);
-    }
-
-	/**
-     * Test remove(o)
+	}
+	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testRemoveTrue() {
         Object o = new Object();
@@ -769,6 +1139,12 @@ public class ListAdapterTest {
         assertFalse(l.contains(o));
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveFalse() {
         Object o = new Object();
@@ -777,15 +1153,23 @@ public class ListAdapterTest {
         assertTrue(l.contains(o));
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
     public void testRemoveNullOBject() {
         l.remove(null);
 	}
 	
-	/**
-     * TestRemoveAll
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testRemoveAllCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -800,6 +1184,12 @@ public class ListAdapterTest {
 		}
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRemoveAllCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -811,6 +1201,12 @@ public class ListAdapterTest {
 		assertEquals(1, l.size());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testRemoveAllCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -824,15 +1220,23 @@ public class ListAdapterTest {
 		assertEquals(0, l.size());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
     public void testRemoveAllWithNull() {
         l.removeAll(null);
     }
 
-	/**
-     * TestRetainAll
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testRetainAllAllElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -846,6 +1250,12 @@ public class ListAdapterTest {
 		assertEquals(5, l.size());
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testRetainAllSomeElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -859,6 +1269,12 @@ public class ListAdapterTest {
 		assertEquals(3, l.size());
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testRetainAllNoElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -870,15 +1286,23 @@ public class ListAdapterTest {
 		assertEquals(0, l.size());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
     public void testRetainAllWithNull() {
         l.retainAll(null);
 	}
 	
-	/**
-	 * Test set
-	*/
-
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void testSet() {
         for(int i = 0; i < 3; i++) {
@@ -889,6 +1313,12 @@ public class ListAdapterTest {
 		assertEquals(o, l.get(1));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testSetOutOfBoundsNegative() {
 		for(int i = 0; i < 5; i++) {
@@ -897,6 +1327,12 @@ public class ListAdapterTest {
         l.set(-1, new Object());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testSetOutOfBoundsGreaterOrEqualToSize() {
 		for(int i = 0; i < 5; i++) {
@@ -905,20 +1341,34 @@ public class ListAdapterTest {
         l.set(5, new Object());
 	}
 	
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test(expected = NullPointerException.class)
     public void testSetWithNull() {
         l.set(0, null);
 	}
 
-	 /**
-     * TestSize
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testSizeEmpty() {
         assertEquals(0, l.size());
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void TestSize() {
 		for(int i = 0; i < 4; i++) {
@@ -927,12 +1377,12 @@ public class ListAdapterTest {
         assertEquals(4, l.size());
 	}
 	
-	/**
-     * Test Sublist(fromIndex, toIndex)
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
-	// Classe test + vedere se i cambiamenti si ripercuotono su lista madre
-
 	@Test
     public void TestSubListChangesPropagation() {
 		for(int i = 0; i < 10; i++) {
@@ -947,6 +1397,12 @@ public class ListAdapterTest {
 		assertEquals(o, l.get(7));
 	}
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
 	@Test
     public void TestSubListChangesPropagationClear() {
 		for(int i = 0; i < 9; i++) {
@@ -960,9 +1416,11 @@ public class ListAdapterTest {
 	}
 
     /**
-     * TestToArray
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
      */
-
     @Test
     public void testToArray() {
         for(int i = 0; i < 5; i++) {
@@ -974,6 +1432,12 @@ public class ListAdapterTest {
         }
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testToArrayWithParameterSizeSmaller() {
         for(int i = 0; i < 10; i++) {
@@ -987,6 +1451,12 @@ public class ListAdapterTest {
         }
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test
     public void testToArrayWithParameterSizeLonger() {
         for(int i = 0; i < 5; i++) {
@@ -1003,6 +1473,12 @@ public class ListAdapterTest {
         }
     }
 
+    /**
+     * 
+     * @safe.precondition
+     * @safe.postcondition
+     * @safe.testcases
+     */
     @Test(expected = NullPointerException.class)
     public void testToArrayWithNull() {
         l.toArray(null);

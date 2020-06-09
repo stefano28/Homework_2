@@ -19,9 +19,8 @@ public class MapAdapterEntrySetTest {
     private HMap.HEntry key2 = null;
 
     /**
-     * Set up
+     * 
      */
-
     @Before
     public void setUp() {
         MapAdapter map = new MapAdapter();
