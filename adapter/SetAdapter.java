@@ -22,6 +22,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean add(Object o) {
         isNull(o);
@@ -33,6 +34,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean addAll(HCollection c) {
         isNull(c);
@@ -55,6 +57,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -63,6 +66,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsAll(HCollection c){
         isNull(c);
@@ -125,6 +129,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -136,6 +141,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean removeAll(HCollection c){
         isNull(c);
@@ -151,6 +157,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean retainAll(HCollection c){
         isNull(c);
@@ -187,6 +194,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public Object[] toArray(Object[] a) {
         isNull(a);

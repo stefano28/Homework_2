@@ -29,6 +29,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsKey(Object key) {
         isNull(key);
@@ -37,6 +38,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsValue(Object value) {
         isNull(value);
@@ -52,6 +54,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean equals(Object o) {
         isNull(o);
@@ -67,6 +70,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public Object get(Object key) {
         isNull(key);
@@ -108,6 +112,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public Object put(Object key, Object value) {
         isNull(key);
@@ -117,6 +122,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public void putAll(HMap t) { //
         isNull(t);
@@ -130,6 +136,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public Object remove(Object key) {
         isNull(key);
@@ -187,6 +194,7 @@ public class MapAdapter implements HMap {
 
         /**
          * {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          */
         public Object setValue(Object value) {
             this.value = value;
@@ -215,6 +223,7 @@ public class MapAdapter implements HMap {
 
         /**
          * {@inheritDoc}
+         * @throws UnsupportedOperationException {@inheritDoc}
          */
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
@@ -222,6 +231,7 @@ public class MapAdapter implements HMap {
 
         /**
          * {@inheritDoc}
+         * @throws UnsupportedOperationException {@inheritDoc}
          */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
@@ -236,6 +246,7 @@ public class MapAdapter implements HMap {
 
         /**
          * {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          */
         public boolean contains(Object o) {
             if(o == null)

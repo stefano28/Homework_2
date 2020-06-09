@@ -22,6 +22,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public void add(int index, Object element) {
         isNull(element);
@@ -30,6 +31,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean add(Object o) {
         isNull(o);
@@ -39,6 +41,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean addAll(HCollection c) { //
         isNull(c);
@@ -54,6 +57,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean addAll(int index, HCollection c) { //
         isNull(c);
@@ -79,6 +83,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -87,6 +92,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsAll(HCollection c) { //
         isNull(c);
@@ -100,6 +106,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean equals(Object o) { //
         if(o == this)
@@ -139,6 +146,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public int indexOf(Object o) {
         isNull(o);
@@ -161,6 +169,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public int lastIndexOf(Object o) {
         isNull(o);
@@ -192,6 +201,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -200,6 +210,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean removeAll(HCollection c) { //
         isNull(c);
@@ -215,6 +226,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public boolean retainAll(HCollection c) {
         isNull(c);
@@ -232,6 +244,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
      */
     public Object set(int index, Object element) {
         isNull(element);
