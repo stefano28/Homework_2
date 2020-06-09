@@ -6,14 +6,14 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 /**
- * Test case class for SetAdapter
+ * Test case class di SetAdapter
  */
 public class SetAdapterTest {
 
     private HSet set = null;
 
      /**
-      * 
+      * Metodo di inizializzazione per la classe di test di SetAdapter
       */
     @Before
     public void start() {

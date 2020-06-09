@@ -8,7 +8,7 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 /**
- * Test case class for MapAdapter
+ * Test case class di MapAdapterTest
  */
 public class MapAdapterTest {
 
@@ -108,7 +108,7 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
+     * Test del metodo entrySet
      * @safe.precondition
      * @safe.postcondition
      * @safe.testcases
@@ -127,26 +127,6 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testEntrySetFail() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
-        HSet s = map.entrySet();
-        HIterator iter = s.iterator();
-        while(iter.hasNext()) {
-            HEntry e = (HEntry)iter.next();
-            Object key = e.getKey();
-            assertFalse(map.get(key).equals(new Object()));
-        }
-    }
-
-
-    /**
      * Test del metodo equals
      * @safe.precondition Mappa inizializzata
      * @safe.postcondition Lancia NullPointerException
@@ -158,35 +138,35 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo equals con una mappa uguale come paramtro
+     * @safe.precondition Mappa inizializzata con mapping uguale a quella passata per parametro
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che map.equals risulti true quando si passa una mappa identica
      */
     @Test
-    public void testEqualsWithEqualsMapping() {
+    public void testEqualsWithEqualsMap() {
         HMap m = new MapAdapter();
         assertTrue(map.equals(m));
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo equals con una mappa diversa come parametro
+     * @safe.precondition Mappa inizializzata con mapping diverso a quella passata per paramtero
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che map.equals risulti false quando si passa una mappa diversa
      */
     @Test
-    public void testEqualsWithDifferentMapping() {
+    public void testEqualsWithDifferentMap() {
         HMap m = new MapAdapter();
         m.put(0, new Object());
         assertFalse(map.equals(m));
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo get passando come parametro un oggetto null
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Lancia l'eccezione NullPointerException
+     * @safe.testcases Il metodo verifica che si lanci l'eccezione NullPointerException quando si passa come parametro un oggetto null
      */
     @Test(expected = NullPointerException.class)
     public void testGetWithNull() {
@@ -194,10 +174,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo get passando come parametro un oggetto che è contenuto
+     * @safe.precondition Mappa inizializzata che contiene l'oggetto
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che il get di quella chiave restituisce lo stesso oggetto precedentemente inserito
      */
     @Test
     public void testGetWithKeyContained() {
@@ -208,10 +188,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo get passando come parametro un oggetto che non è contenuto
+     * @safe.precondition Mappa inizializzata che non contiene l'oggetto
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che il get di quella chiave restituisce lo stesso oggetto precedentemente inserito
      */
     @Test
     public void testGetWithKeyNotContained() {
@@ -220,10 +200,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo hashcode
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che due hashcode di mappe uguali sono uguali
      */
     @Test
     public void testHashCode() {
@@ -238,21 +218,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testHashCodeFail() {
-        assertFalse(map.hashCode() == -1);
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo isEmpty - caso vero
+     * @safe.precondition Mappa inizializzata vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando una mappa è vuota, il suo metodo isEmpty risulta true
      */
     @Test
     public void testIsEmpty() {
@@ -260,10 +229,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo isEmpty - caso falso
+     * @safe.precondition Mappa inizializzata non vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando una non è vuota, il suo metodo isEmpty risulta false
      */
     @Test
     public void testIsEmptyFalse() {
@@ -273,10 +242,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo KeySet
+     * @safe.precondition Mappa inizializzata al cui interno ci sono una serie di valori (chiavi)
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che inserendo nella mappa una serie di valori di un Set, questa quando viene chiamato keySet restituisce la stessa serie di valori
      */
     @Test
     public void testKeySet() {
@@ -290,10 +259,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo put con parametri null
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Lancia l'eccezione NullPointerException
+     * @safe.testcases Il metodo verifica che in caso di put con elementi null viene lanciata NullPointerException
      */
     @Test(expected = NullPointerException.class)
     public void testPutWithNull() {
@@ -301,10 +270,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo put
+     * @safe.precondition Mappa Inizializzata
+     * @safe.postcondition Elemento viene inserito
+     * @safe.testcases Il metodo verifica che dopo l'inserimento di un mapping key - value, questo poi sia effettivamente stato inserito
      */
     @Test
     public void testPut() {
@@ -313,22 +282,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testPutFail() {
-        map.put(0, 1);
-        assertFalse(map.get(0).equals(0));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo putAll con null come parametro
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che in caso di putAll con elementi null viene lanciata NullPointerException
      */
     @Test(expected = NullPointerException.class)
     public void testPutAllWithNull() {
@@ -336,10 +293,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo putAll
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Mappa contenente tutti gli elementi di un'altra mappa
+     * @safe.testcases Il metodo verifica che creando una mappa e inserendovi una serie di elementi, richiamando il putAll su un'altra mappa passando questa come parametro, tutti gli elementi vengono inseriti
      */
     @Test
     public void testPutAll() {
@@ -352,26 +309,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testPutAllFail() {
-        HMap m = new MapAdapter();
-        for(int i = 0; i < 5; i++)
-            m.put(i, i);
-        map.putAll(m);
-        for(int i = 0; i < 5; i++)
-            assertFalse(map.get(i).equals(new Object()));
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo remove con null come parametro
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che la chiamata del metodo remove passando un null come parametro genera il lancio di NullPointerException
      */
     @Test(expected = NullPointerException.class)
     public void testRemoveWithNull() {
@@ -379,10 +320,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo remove con un oggetto contenuto
+     * @safe.precondition Mappa inizializzata con all'interno un oggetto
+     * @safe.postcondition L'oggetto viene rimosso dalla mappa
+     * @safe.testcases Il metodo verifica che la chiamata del metodo remove passando un oggetto contenuto elimina effettivamente l'oggetto dalla mappa
      */
     @Test
     public void testRemoveWithObjContained() {
@@ -393,10 +334,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo remove con un oggetto che non è contenuto
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che la chiamata del metodo remove passando un oggetto non contenuto elimina ritorna null
      */
     @Test
     public void testRemoveWithObjNotContained() {
@@ -404,10 +345,10 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo size in una mappa vuota
+     * @safe.precondition Mappa inizializzata vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando una mappa è vuota size ritorna 0
      */
     @Test
     public void testSize() {
@@ -415,33 +356,22 @@ public class MapAdapterTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo size con mappa non vuota
+     * @safe.precondition Mappa inizializzata non vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando una mappa ha un elemento size ritorna 1
      */
     @Test
-    public void testSizeIncremented() {
+    public void testSizeMapNotEmpty() {
         map.put(0, new Object());
         assertTrue(map.size() == 1);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testSizeFail() {
-        assertFalse(map.size() == -1);
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test del metodo values
+     * @safe.precondition Mappa inizializzata con una serie di valori
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che una mappa al cui interno è presente una serie di elementi, il metodo values restituisce una HCollection composta dagli stessi elementi
      */
     @Test
     public void testValues() {
@@ -451,24 +381,6 @@ public class MapAdapterTest {
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
             assertTrue(map.containsValue(iter.next()));
-        }
-    }
-
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
-    @Test
-    public void testValuesFail() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
-        HCollection c = map.values();
-        HIterator iter = c.iterator();
-        while(iter.hasNext()) {
-            iter.next();
-            assertFalse(map.containsValue(new Object()));
         }
     }
 
