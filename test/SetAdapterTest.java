@@ -1,4 +1,4 @@
-package adapter.test;
+package test;
 
 import adapter.*;
 import org.junit.Test;

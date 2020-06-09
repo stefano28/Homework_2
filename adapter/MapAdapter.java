@@ -19,6 +19,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This implementation calls hashtable.clear()</p>
      */
     public void clear() {
         hashtable.clear();
@@ -26,6 +27,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method check if the hashtable contains the key</p>
      * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsKey(Object key) {
@@ -35,6 +37,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method check if the hashtable contains the value</p>
      * @throws NullPointerException {@inheritDoc}
      */
     public boolean containsValue(Object value) {
@@ -44,6 +47,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p></p>
      */
     public HSet entrySet() {
         return new EntrySet();
@@ -52,9 +56,9 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method check if the hashtable of Object o contains the same mapping</p>
      * @throws NullPointerException {@inheritDoc}
      */
-    @Override
     public boolean equals(Object obj) {
         HMap m = (HMap) obj;
         return entrySet().equals(m.entrySet());
@@ -62,6 +66,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.get(Object key)</p>
      * @throws NullPointerException {@inheritDoc}
      */
     public Object get(Object key) {
@@ -71,6 +76,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calculate the total hash code of this map. The total hashcode is the sum of the hash codes of each entry</p>
      */
     public int hashCode() {
         int sum = 0;
@@ -85,6 +91,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.isEmpty()</p>
      */
     public boolean isEmpty() {
         return hashtable.isEmpty();
@@ -92,14 +99,15 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method create a set with the map's keys</p>
      */
     public HSet keySet() {
         return new KeySet();
     }
-
  
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.put(key, value)</p>
      * @throws NullPointerException {@inheritDoc}
      */
     public Object put(Object key, Object value) {
@@ -110,6 +118,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.put(key, value) for each element inside HMap t</p>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
@@ -125,6 +134,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.remove(key)</p>
      * @throws NullPointerException {@inheritDoc}
      */
     public Object remove(Object key) {
@@ -136,6 +146,7 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p>This method calls hashtable.size()</p>
      */
     public int size() {
         return hashtable.size();
@@ -143,33 +154,48 @@ public class MapAdapter implements HMap {
 
     /**
      * {@inheritDoc}
+     * <p></p>
      */
     public HCollection values() {
-        return new ValueCollection();
+        return new Values();
     }
 
-    private class ValueCollection extends CollectionAdapter {
+    /**
+     * This class create a collection of map's values.
+     * The collection is backed by the map, so changes to the map are reflected in the collection, and vice-versa.
+     */
+    private class Values extends CollectionAdapter {
 
+        /**
+         * This operation is not supported
+         */
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
         }
     
+        /**
+         * This operation is not supported
+         */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
         }
     
+        /**
+         * This method calls the clear() method from MapAdapter
+         */
         public void clear() {
             MapAdapter.this.clear();
         }
 
+        /**
+         * This method calls the containsValue(o) method from MapAdapter
+         */
         public boolean contains(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
+            isNull(o);
             return MapAdapter.this.containsValue(o);
         }
 
-        public boolean equals(Object o){
+        public boolean equals(Object o){ //
             if (o == this) {
                 return true;
             }
@@ -196,26 +222,23 @@ public class MapAdapter implements HMap {
         }
 
         public HIterator iterator() {
-            return new ValueIterator();
+            return new Iterator();
         }
 
-        private class ValueIterator implements HIterator {
+        private class Iterator implements HIterator {
 
             private Enumeration keys = hashtable.keys();
             private Object lastRetKey = null;
 
-            @Override
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
-            @Override
             public Object next() {
                 lastRetKey = keys.nextElement();
                 return MapAdapter.this.get(lastRetKey);
             }
 
-            @Override
             public void remove() {
                 if(lastRetKey == null) {
                     throw new IllegalStateException();
@@ -226,7 +249,6 @@ public class MapAdapter implements HMap {
             
         }
 
-        @Override
         public boolean remove(Object o) {
             if(o == null) {
                 throw new NullPointerException();
@@ -245,7 +267,6 @@ public class MapAdapter implements HMap {
             return flag;
         }
 
-        @Override
         public int size() {
             return MapAdapter.this.size();
         }
@@ -386,18 +407,15 @@ public class MapAdapter implements HMap {
             private Enumeration keys = hashtable.keys();
             private Object lastRetKey = null;
 
-            @Override
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
-            @Override
             public Object next() {
                 lastRetKey = keys.nextElement();
                 return lastRetKey;
             }
 
-            @Override
             public void remove() {
                 if(lastRetKey == null) {
                     throw new IllegalStateException();
@@ -408,7 +426,6 @@ public class MapAdapter implements HMap {
             
         }
 
-        @Override
         public boolean remove(Object o) {
             if(o == null) {
                 throw new NullPointerException();
