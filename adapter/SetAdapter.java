@@ -220,24 +220,15 @@ public class SetAdapter implements HSet {
         Enumeration keys = hashtable.keys();
         Object last = null;
 
-        /**
-         * {@inheritDoc}
-         */
         public boolean hasNext() {
             return keys.hasMoreElements();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public Object next() {
             last = keys.nextElement();
             return last;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public void remove() {
             if(last == null)
                 throw new IllegalStateException();

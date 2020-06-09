@@ -41,12 +41,14 @@ public interface HList extends HCollection {
 
     /**
      * Appends all of the elements in the specified collection to the end of this list, in the order that they are returned by the specified collection's iterator (optional operation).
-     * @param c collection whose elements are to be added to this list. 
+     * @param index index at which to insert first element from the specified collection.
+     * @param c elements to be inserted into this list. 
      * @return true if this list changed as a result of the call. 
      * @throws UnsupportedOperationException if the addAll method is not supported by this list. 
      * @throws ClassCastException if the class of an element in the specified collection prevents it from being added to this list.
      * @throws NullPointerException if the specified collection contains one or more null elements and this list does not support null elements, or if the specified collection is null. 
      * @throws IllegalArgumentException if some aspect of an element in the specified collection prevents it from being added to this list.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public boolean addAll(int index, HCollection c);
 
@@ -86,10 +88,6 @@ public interface HList extends HCollection {
      * Returns the element at the specified position in this list.
      * @param index  index of element to return. 
      * @return the element at the specified position in this list. 
-     * @throws UnsupportedOperationException if the set method is not supported by this list. 
-     * @throws ClassCastException if the class of the specified element prevents it from being added to this list. 
-     * @throws NullPointerException if the specified element is null and this list does not support null elements. 
-     * @throws IllegalArgumentException if some aspect of the specified element prevents it from being added to this list. 
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Object get(int index);

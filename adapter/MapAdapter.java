@@ -221,33 +221,18 @@ public class MapAdapter implements HMap {
 
     private class EntrySet extends SetAdapter implements HSet {
 
-        /**
-         * {@inheritDoc}
-         * @throws UnsupportedOperationException {@inheritDoc}
-         */
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
         }
 
-        /**
-         * {@inheritDoc}
-         * @throws UnsupportedOperationException {@inheritDoc}
-         */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public void clear() {
             MapAdapter.this.clear();
         }
 
-        /**
-         * {@inheritDoc}
-         * @throws NullPointerException {@inheritDoc}
-         */
         public boolean contains(Object o) {
             if(o == null)
                 throw new NullPointerException();
@@ -255,9 +240,6 @@ public class MapAdapter implements HMap {
             return MapAdapter.this.containsKey(e.getKey());
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public HIterator iterator() {
             return new EntryIterator();
         }
@@ -267,24 +249,15 @@ public class MapAdapter implements HMap {
             Enumeration keys = hashtable.keys();
             Object lastRetKey = null;
 
-            /**
-             * {@inheritDoc}
-             */
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
-            /**
-             * {@inheritDoc}
-             */
             public Object next() {
                 lastRetKey = keys.nextElement();
                 return new HEntry(lastRetKey, hashtable.get(lastRetKey));
             }
 
-            /**
-             * {@inheritDoc}
-             */
             public void remove() {
 
                 if(lastRetKey == null)
