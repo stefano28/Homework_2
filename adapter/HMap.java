@@ -16,7 +16,7 @@ public interface HMap {
      * @param key key whose presence in this map is to be tested. 
      * @return true if this map contains a mapping for the specified key.
      * @throws ClassCastException if the key is of an inappropriate type for this map (optional).
-     * @throws NullNullPointerException if the key is null and this map does not not permit null values (optional).
+     * @throws NullPointerException if the key is null and this map does not not permit null values (optional).
      */
     public boolean containsKey(Object key);
 
@@ -25,7 +25,7 @@ public interface HMap {
      * @param value value whose presence in this map is to be tested. 
      * @return true if this map maps one or more keys to the specified value.
      * @throws ClassCastException if the value is of an inappropriate type for this map (optional).
-     * @throws NullNullPointerException if the value is null and this map does not not permit null values (optional).
+     * @throws NullPointerException if the value is null and this map does not not permit null values (optional).
      */
     public boolean containsValue(Object value);
 
@@ -48,7 +48,7 @@ public interface HMap {
      * @param key key whose associated value is to be returned.
      * @return the value to which this map maps the specified key, or null if the map contains no mapping for this key. 
      * @throws ClassCastException if the key is of an inappropriate type for this map (optional).
-     * @throws NullNullPointerException key is null and this map does not not permit null keys (optional).
+     * @throws NullPointerException key is null and this map does not not permit null keys (optional).
      */
     public Object get(Object key);
 
@@ -78,7 +78,7 @@ public interface HMap {
      * @throws UnsupportedOperationException if the put operation is not supported by this map. 
      * @throws ClassCastException if the class of the specified key or value prevents it from being stored in this map. 
      * @throws IllegalArgumentException if some aspect of this key or value prevents it from being stored in this map. 
-     * @throws NullNullPointerException this map does not permit null keys or values, and the specified key or value is null.
+     * @throws NullPointerException this map does not permit null keys or values, and the specified key or value is null.
      */
     public Object put(Object key, Object value);
 
@@ -88,7 +88,7 @@ public interface HMap {
      * @throws UnsupportedOperationException if the putAll method is not supported by this map. 
      * @throws ClassCastException if the class of a key or value in the specified map prevents it from being stored in this map. 
      * @throws IllegalArgumentException some aspect of a key or value in the specified map prevents it from being stored in this map. 
-     * @throws NullNullPointerException the specified map is null, or if this map does not permit null keys or values, and the specified map contains null keys or values.
+     * @throws NullPointerException the specified map is null, or if this map does not permit null keys or values, and the specified map contains null keys or values.
      */
     public void putAll(HMap t);
 
@@ -151,7 +151,7 @@ public interface HMap {
          * @throws UnsupportedOperationException if the put operation is not supported by the backing map. 
          * @throws ClassCastException if the class of the specified value prevents it from being stored in the backing map. 
          * @throws IllegalArgumentException if some aspect of this value prevents it from being stored in the backing map. 
-         * @throws NullNullPointerException the backing map does not permit null values, and the specified value is null.
+         * @throws NullPointerException the backing map does not permit null values, and the specified value is null.
          */
         public Object setValue(Object value);
 
