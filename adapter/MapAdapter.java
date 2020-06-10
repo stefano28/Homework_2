@@ -12,8 +12,9 @@ public class MapAdapter implements HMap {
     private Hashtable hashtable = new Hashtable();
 
     /**
-     * Check if the Object is null.
-     * @param o object to be analyzed.
+     * Controlla se l'oggetto è null
+     * @param o oggetto che deve essere analizzato
+     * @throws NullPointerException se l'oggetto risulta null
      */
     protected void isNull(Object o) {
         if(o == null)

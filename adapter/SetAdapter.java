@@ -11,9 +11,9 @@ public class SetAdapter implements HSet {
     private Hashtable hashtable = new Hashtable();
 
     /**
-     * Check if the Object is null.
-     * @param o object to be analyzed.
-     * @throws NullPointerException if the specified object is null
+     * Controlla se l'oggetto è null
+     * @param o oggetto che deve essere analizzato
+     * @throws NullPointerException se l'oggetto risulta null
      */
     protected void isNull(Object o) {
         if(o == null)
@@ -23,6 +23,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo inserisce un elemento nll'hashtable usando il metodo hashtable.put(o)</p>
      */
     public boolean add(Object o) {
         isNull(o);
@@ -35,6 +36,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo esegue un put nell'hashtable per ogni elemento della HCollection</p>
      */
     public boolean addAll(HCollection c) {
         isNull(c);
@@ -50,6 +52,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama hashtable.clear()</p>
      */
     public void clear() {
         hashtable.clear();
@@ -58,6 +61,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama hashtable.containsKey(o)</P>
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -67,6 +71,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama contains(o) per ogni elemento della HCollection</p>
      */
     public boolean containsAll(HCollection c){
         isNull(c);
@@ -81,6 +86,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo confronta se le due hashtable hanno gli stessi mapping</p>
      */
     public boolean equals(Object o){ //
         if (o == this)
@@ -103,6 +109,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo calcola l'hashcode di ogni elemento restituendo la loro somma</p>
      */
     public int hashCode(){
         int hashCode = 0;
@@ -115,6 +122,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama hashtable.isEmpty()</p>
      */
     public boolean isEmpty(){
         return hashtable.isEmpty();
@@ -122,6 +130,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo restituisce un iterator sul Set</p>
      */
     public HIterator iterator(){
         return new SetIterator();
@@ -130,6 +139,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama hashtable.remove()</p>
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -142,6 +152,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama remove() per ogni elemento della HCollection</p>
      */
     public boolean removeAll(HCollection c){
         isNull(c);
@@ -158,6 +169,7 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama remove() se l'elemento non è contenuto per ogni elemento della HCollection</p>
      */
     public boolean retainAll(HCollection c){
         isNull(c);
@@ -175,6 +187,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama hashtable.size()</p>
      */
     public int size(){
         return hashtable.size();
@@ -182,6 +195,7 @@ public class SetAdapter implements HSet {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo inserisce tutti gli elementi del Set in un array e lo restituisce</p>
      */
     public Object[] toArray(){
         Object[] v = new Object[size()];
@@ -195,6 +209,8 @@ public class SetAdapter implements HSet {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo inserisce tutti gli elementi del Set in un array e lo restituisce, se il paramtero ha lunghezza maggiore
+     *  della size() il restante spazio verrà riempito da null, viceversa verranno troncati gli elementi</p>
      */
     public Object[] toArray(Object[] a) {
         isNull(a);

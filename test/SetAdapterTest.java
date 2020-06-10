@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 /**
  * Test case class di SetAdapter
+ * @safe.summary La classe testa tutti i metodi di Set
+ * @safe.testsuitedesign Ogni metodo viene testato singolarmente
  */
 public class SetAdapterTest {
 

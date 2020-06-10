@@ -11,13 +11,18 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertFalse;
 
+/**
+ * Test case class di ListIterator
+ * @safe.summary La classe testa tutti i metodi di list con una sublist
+ * @safe.testsuitedesign Ogni metodo viene testato singolarmente
+ */
 public class ListIteratorTest {
 
     private ListAdapter list = null;
-    
-	/**
-	 * 
-	 */
+
+    /**
+     * Metodo di inizializzazione per la classe di test di ListAdapter
+     */
 	@Before
 	public  void setUp() {
 		list = new ListAdapter();

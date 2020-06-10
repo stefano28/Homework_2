@@ -11,9 +11,9 @@ public class ListAdapter implements HList {
     private Vector vector = new Vector();
 
     /**
-     * Check if the Object is null.
-     * @param o object to be analyzed.
-     * @throws NullPointerException if the specified object is null
+     * Controlla se l'oggetto è null
+     * @param o oggetto che deve essere analizzato
+     * @throws NullPointerException se l'oggetto risulta null
      */
     protected void isNull(Object o) {
         if(o == null)
@@ -23,7 +23,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
-     * <p>This method add element in the position index of the vector using insertElementAt(element, index)</p>
+     * <p>Questo metodo effettua un inserimento nel vector richiamando vector.insertElement(element, index)</p>
      */
     public void add(int index, Object element) {
         isNull(element);
@@ -38,7 +38,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
-     * <p>This method add an element in vector using addElement(o)</p>
+     * <p>Questo metodo aggiunge un elemento al vector richiamando vector.addElement(o)</p>
      */
     public boolean add(Object o) {
         isNull(o);
@@ -49,6 +49,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.addElement(o) per ogni elmento della HCollection</p>
      */
     public boolean addAll(HCollection c) {
         isNull(c);
@@ -65,6 +66,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.add(index, o) per ogni elmento della HCollection</p>
      */
     public boolean addAll(int index, HCollection c) {
         isNull(c);
@@ -83,6 +85,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo rimuove tutti gli elementi richiamando vector.removeAllElements()</p>
      */
     public void clear() {
         vector.removeAllElements();
@@ -91,6 +94,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo verifica se un oggetto appartiene alla lista richiamando vector.contains(o)</p>
      */
     public boolean contains(Object o) {
         isNull(o);
@@ -100,6 +104,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo verifica se ogni elemento di una HCollection appartiene alla lista</p>
      */
     public boolean containsAll(HCollection c) {
         isNull(c);
@@ -114,6 +119,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo verifica se due liste sono uguali</p>
      */
     public boolean equals(Object o) {
         try {
@@ -143,6 +149,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama vector.elementAt(index)</p>
      */
     public Object get(int index) {
         try {
@@ -155,6 +162,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo calcola l'hashcode totale della lista</p>
      */
     public int hashCode() { //
         int hashCode = 1;
@@ -169,6 +177,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.indexOf(o)</p>
      */
     public int indexOf(Object o) {
         isNull(o);
@@ -177,6 +186,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama vector.isEmpty()</p>
      */
     public boolean isEmpty() {
         return vector.isEmpty();
@@ -184,6 +194,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo restituisce un iteratore sulla lista</p>
      */
     public HIterator iterator() {
         return new Iterator();
@@ -192,6 +203,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.lastIndexOf(o)</p>
      */
     public int lastIndexOf(Object o) {
         isNull(o);
@@ -200,6 +212,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo restituisce un listIterator</p>
      */
     public HListIterator listIterator() {
         return new ListIterator(0);
@@ -207,6 +220,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo restituisce un listIterator a partire da un indice</p>
      */
     public HListIterator listIterator(int index) {
         return new ListIterator(index);
@@ -214,6 +228,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama vector.removeElement(index)</p>
      */
     public Object remove(int index) {
         Object o = get(index);
@@ -224,6 +239,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.removeElement(o)</p>
      */
     public boolean remove(Object o) {
         isNull(o);
@@ -233,6 +249,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo rimuove tutti gli elementi presenti appartenenti a una HCollection</p>
      */
     public boolean removeAll(HCollection c) {
         if(c == null) {
@@ -251,6 +268,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo rimuove tutti gli elementi non presenti nella HCollection</p>
      */
     public boolean retainAll(HCollection c) {
         isNull(c);
@@ -269,6 +287,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo richiama vector.setElement(element, index)</p>
      */
     public Object set(int index, Object element) {
         isNull(element);
@@ -279,6 +298,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo richiama vector.size()</p>
      */
     public int size() {
         return vector.size();
@@ -286,6 +306,7 @@ public class ListAdapter implements HList {
 
     /**
      * {@inheritDoc}
+     * <p>Questo metodo restituisce una sublist</p>
      */
     public HList subList(int fromIndex, int toIndex) {
         return new SubList(this, fromIndex, toIndex);
@@ -293,9 +314,9 @@ public class ListAdapter implements HList {
 
 
     /**
-     * Returns an array containing all of the elements in this set.
-     * @return an array containing all of the elements in this set.
-     * @throws NullPointerException if the specified array is null.
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo restituisce un array contenente tutti gli elementi della lista</p>
      */
     public Object[] toArray(){
         Object[] v = new Object[size()];
@@ -307,10 +328,10 @@ public class ListAdapter implements HList {
     }
 
     /**
-     * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array.
-     * @param a the array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose. 
-     * @return an array containing the elements of this set.
-     * @throws NullPointerException if the specified array is null.
+     * {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * <p>Questo metodo inserisce tutti gli elementi della List in un array e lo restituisce, se il paramtero ha lunghezza maggiore
+     * della size() il restante spazio verrà riempito da null, viceversa verranno troncati gli elementi</p>
      */
     public Object[] toArray(Object[] a) {
         if(a == null) {
@@ -521,8 +542,8 @@ public class ListAdapter implements HList {
             }
     
             public Object next() {
-                if(hasNext()) { // hasNext() di subList, che controlla indici
-                    return it.next(); // next usa l'hasNext() di ListAdapter
+                if(hasNext()) {
+                    return it.next();
                 }
                 else {
                     throw new NoSuchElementException();

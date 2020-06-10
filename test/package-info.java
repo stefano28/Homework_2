@@ -1,4 +1,4 @@
 /**
- * Provides the test case classes for MapAdapter, SetAdapter, ListAdapter and CollectionAdapter. 
+ * Package contenente le seguenti classi di test: MapAdapterTest, ListAdapterTest, SetAdapterTest, ListIteratorTest e ListAdapterSubListTest. 
  */
 package test;

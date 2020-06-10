@@ -10,27 +10,28 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Test case class di ListAdapterSubList
+ * @safe.summary La classe testa tutti i metodi di list con una sublist
+ * @safe.testsuitedesign Ogni metodo viene testato singolarmente
+ */
 public class ListAdapterSublistTest {
 
 	private HList list = null;
 
-	/**
-	 * 
-	 */
+    /**
+     * Metodo di inizializzazione per la classe di test di ListAdapterSubList
+     */
 	@Before
 	public  void setUp() {
-		HList l = fillListReturn();
-        HList sublist = l.subList(0, 3);
+		ListAdapter l = new ListAdapter();
+		l.add("elem1");
+		l.add("elem2");
+        HList sublist = l.subList(1, 1);
         list = sublist;
 	}
 
-    public HList fillListReturn() {
-        HList l = new ListAdapter();
-        for(int i = 0; i < 5; i++) {
-			l.add(i);
-        }
-        return l;
-    }
+    //Metodi ausiliari
 
     private void fillList() {
         for(int i = 0; i < 5; i++) {
@@ -46,8 +47,16 @@ public class ListAdapterSublistTest {
         return c;
     }
 
+    public HList fillListReturn() {
+        HList l = new ListAdapter();
+        for(int i = 0; i < 5; i++) {
+			l.add(i);
+        }
+        return l;
+    }
+    
     /**
-     * Test del metodo add con null come parametro
+     * Test del metodo add con null come parametro  di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia NullPointerException
      * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
@@ -58,7 +67,7 @@ public class ListAdapterSublistTest {
     }
 
     /**
-     * Test del metodo add con null come parametro (senza indice)
+     * Test del metodo add con null come parametro (senza indice) di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia NullPointerException
      * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
@@ -69,18 +78,18 @@ public class ListAdapterSublistTest {
 	}
     
     /**
-     * Test del metodo add in caso di indice non valido
+     * Test del metodo add in caso di indice non valido di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia IndexOutOfBoundsException
      * @safe.testcases Il metodo verifica il lancio di IndexOutOfBoundsException in caso di indice non valido
      */
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddWithInvalidIndex() {
-		list.add(10, new Object());
+		list.add(1, new Object());
 	}
 
     /**
-     * Test del metodo add
+     * Test del metodo add di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lista con oggetto inserito
      * @safe.testcases Il metodo si occupa di inserire un elemento nella lista e verificarne la sua presenza
@@ -93,7 +102,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo addAll con null come parametro (senza indice)
+     * Test del metodo addAll con null come parametro (senza indice) di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
@@ -104,7 +113,7 @@ public class ListAdapterSublistTest {
     }
     
     /**
-     * Test del metodo addAll con null come parametro
+     * Test del metodo addAll con null come parametro di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
@@ -115,7 +124,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo addAll con indice invalido
+     * Test del metodo addAll con indice invalido di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia IndexOutOfBoundsException
      * @safe.testcases Il metodo verifica che in caso di indice non valido viene lanciata IndexOutOfBoundsException
@@ -123,11 +132,29 @@ public class ListAdapterSublistTest {
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testAddAllWithInvalidIndex() {
         HCollection c = fillCollection();
-		list.add(10, c);
+		list.add(1, c);
+	}
+
+    /** 
+     * Test del metodo addAll di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando addAll con una HCollection i valori di questa vengono tutti inseriti nellla lista
+     */
+	@Test
+	public void TestAddAll() {
+        HCollection c = new CollectionAdapter();
+        Object obj1 = 1;
+        Object obj2 = 2;
+        c.add(obj1);
+        c.add(obj2);
+		assertTrue(list.addAll(c));
+		assertEquals(obj1, list.get(0));
+		assertEquals(obj2, list.get(1));
 	}
 
     /**
-     * Test del metodo clear
+     * Test del metodo clear di SubList
      * @safe.precondition Lista inizializzata non vvuota
      * @safe.postcondition La lista risulta vuota
      * @safe.testcases Il metodo verifica che dopo la chiamata del clear la lista risulta vuota
@@ -141,7 +168,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo contains con null come parametro
+     * Test del metodo contains con null come parametro di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
@@ -152,7 +179,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo contains con oggetto contenuto
+     * Test del metodo contains con oggetto contenuto di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo inserisce un elemento nella lista e poi richiama il contains di quell'elemento
@@ -165,7 +192,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo contains con oggetto non contenuto
+     * Test del metodo contains con oggetto non contenuto di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo chiama contains di un elemento non contenuto nella lista
@@ -175,8 +202,8 @@ public class ListAdapterSublistTest {
 		assertFalse(list.contains(new Object()));
 	}
 
-    /**
-     * Test del metodo containsAll con null come parametro
+    /** 
+     * Test del metodo containsAll con null come parametro di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia NullPointerException
      * @safe.testcases Il metodo verifica che quando si chiama containsAll con un elemento null viene lanciata NullPointerException
@@ -187,7 +214,7 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo containsAll con HCollection contenuta come parametro
+     * Test del metodo containsAll con HCollection contenuta come parametro di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo verifica che quando una lista e una collection contengono gli stessi elementi containsAll ritorna true
@@ -200,7 +227,7 @@ public class ListAdapterSublistTest {
     }
 
     /**
-     * Test del metodo containsAll con HCollection non contenuta come parametro
+     * Test del metodo containsAll con HCollection non contenuta come parametro di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo verifica che quando una lista e una collection non contengono gli stessi elementi containsAll ritorna false
@@ -210,9 +237,9 @@ public class ListAdapterSublistTest {
         HCollection c = fillCollection();
         assertFalse(list.containsAll(c));
     }
-
+	
     /**
-     * Test del metodo equals - caso vero
+     * Test del metodo equals - caso vero di SubList
      * @safe.precondition Lista inizializzata con gli stessi elementi di un'altra
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo testa che il metodo equals ritorni true quando gli passo due liste che hanno subito gli stessi inserimenti
@@ -225,7 +252,7 @@ public class ListAdapterSublistTest {
     }
 
     /**
-     * Test del metodo equals - caso falso
+     * Test del metodo equals - caso falso di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo testa che il metodo equals ritorni false quando gli passo due liste che non hanno subito gli stessi inserimenti
@@ -238,32 +265,392 @@ public class ListAdapterSublistTest {
 	}
 
     /**
-     * Test del metodo get con indice non valido
+     * Test del metodo get con indice non valido di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia IndexOutOfBoundsException
      * @safe.testcases Il metodo testa che se chiamo get con un indice non valido viene lanciata IndexOutOfBoundsException
      */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testGetInvalidIndex() {
-        list.get(-1);
+        list.get(1);
 	}
 
     /**
-     * Test del metodo get
+     * Test del metodo get di SubList
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
      * @safe.testcases Il metodo testa che inserendo un oggetto in posizione zero il metodo get mi ritorna quella posizione
      */
 	@Test
     public void testGet() {
-        assertEquals(0, list.get(0));
+		Object o = new Object();
+		list.add(o);
+        assertEquals(o, list.get(0));
+	}
+
+    /**
+     * Test del metodo hashCode di SubList
+     * @safe.precondition Lista inizializzata uguale ad un'altra
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che due liste identiche hanno lo stesso hashcode
+     */
+	@Test
+    public void testHashCode() {
+        fillList();
+        HList list1 = fillListReturn();
+		assertEquals(list, list1);
+		assertTrue(list.hashCode() == list1.hashCode());
     }
     
+    /**
+     * Test del metodo IndexOf con null come parametro di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo verifica che quando chiama IndexOf con un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+	public void testIndexOfWithNull() {
+		list.indexOf(null);
+	}
+
+    /**
+     * Test del metodo indexOf con oggetto contenuto di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa che inserendo un elemento in prima posizione indexOf ritorna 0
+     */
+	@Test
+    public void testIndexOfObjectContained() {
+        Object o = new Object();
+        list.add(o);
+        assertEquals(0, list.indexOf(o));
+	}
+
+    /**
+     * Test del metodo indexOf con oggetto non contenuto di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa che indexOf di un elemento non contenuto nella lista ritorna -1
+     */
+	@Test
+    public void testIndexOfObjectNotContained() {
+		Object o = new Object();
+		assertEquals(-1, list.indexOf(o));
+	}
+
+    /**
+     * Test del metodo isEmpty - caso vero di SubList
+     * @safe.precondition Lista inizializzata vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che con una lista vuota isEmpty ritorna true
+     */
     @Test
-    public void checkReflection() {
-		HList l = fillListReturn();
-        HList sublist = l.subList(0, 3);
-        list = sublist;
+    public void testIsEmpty() {
+        assertTrue(list.isEmpty());
+	}
+	
+    /**
+     * Test del metodo isEmpty - caso falso di SubList
+     * @safe.precondition Lista inizializzata non vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che con una lista non vuota isEmpty ritorna false
+     */
+	@Test
+    public void testIsEmptyFalse() {
+		fillList();
+        assertFalse(list.isEmpty());
+	}
+
+    
+    /**
+     * Test del metodo lastIndexOf con null come parametro di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo verifica che quando si chiama lastIndexOf con un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+	public void testLastIndexOfWithNull() {
+		list.lastIndexOf(null);
+	}
+
+    /**
+     * Test del metodo lastIndexOf con un oggetto più volte contenuto di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che l'indice di un elemento presente due volte nella lista è 1
+     */
+	@Test
+    public void testLastIndexOfObjectContained() {
+        Object o = new Object();
+        list.add(o);
+        list.add(o);
+        assertEquals(1, list.lastIndexOf(o));
+	}
+
+    /**
+     * Test del metodo lastIndexOf con un oggetto non contenuto di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando lastIndexOf su un oggetto non contenuto questo ritorna -1
+     */
+	@Test
+    public void testLastIndexOfObjectNotContained() {
+        fillList();
+		Object o = new Object();
+		assertEquals(-1, list.lastIndexOf(o));
+	}
+	
+    /**
+     * Test del metodo remove con indice invalido di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia IndexOutOfBoundsException
+     * @safe.testcases Il metodo controlla che venga lanciata IndexOutOfBoundsException in caso di indice invalido
+     */
+	@Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveInvalidIndex() {
+        list.remove(2);
+    }
+    
+    /**
+     * Test del metodo remove con un null di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo verifica che quando si chiama remove con un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+    public void testRemoveWithNull() {
+        list.remove(null);
+	}
+	
+    /**
+     * Test del metodo remove - caso vero di SubList
+     * @safe.precondition Lista inizializzata con elemento
+     * @safe.postcondition Lista con elemento rimosso
+     * @safe.testcases Il metodo verifica che il metodo remove elimina effettivamente un oggetto dalla lista
+     */
+    @Test
+    public void testRemove() {
+        Object obj = new Object();
+        list.add(obj);
+        assertTrue(list.remove(obj));
+        assertFalse(list.contains(obj));
+    }
+
+    /**
+     * Test del metodo remove - caso falso di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che il metodo remove non elimina un oggetto dalla lista se questo non è contenuto
+     */
+    @Test
+    public void testRemoveFail() {
+        assertFalse(list.remove(new Object()));
+	}
+    
+	
+    /**
+     * Test del metodo removeAll con null di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo verifica che quando si chiama removeAll con un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+    public void testRemoveAllWithNull() {
+        list.removeAll(null);
+    }
+    
+    /**
+     * Test del metodo removeAll con una HCollection contenuta di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lista senza i valori della HCollection
+     * @safe.testcases Il metodo verifica che se chiamo removeAll di una HCollection contenuta in una lista questa risulterà vuota
+     */
+    @Test
+    public void testRemoveAllHCollectionContained() {
+        HCollection c = fillCollection();
+        list.addAll(c);
+        list.removeAll(c);
+		assertTrue(list.isEmpty());
+    }
+
+    /**
+     * Test del metodo removeAll con una HCollection non contenuta di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se chiamo removeAll su una lista che non contiene valori della HCollection ritornerà false
+     */
+    @Test
+    public void testRemoveAllCollectionNotContained() {
+        HCollection c = fillCollection();
+		assertFalse(list.removeAll(c));
+	}
+
+
+    /**
+     * Test del metodo retainAll con null di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia NullPointerException
+     * @safe.testcases Il metodo verifica che quando si chiama retainAll con un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+    public void testRetainAllWithNull() {
+        list.retainAll(null);
+	}
+
+    /**
+     * Test del metodo retainAll con una HCollection contenuta di SubList
+     * @safe.precondition Lista inizializzata contenente i valori di una HCollection
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se chiamo retainAll su una lista che contiene tutti i valori della HCollection questa non cambia
+     */
+    @Test
+    public void testRetainAllAllWithHCollectionContained() {
+        HCollection c = fillCollection();
+        fillList();
+        list.retainAll(c);
+		assertEquals(5, list.size());
+    }
+
+    /**
+     * Test del metodo retainAll con una HCollection non contenuta di SubList
+     * @safe.precondition Lista inizializzata con un elemento
+     * @safe.postcondition Lista vuota 
+     * @safe.testcases Il metodo verifica che se chiamo retainAll su una lista che non contiene elementi della collection questa verrà svuotata
+     */
+	@Test
+    public void testRetainAllWithHCollectionNotContained() {
+        HCollection c = fillCollection();
+        list.add("string");
+        list.retainAll(c);
+		assertEquals(0, list.size());
+	}
+
+    /**
+     * Test del metodo set con indice invalido di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Lancia IndexOutOfBoundsException
+     * @safe.testcases Il metodo testa che chiamando testSet con indice invalido viene lanciata IndexOutOfBoundsException
+     */
+	@Test(expected = IndexOutOfBoundsException.class)
+    public void testSetInvalidIndex() {
+        list.set(-1, new Object());
+	}
+	
+    /**
+     * Test del metodo set con null di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando si inserisce un elemento null viene lanciata NullPointerException
+     */
+	@Test(expected = NullPointerException.class)
+    public void testSetWithNull() {
+        list.set(0, null);
+	}
+
+    /**
+     * Test del metodo set di SubList
+     * @safe.precondition Lista inizializzata con degli elementi
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che set modifica il valore dell'oggetto in posizione 3
+     */
+	@Test
+    public void testSet() {
+        fillList();
+		Object o = new Object();
+		list.set(3, o);
+		assertEquals(o, list.get(3));
+	}
+
+    /**
+     * Test del metodo size con lista vuota di SubList
+     * @safe.precondition Lista inizializzata vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa che se una lista è vuota, size ritorna zero
+     */
+    @Test
+    public void testSizeEmpty() {
+        assertEquals(0, list.size());
+    }
+
+    /**
+     * Test del metodo size con lista non vuota di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se inserisco 5 elementi nella lista la sua size sarà di 5
+     */
+    @Test
+    public void TestSizeNotEmpty() {
+        fillList();
+        assertEquals(5, list.size());
+	}
+
+    /**
+     * Test del metodo toArray di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se chiamo toArray suna lista contenente alcuni elementi questo mi ritorna un array contenente gli stessi elementi
+     */
+    @Test
+    public void testToArray() {
+        for(int i = 0; i < 5; i++) {
+            list.add(i);
+        }
+        Object[] setArray = list.toArray();
+        for(int i = 0; i < list.size(); i++) {
+            assertEquals(list.get(i), setArray[i]);
+        }
+    }
+
+    /**
+     * Test del metodo toArray con parametro di lunghezza minore della lista di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando il toArray viene restituito un array composto da valori appartenenti al Set, questi saranno solo alcuni dei valori poichè la dimensione del parametro è minore di quella della List
+     */
+    @Test
+    public void testToArrayWithParameterSizeSmaller() {
+        for(int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+        Object[] param = new Object[5];
+        Object[] setArray = list.toArray(param);
+        assertEquals(10, setArray.length);
+        for(int i = 0; i < setArray.length; i++) {
+            assertEquals(list.get(i), setArray[i]);
+        }
+    }
+
+    /**
+     * Test del metodo toArray con parametro di dimensione maggiore della lista di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che chiamando il toArray viene restituito un array composto da valori appartenenti al Set e da null, poichè di dimensione maggiore a quella di List
+     */
+    @Test
+    public void testToArrayWithParameterSizeLonger() {
+        for(int i = 0; i < 5; i++) {
+            list.add(i);
+        }
+        Object[] param = new Object[10];
+        Object[] setArray = list.toArray(param);
+        assertEquals(10, setArray.length);
+        for(int i = 0; i < list.size(); i++) {
+            assertEquals(list.get(i), setArray[i]);
+        }
+        for(int i = list.size(); i < param.length; i++) {
+            assertEquals(setArray[i], null);
+        }
+    }
+
+    /**
+     * Test del metodo toArray con null come parametro di SubList
+     * @safe.precondition Lista inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che quando si chiama toArray con un elemento null viene lanciata NullPointerException
+     */
+    @Test(expected = NullPointerException.class)
+    public void testToArrayWithNull() {
+        list.toArray(null);
     }
 
 }

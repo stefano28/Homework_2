@@ -10,7 +10,9 @@ import static org.junit.Assert.*;
 import java.util.NoSuchElementException;
 
 /**
- * Test case class di MapAdapterTest
+ * Test case class di MapAdapter
+ * @safe.summary La classe testa tutti i metodi di Map
+ * @safe.testsuitedesign Ogni metodo viene testato singolarmente
  */
 public class MapAdapterTest {
 
@@ -469,6 +471,20 @@ public class MapAdapterTest {
         HSet hSet = map.entrySet();
         HIterator iter = hSet.iterator();
         assertTrue(iter.hasNext());
+    }
+
+    /**
+     * Test di clear di Entry Set
+     * @safe.precondition Mappa inizializzata non vuota
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica il corretto funzionamento del metodo clear verificando che la mappa e il set vengono svuotati
+     */
+    @Test
+    public void testEntrySetClear() {
+        fillMap();
+        HSet set = map.entrySet();
+        set.clear();
+        assertTrue(set.isEmpty());
     }
 
     // Test della classe Key Set
