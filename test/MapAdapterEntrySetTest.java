@@ -19,8 +19,9 @@ public class MapAdapterEntrySetTest {
     private HMap.HEntry key2 = null;
 
     /**
-     * 
+     * Set up
      */
+
     @Before
     public void setUp() {
         MapAdapter map = new MapAdapter();
@@ -39,36 +40,28 @@ public class MapAdapterEntrySetTest {
         key2 = (HMap.HEntry) it2.next();
     }
 
-
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestAdd
      */
+
     @Test(expected = UnsupportedOperationException.class)
     public void testAdd() {
         s.add(new Object());
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestAddAll
      */
+
     @Test(expected = UnsupportedOperationException.class)
     public void testAddAll() {
         s.add(new CollectionAdapter());
     }
 
-
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestClear
      */
+
     @Test
     public void testClear() {
         s.clear();
@@ -76,55 +69,33 @@ public class MapAdapterEntrySetTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestContains
      */
+
     @Test
     public void testContainsTrue() {
         assertTrue(s.contains(k1));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testContainsFalse() {
         assertFalse(s.contains(key1));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = ClassCastException.class)
     public void testContainsClassCast() {
         s.contains(new Object());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = NullPointerException.class)
     public void testContainsWithNull() {
         s.contains(null);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestContainsAll
      */
+
     @Test
     public void testContainsAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -133,12 +104,6 @@ public class MapAdapterEntrySetTest {
         assertTrue(s.containsAll(c));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testContainsAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -147,12 +112,6 @@ public class MapAdapterEntrySetTest {
         assertFalse(s.containsAll(c));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testContainsAllWithHCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -161,12 +120,6 @@ public class MapAdapterEntrySetTest {
         assertFalse(s.containsAll(c));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = ClassCastException.class)
     public void testContainsAllClassCast() {
         HCollection c = new CollectionAdapter();
@@ -174,23 +127,15 @@ public class MapAdapterEntrySetTest {
         s.containsAll(c);
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = NullPointerException.class)
     public void testContainsAllWithNull() {
         s.containsAll(null);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestEquals
      */
+
     @Test
     public void testEqualsTrue() {
         MapAdapter map = new MapAdapter();
@@ -200,12 +145,6 @@ public class MapAdapterEntrySetTest {
         assertEquals(s, otherSet);
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testEqualsFalse() {
         HSet otherSet = new SetAdapter();
@@ -214,11 +153,9 @@ public class MapAdapterEntrySetTest {
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * Test hashCode
      */
+
 	@Test
     public void testHashCodeTrue() {
         MapAdapter map = new MapAdapter();
@@ -228,13 +165,7 @@ public class MapAdapterEntrySetTest {
 		assertEquals(s, otherSet);
 		assertTrue(s.hashCode() == otherSet.hashCode());
 	}
-    
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
+	
 	@Test
     public void testHashCodeFalse() {
         HSet otherSet = new SetAdapter();
@@ -243,37 +174,27 @@ public class MapAdapterEntrySetTest {
         }
 		assertFalse(s.equals(otherSet));
 		assertFalse(s.hashCode() == otherSet.hashCode());
-    }
-    
+	}
+
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestIsEmpty
      */
+
     @Test
     public void TestIsEmptyTrue() {
         s.clear();
         assertTrue(s.isEmpty());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testIsEmptyFalse() {
         assertFalse(s.isEmpty());
 	}
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestIterator
      */
+
     @Test
     public void testIteratorNextAndHasNext() {
         HIterator it = s.iterator();
@@ -284,12 +205,6 @@ public class MapAdapterEntrySetTest {
         assertEquals(s, otherSet);
 	}
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
 	@Test(expected = NoSuchElementException.class)
     public void testIteratorNextNoMoreElements() {
         HIterator it = s.iterator();
@@ -297,13 +212,7 @@ public class MapAdapterEntrySetTest {
             it.next();
 		}
 	}
-    
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
+	
 	@Test
     public void testIteratorRemove() {
 		HIterator it = s.iterator();
@@ -313,56 +222,34 @@ public class MapAdapterEntrySetTest {
 	}
     
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestRemove
      */
+
     @Test
     public void testRemoveTrue() {
         assertTrue(s.remove(k1));
         assertEquals(false, s.contains(k1));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testRemoveFalse() {
         assertFalse(s.remove(key1));
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = ClassCastException.class)
     public void testRemoveClassCast() {
         s.remove(new Object());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = NullPointerException.class)
     public void testRemoveWithNull() {
         s.remove(null);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestRemoveAll
      */
+
     @Test
     public void testRemoveAllWithHCollectionContained() {
         HCollection c = new CollectionAdapter();
@@ -374,12 +261,6 @@ public class MapAdapterEntrySetTest {
 		}
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testRemoveAllWithHCollectionNotContained() {
         HCollection c = new CollectionAdapter();
@@ -389,12 +270,6 @@ public class MapAdapterEntrySetTest {
         assertEquals(2, s.size());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testRemoveAllCollectionPartiallyContained() {
         HCollection c = new CollectionAdapter();
@@ -404,12 +279,6 @@ public class MapAdapterEntrySetTest {
 		assertEquals(1, s.size());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = ClassCastException.class)
     public void testRemoveAllClassCast() {
         HCollection c = new CollectionAdapter();
@@ -417,23 +286,15 @@ public class MapAdapterEntrySetTest {
         s.removeAll(c);
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = NullPointerException.class)
     public void testRemoveAllWithNull() {
         s.removeAll(null);
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestRetainAll
      */
+
     @Test
     public void testRetainAllAllElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -443,12 +304,6 @@ public class MapAdapterEntrySetTest {
 		assertEquals(2, s.size());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testRetainAllSomeElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -457,12 +312,6 @@ public class MapAdapterEntrySetTest {
 		assertEquals(1, s.size());
 	}
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
 	@Test
     public void testRetainAllNoElementsRetained() {
         HCollection c = new CollectionAdapter();
@@ -471,12 +320,6 @@ public class MapAdapterEntrySetTest {
 		assertEquals(0, s.size());
 	}
     
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = ClassCastException.class)
     public void testRetainAllClassCast() {
         HCollection c = new CollectionAdapter();
@@ -484,46 +327,30 @@ public class MapAdapterEntrySetTest {
         s.retainAll(c);
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
 	@Test(expected = NullPointerException.class)
     public void testRetainAllWithNull() {
         s.retainAll(null);
 	}
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestSize
      */
+
     @Test
     public void testSizeEmpty() {
         s.clear();
         assertEquals(0, s.size());
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testSize() {
         assertEquals(2, s.size());
     }
 
     /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * TestToArray
      */
+
     @Test
     public void testToArray() {
         Object[] setArray = s.toArray();
@@ -532,12 +359,6 @@ public class MapAdapterEntrySetTest {
         }
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testToArrayWithParameterSizeSmaller() {
         Object[] param = new Object[1];
@@ -548,12 +369,6 @@ public class MapAdapterEntrySetTest {
         }
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test
     public void testToArrayWithParameterSizeLonger() {
         Object[] param = new Object[10];
@@ -567,12 +382,6 @@ public class MapAdapterEntrySetTest {
         }
     }
 
-    /**
-     * 
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
-     */
     @Test(expected = NullPointerException.class)
     public void testToArrayWithNull() {
         s.toArray(null);

@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 //JUnit Suite Test
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    SetAdapterTest.class, ListAdapterTest.class, ListAdapterSublistTest.class, MapAdapterTest.class, MapAdapterEntrySetTest.class, MapAdapterKeySetTest.class, MapAdapterValuesTest.class
+    SetAdapterTest.class, ListAdapterTest.class, ListIteratorTest.class, ListAdapterSublistTest.class, MapAdapterTest.class, MapAdapterEntrySetTest.class, MapAdapterKeySetTest.class, MapAdapterValuesTest.class
 })
 
 public class AdapterTestSuite {

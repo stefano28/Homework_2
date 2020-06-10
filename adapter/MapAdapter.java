@@ -196,9 +196,9 @@ public class MapAdapter implements HMap {
         }
 
         public boolean equals(Object o){ //
-            if (o == this) {
+            if (o == this)
                 return true;
-            }
+                
             if (!(o instanceof HCollection)) {
                 return false;
             }
