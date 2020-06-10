@@ -70,7 +70,7 @@ public class ListAdapter implements HList {
      */
     public boolean addAll(int index, HCollection c) {
         isNull(c);
-        if(index < 0 || index > size())
+        if(index > size() || index < 0)
             throw new IndexOutOfBoundsException();
         boolean result = false;
         HIterator iter = c.iterator();
@@ -109,11 +109,12 @@ public class ListAdapter implements HList {
     public boolean containsAll(HCollection c) {
         isNull(c);
         HIterator iter = c.iterator();
+        boolean result = true;
         while(iter.hasNext()) {
             if(!contains(iter.next()))
-                return false;
+                result = false;
         }
-        return true;
+        return result;
     }
 
     /**
@@ -164,7 +165,7 @@ public class ListAdapter implements HList {
      * {@inheritDoc}
      * <p>Questo metodo calcola l'hashcode totale della lista</p>
      */
-    public int hashCode() { //
+    public int hashCode() {
         int hashCode = 1;
         HIterator it = iterator();
         while (it.hasNext()) {

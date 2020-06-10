@@ -57,7 +57,6 @@ public class MapAdapter implements HMap {
         return new EntrySet();
     }
 
-
     /**
      * {@inheritDoc}
      * <p>Questo metodo controlla se l'hashtable di un oggetto contiene lo stesso mapping</p>
@@ -166,48 +165,39 @@ public class MapAdapter implements HMap {
 
     private class Values extends CollectionAdapter {
 
-        /**
-         * This operation is not supported
-         */
         public boolean add(Object o) {
             throw new UnsupportedOperationException();
         }
     
-        /**
-         * This operation is not supported
-         */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException();
         }
-    
-        /**
-         * This method calls the clear() method from MapAdapter
-         */
+
         public void clear() {
             MapAdapter.this.clear();
         }
 
-        /**
-         * This method calls the containsValue(o) method from MapAdapter
-         */
         public boolean contains(Object o) {
             isNull(o);
             return MapAdapter.this.containsValue(o);
         }
 
-        public boolean equals(Object o){ //
+        public boolean equals(Object o){
             if (o == this)
                 return true;
-                
+
+            HCollection ccast = null;
+
             try {
-                HCollection ccast = (HCollection) o;
+                ccast = (HCollection) o;
             }catch(ClassCastException e) {
                 return false;
             }
+            
             HCollection c = (HCollection) o;
-            if (c.size() != size()) {
+            if (c.size() != size())
                 return false;
-            }
+
             try {
                 return containsAll(c);
             }
@@ -217,6 +207,7 @@ public class MapAdapter implements HMap {
             catch (NullPointerException npe) {
                 return false;
             }
+
         }
 
         /**
@@ -230,13 +221,13 @@ public class MapAdapter implements HMap {
          * This method returns an iterator over the collection
          */
         public HIterator iterator() {
-            return new Iterator();
+            return new EntryIterator();
         }
 
         /**
          * Iterator class for the collection
          */
-        private class Iterator implements HIterator {
+        private class EntryIterator implements HIterator {
 
             private Enumeration keys = hashtable.keys();
             private Object last = null;
@@ -263,14 +254,12 @@ public class MapAdapter implements HMap {
         public boolean remove(Object o) {
             isNull(o);
             boolean result = false;
-            HSet es = MapAdapter.this.entrySet();
-            HIterator iter = es.iterator();
+            HSet set = MapAdapter.this.entrySet();
+            HIterator iter = set.iterator();
             while(iter.hasNext()) {
                 HMap.HEntry e = (HMap.HEntry) iter.next();
-                if(e.getValue().equals(o)) {
-                    if(MapAdapter.this.remove(e.getKey()) != null) {
-                        result = true;
-                    }
+                if(e.getValue().equals(o) && MapAdapter.this.remove(e.getKey()) != null) {
+                    result = true;
                 } 
             }
             return result;
@@ -287,9 +276,14 @@ public class MapAdapter implements HMap {
         private Object key = null;
         private Object value = null;
 
-        Entry(Object key, Object value) {
-            if(key == null || value == null)
+        protected void isNull(Object o) {
+            if(o == null)
                 throw new NullPointerException();
+        }
+
+        public Entry(Object key, Object value) {
+            isNull(key);
+            isNull(value);
             this.key = key;
             this.value = value;
         }
@@ -303,12 +297,10 @@ public class MapAdapter implements HMap {
         }
 
         public Object setValue(Object value) {
-            if(value == null) {
-                throw new NullPointerException();
-            }
-            Object tmp = this.value;
+            isNull(value);
+            Object result = this.value;
             this.value = value;
-            return tmp;
+            return result;
         }
 
         public boolean equals(Object o) {
@@ -323,8 +315,9 @@ public class MapAdapter implements HMap {
         }
 
         public int hashCode() {
-            return (getKey()==null   ? 0 : getKey().hashCode()) ^
-            (getValue()==null ? 0 : getValue().hashCode());
+            if(getKey() == null)
+                return 0;
+            return (getKey()==null   ? 0 : getKey().hashCode()) ^(getValue()==null ? 0 : getValue().hashCode());
         }
 
     }
@@ -344,11 +337,12 @@ public class MapAdapter implements HMap {
         }
     
         public boolean contains(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
+            isNull(o);
             HMap.HEntry e = (HMap.HEntry) o;
-            return MapAdapter.this.containsKey(e.getKey());
+            Object key = e.getKey();
+            if(MapAdapter.this.containsKey(key))
+                return true;
+            return false;
         }
 
         public boolean isEmpty() {
@@ -362,33 +356,37 @@ public class MapAdapter implements HMap {
         private class EntryIterator implements HIterator {
 
             private Enumeration keys = hashtable.keys();
-            private Object last = null;
+            private Object obj = null;
 
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
             public Object next() {
-                last = keys.nextElement();
-                return new Entry(last, hashtable.get(last));
+                obj = keys.nextElement();
+                Object value = hashtable.get(obj);
+                return new Entry(obj, value);
             }
 
             public void remove() {
-                if(last == null) {
+                try {
+                    isNull(obj);
+                } catch(NullPointerException e) {
                     throw new IllegalStateException();
                 }
-                MapAdapter.this.remove(last);
-                last = null;
+                MapAdapter.this.remove(obj);
+                obj = null;
             }
             
         }
 
         public boolean remove(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
+            isNull(o);
             HMap.HEntry e = (HMap.HEntry) o;
-            return MapAdapter.this.remove(e.getKey()) != null;
+            Object obj = e.getKey();
+            if(MapAdapter.this.remove(obj) != null)
+                return false;
+            return true;
         }
 
         public int size() {
@@ -400,9 +398,7 @@ public class MapAdapter implements HMap {
     private class KeySet extends EntrySet {
 
         public boolean contains(Object o) {
-            if(o == null) {
-                throw new NullPointerException();
-            }
+            isNull(o);
             return MapAdapter.this.containsKey(o);
         }
 
@@ -413,23 +409,23 @@ public class MapAdapter implements HMap {
         private class KeyIterator implements HIterator {
 
             private Enumeration keys = hashtable.keys();
-            private Object lastRetKey = null;
+            private Object obj = null;
 
             public boolean hasNext() {
                 return keys.hasMoreElements();
             }
 
             public Object next() {
-                lastRetKey = keys.nextElement();
-                return lastRetKey;
+                obj = keys.nextElement();
+                return obj;
             }
 
             public void remove() {
-                if(lastRetKey == null) {
+                if(obj == null) {
                     throw new IllegalStateException();
                 }
-                MapAdapter.this.remove(lastRetKey);
-                lastRetKey = null;
+                MapAdapter.this.remove(obj);
+                obj = null;
             }
             
         }
