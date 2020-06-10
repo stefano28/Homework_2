@@ -115,7 +115,7 @@ public class MapAdapterTest {
      * Test del metodo containsValue con un oggetto non contenuto come parametro
      * @safe.precondition Mappa inizializzata vuota
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica se è contenuto un oggetto o in una mappa vuota
+     * @safe.testcases Il metodo verifica se è contenuto un oggetto in una mappa vuota
      */
     @Test
     public void testContainsValueWithObjNotContained() {
@@ -125,9 +125,9 @@ public class MapAdapterTest {
 
     /**
      * Test del metodo entrySet
-     * @safe.precondition
-     * @safe.postcondition
-     * @safe.testcases
+     * @safe.precondition Mappa inizializzata contenente degli elementi
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che l'entrySet creato effettivamente contenga i coppie chiave valore presenti nella mappa
      */
     @Test
     public void testEntrySet() {
@@ -145,7 +145,7 @@ public class MapAdapterTest {
      * Test del metodo equals
      * @safe.precondition Mappa inizializzata
      * @safe.postcondition Lancia NullPointerException
-     * @safe.testcases
+     * @safe.testcases Il metodo verifica che se viene passato come parametro un null viene lanciata NullPointerException
      */
     @Test(expected = NullPointerException.class)
     public void testEqualsWithNull() {
@@ -345,7 +345,7 @@ public class MapAdapterTest {
      * Test del metodo remove con un oggetto che non è contenuto
      * @safe.precondition Mappa inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che la chiamata del metodo remove passando un oggetto non contenuto elimina ritorna null
+     * @safe.testcases Il metodo verifica che la chiamata del metodo remove passando un oggetto non contenuto ritorna null
      */
     @Test
     public void testRemoveWithObjNotContained() {
@@ -367,7 +367,7 @@ public class MapAdapterTest {
      * Test del metodo size con mappa non vuota
      * @safe.precondition Mappa inizializzata non vuota
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che quando una mappa ha un elemento size ritorna 1
+     * @safe.testcases Il metodo verifica che quando una mappa ha un elemento, size ritorna 1
      */
     @Test
     public void testSizeMapNotEmpty() {
@@ -442,7 +442,7 @@ public class MapAdapterTest {
      * Test della riflessione del remove sulla mappa di Entry Set
      * @safe.precondition Mappa inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che se elimino un elemento dal Set questo viene rimosso anche dalla mappa
+     * @safe.testcases Il metodo analizza il rapporto tra EntrySet e la Map provando che se elimino un elemento dal Set questo viene rimosso anche dalla mappa
      */
     @Test
     public void testEntrySetRemoveReflection() {
@@ -493,7 +493,7 @@ public class MapAdapterTest {
      * Test della riflessione del remove sulla mappa di Key Set
      * @safe.precondition Mappa inizializzata con dei valori
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che se eilimino tutti gli elementi dalla mappa anche il set sarà vuoto
+     * @safe.testcases Il metodo analizza il rapporto tra KeySet e la Map provando che se eilimino tutti gli elementi dalla mappa anche il set sarà vuoto
      */
     @Test
     public void testKeySetRemoveReflection() {
@@ -569,7 +569,7 @@ public class MapAdapterTest {
      * Test della riflessione del remove sulla mappa di Key Set
      * @safe.precondition Mappa inizializzata con dei valori
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che se eilimino tutti gli elementi dalla mappa anche il set sarà vuoto
+     * @safe.testcases Il metodo analizza il rapporto tra Values e la Map provando che se eilimino tutti gli elementi dalla mappa anche la collection sarà vuota
      */
     @Test
     public void testValuesRemoveReflection() {

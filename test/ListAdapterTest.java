@@ -148,7 +148,7 @@ public class ListAdapterTest {
 
     /**
      * Test del metodo clear
-     * @safe.precondition Lista inizializzata non vvuota
+     * @safe.precondition Lista inizializzata non vuota
      * @safe.postcondition La lista risulta vuota
      * @safe.testcases Il metodo verifica che dopo la chiamata del clear la lista risulta vuota
      */
@@ -248,7 +248,7 @@ public class ListAdapterTest {
      * Test del metodo equals - caso falso
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo testa che il metodo equals ritorni false quando gli passo due liste che non hanno subito gli stessi inserimenti
+     * @safe.testcases Il metodo testa che equals ritorni false quando gli passo due liste che non hanno subito gli stessi inserimenti
      */
     @Test
     public void testEqualsFail() {
@@ -261,7 +261,7 @@ public class ListAdapterTest {
      * Test del metodo get con indice non valido
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia IndexOutOfBoundsException
-     * @safe.testcases Il metodo testa che se chiamo get con un indice non valido viene lanciata IndexOutOfBoundsException
+     * @safe.testcases Il metodo testa che se chiamando get con un indice non valido viene lanciata IndexOutOfBoundsException
      */
 	@Test(expected = IndexOutOfBoundsException.class)
     public void testGetInvalidIndex() {
@@ -299,7 +299,7 @@ public class ListAdapterTest {
      * Test del metodo IndexOf con null come parametro
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Lancia NullPointerException
-     * @safe.testcases Il metodo verifica che quando chiama IndexOf con un elemento null viene lanciata NullPointerException
+     * @safe.testcases Il metodo verifica che quando si chiama IndexOf con un elemento null viene lanciata NullPointerException
      */
 	@Test(expected = NullPointerException.class)
 	public void testIndexOfWithNull() {
@@ -419,7 +419,7 @@ public class ListAdapterTest {
      * Test del metodo remove - caso vero
      * @safe.precondition Lista inizializzata con elemento
      * @safe.postcondition Lista con elemento rimosso
-     * @safe.testcases Il metodo verifica che il metodo remove elimina effettivamente un oggetto dalla lista
+     * @safe.testcases Il metodo verifica che remove elimina effettivamente un oggetto dalla lista se l'oggetto è contenuto
      */
     @Test
     public void testRemove() {
@@ -433,7 +433,7 @@ public class ListAdapterTest {
      * Test del metodo remove - caso falso
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che il metodo remove non elimina un oggetto dalla lista se questo non è contenuto
+     * @safe.testcases Il metodo verifica che remove non elimina un oggetto dalla lista se questo non è contenuto
      */
     @Test
     public void testRemoveFail() {
@@ -581,7 +581,7 @@ public class ListAdapterTest {
      * Test del metodo toArray
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nessuna
-     * @safe.testcases Il metodo verifica che se chiamo toArray suna lista contenente alcuni elementi questo mi ritorna un array contenente gli stessi elementi
+     * @safe.testcases Il metodo verifica che se chiamo toArray su una lista contenente alcuni elementi questo mi ritorna un array contenente gli stessi elementi
      */
     @Test
     public void testToArray() {

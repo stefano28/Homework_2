@@ -55,7 +55,7 @@ public class ListIteratorTest {
      * Test di hasNext di listIterator
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nesuna
-     * @safe.testcases Il metodo verifica che inserendo un elemento hasNext dall'indice zero ritorna true
+     * @safe.testcases Il metodo verifica che inserendo un elemento, hasNext dall'indice zero ritorna true
      */
     @Test
     public void testListIteratorHasNext() {
@@ -68,7 +68,7 @@ public class ListIteratorTest {
      * Test di next di listIterator
      * @safe.precondition Lista inizializzata
      * @safe.postcondition Nesuna
-     * @safe.testcases Il metodo verifica che inserendo un elemento o questo sarà il primo ad essere attraversato dall'iteratore
+     * @safe.testcases Il metodo verifica che inserendo un elemento questo sarà il primo ad essere attraversato dall'iteratore
      */
     @Test
     public void testListIteratorNext() {
