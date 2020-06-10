@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 /**
  * Test case class di MapAdapterTest
  */
@@ -22,6 +24,20 @@ public class MapAdapterTest {
         map = new MapAdapter();
     }
 
+    private void fillMap() {
+        for(int i = 0; i < 5; i++) {
+			map.put(i, i);
+		}
+    }
+
+    public HMap fillMapReturn() {
+        HMap m = new MapAdapter();
+        for(int i = 0; i < 5; i++) {
+			m.put(i, i);
+        }
+        return m;
+    }
+
     /**
      * Test del metodo clear
      * @safe.precondition Mappa inizializzata
@@ -30,9 +46,7 @@ public class MapAdapterTest {
      */
     @Test
     public void testClear() {
-        for(int i = 0; i < 5; i++) {
-            map.put(i, new Object());
-        }
+        fillMap();
         map.clear();
         assertEquals(0, map.size());
     }
@@ -115,8 +129,7 @@ public class MapAdapterTest {
      */
     @Test
     public void testEntrySet() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
+        fillMap();
         HSet s = map.entrySet();
         HIterator iter = s.iterator();
         while(iter.hasNext()) {
@@ -207,12 +220,8 @@ public class MapAdapterTest {
      */
     @Test
     public void testHashCode() {
-        HMap m = new MapAdapter();
-        for(int i = 0; i < 5; i++) {
-			Object o = new Object();
-            m.put(i, o);
-            map.put(i, o);
-        }
+        fillMap();
+        HMap m = fillMapReturn();
 		assertEquals(map, m);
 		assertTrue(map.hashCode() == m.hashCode());
     }
@@ -249,8 +258,7 @@ public class MapAdapterTest {
      */
     @Test
     public void testKeySet() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
+        fillMap();
         HSet s = map.keySet();
         HIterator iter = s.iterator();
         while(iter.hasNext()) {
@@ -300,9 +308,7 @@ public class MapAdapterTest {
      */
     @Test
     public void testPutAll() {
-        HMap m = new MapAdapter();
-        for(int i = 0; i < 5; i++)
-            m.put(i, i);
+        HMap m = fillMapReturn();
         map.putAll(m);
         for(int i = 0; i < 5; i++)
             assertTrue(map.get(i).equals(i));
@@ -375,8 +381,7 @@ public class MapAdapterTest {
      */
     @Test
     public void testValues() {
-        for(int i = 0; i < 5; i++)
-            map.put(i, i);
+        fillMap();
         HCollection c = map.values();
         HIterator iter = c.iterator();
         while(iter.hasNext()) {
@@ -384,4 +389,225 @@ public class MapAdapterTest {
         }
     }
 
+    
+    // Test della classe EntrySet
+     
+
+    /**
+     * Test del metodo add di EntrySet
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Lancia UnsupportedOperationException
+     * @safe.testcases Il verifica che l'add di entrySet lanci UnsupportedOperationException
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void testEntrySetAdd() {
+        HSet set = map.entrySet();
+        set.add(null);
+    }
+
+    /**
+     * Test del metodo addAll di EntrySet
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Lancia UnsupportedOperationException
+     * @safe.testcases Il metodo verifica che l'addAll di entrySet lanci UnsupportedOperationException
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void testEntrySetAddAll() {
+        HSet set = map.entrySet();
+        set.addAll(null);
+    }
+
+    /**
+     * Test dell'iteratore di Entry Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo testa che un iteratore che scorre sull'entrySet di una mappa incontra solo coppie chiave - valore contenute in Map
+     */
+    @Test
+    public void testEntrySetIterator() {
+        HMap map2 = fillMapReturn();
+        HSet set2 = map2.entrySet();
+        HIterator iter2 = set2.iterator();
+        fillMap();
+        HSet set = map.entrySet();
+        HIterator iter = set.iterator();
+        while(iter.hasNext()) {
+            assertTrue(iter.next().equals(iter2.next()));
+        }
+    }
+
+    /**
+     * Test della riflessione del remove sulla mappa di Entry Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se elimino un elemento dal Set questo viene rimosso anche dalla mappa
+     */
+    @Test
+    public void testEntrySetRemoveReflection() {
+        map.put("key","value");
+        HSet set = map.entrySet();
+        assertTrue(map.containsKey("key"));
+        HIterator iter = set.iterator();
+        while(iter.hasNext()) {
+            HMap.HEntry e = (HMap.HEntry) iter.next();
+            if(e.getKey().equals("key")) {
+                set.remove(e);
+            }
+        }
+        assertFalse(map.containsKey("key"));
+    }
+
+    /**
+     * Test di HasNext di Entry Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica il corretto funzionamento del metodo hasNext in caso ci sia un solo elemento nella mappa
+     */
+    @Test
+    public void testEntrySetHasNext() {
+        map.put("key","value");
+        HSet hSet = map.entrySet();
+        HIterator iter = hSet.iterator();
+        assertTrue(iter.hasNext());
+    }
+
+    // Test della classe Key Set
+
+    /**
+     * Test della riflessione del remove sulla mappa di Key Set
+     * @safe.precondition Mappa inizializzata con dei valori
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se eilimino tutti gli elementi dalla mappa anche il set sarà vuoto
+     */
+    @Test
+    public void testKeySetRemoveReflection() {
+        fillMap();
+        HSet set = map.keySet();
+        assertFalse(set.isEmpty());
+        assertFalse(map.isEmpty());
+        map.clear();
+        assertTrue(set.isEmpty());
+        assertTrue(map.isEmpty());
+    }
+
+    /**
+     * Test di HasNext di Key Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica il corretto funzionamento del metodo hasNext in caso ci sia un solo elemento nella mappa
+     */
+    @Test
+    public void testKeySetHasNext() {
+        map.put(0,1);
+        HSet set = map.keySet();
+        HIterator iter = set.iterator();
+        assertTrue(iter.hasNext());
+        iter.next();
+        iter.remove();
+        assertFalse(iter.hasNext());
+    }
+
+    /**
+     * Test di hasNext di Entry Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica il corretto funzionamento del metodo hasNext in caso ci sia un solo elemento nella mappa
+     */
+    @Test
+    public void testKeySetNext() {
+        fillMap();
+        HSet hSet = map.keySet();
+        HIterator iter = hSet.iterator();
+        assertTrue(iter.hasNext());
+        while(iter.hasNext()) {
+            Object key = iter.next();
+            assertTrue(map.containsKey(key));
+        }
+    }
+
+    /**
+     * Test della rimozione da iteratore di Key Set
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica la corretta eliminazione degli elementi con l'iteratore
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testKeySetIteratorRemove() {
+        fillMap();
+        HSet hSet = map.keySet();
+        HIterator iter = hSet.iterator();
+        iter.remove();
+        assertTrue(iter.hasNext());
+        Object key = iter.next();
+        assertTrue(map.containsKey(key));
+        iter.remove();
+        assertFalse(hSet.contains(key));
+        iter.remove();
+    }
+
+    /**
+     * Values
+     */
+
+    /**
+     * Test della riflessione del remove sulla mappa di Key Set
+     * @safe.precondition Mappa inizializzata con dei valori
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica che se eilimino tutti gli elementi dalla mappa anche il set sarà vuoto
+     */
+    @Test
+    public void testValuesRemoveReflection() {
+        fillMap();
+        HCollection c = map.values();
+        assertFalse(c.isEmpty());
+        assertFalse(map.isEmpty());
+        map.clear();
+        assertTrue(c.isEmpty());
+        assertTrue(map.isEmpty());
+    }
+
+    /**
+     * Test di hasNext di Values
+     * @safe.precondition Mappa inizializzata con degli elementi
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica il corretto funzionamento del metodo hasNext in una mappa non vuota
+     */
+    @Test
+    public void testValuesHasNext() {
+        fillMap();
+        HCollection c = map.values();
+        HIterator iter = c.iterator();
+        assertTrue(iter.hasNext());
+    }
+
+    /**
+     * Test della rimozione da iteratore di Values
+     * @safe.precondition Mappa inizializzata
+     * @safe.postcondition Nessuna
+     * @safe.testcases Il metodo verifica la corretta eliminazione degli elementi con l'iteratore
+     */
+    @Test()
+    public void testValuesIteratorRemove() {
+        map.put(0,1);
+        HCollection c = map.values();
+        HIterator iter = c.iterator();
+        iter.next();
+        iter.remove();
+        assertTrue(c.isEmpty());
+        assertTrue(map.isEmpty());
+    }
+
+    @Test
+    public void testValuesClear() {
+        fillMap();
+        HCollection c = map.values();
+        c.clear();
+        assertEquals(0, c.size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testContainsWithNull() {
+        HCollection c = map.values();
+        c.contains(null);
+    }
 }

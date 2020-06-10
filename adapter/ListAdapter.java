@@ -3,6 +3,9 @@ package adapter;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
+/**
+ * Adapter for HSet
+ */
 public class ListAdapter implements HList {
 
     private Vector vector = new Vector();
@@ -20,6 +23,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>This method add element in the position index of the vector using insertElementAt(element, index)</p>
      */
     public void add(int index, Object element) {
         isNull(element);
@@ -34,6 +38,7 @@ public class ListAdapter implements HList {
     /**
      * {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
+     * <p>This method add an element in vector using addElement(o)</p>
      */
     public boolean add(Object o) {
         isNull(o);
